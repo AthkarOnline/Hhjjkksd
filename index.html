@@ -3,332 +3,349 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>المسبحة الإلكترونية - أذكار كاملة</title>
+<title>مسبحة المؤمن - أذكار ومسبحة إلكترونية</title>
 <style>
-  /* شاشة التحميل */
-  #loading-screen {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1470&q=80') no-repeat center center fixed;
-    background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    z-index: 9999;
-    color: white;
-    font-size: 1.8rem;
-    font-weight: bold;
-    text-shadow: 0 0 8px rgba(0,0,0,0.7);
-  }
-  .dots span {
-    animation-name: blink;
-    animation-duration: 1.4s;
-    animation-iteration-count: infinite;
-    animation-fill-mode: both;
-  }
-  .dots span:nth-child(1) {
-    animation-delay: 0s;
-  }
-  .dots span:nth-child(2) {
-    animation-delay: 0.2s;
-  }
-  .dots span:nth-child(3) {
-    animation-delay: 0.4s;
-  }
-  @keyframes blink {
-    0%, 80%, 100% {
-      opacity: 0;
-    }
-    40% {
-      opacity: 1;
-    }
-  }
-
-  /* باقي تصميم الموقع */
+  /* التصميم العام */
   body {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #b3d4fc, #e6f0ff);
+    background: linear-gradient(135deg, #cdeffd 0%, #eaf9ff 100%);
+    color: #003366;
     margin: 0; padding: 0;
-    color: #222;
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center;
   }
   header {
-    background-color: #4a90e2;
+    width: 100%;
+    background: #005fa3;
+    padding: 15px 0;
     color: white;
-    padding: 20px;
-    text-align: center;
+    font-weight: 700;
     font-size: 2rem;
-    font-weight: bold;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-  }
-  main {
-    max-width: 900px;
-    margin: 30px auto;
-    padding: 0 20px 80px 20px;
+    text-align: center;
   }
   nav {
+    margin: 20px 0;
     display: flex;
-    justify-content: center;
     gap: 15px;
-    margin-bottom: 25px;
     flex-wrap: wrap;
+    justify-content: center;
   }
   nav button {
-    background: #559efc;
+    background: #0077cc;
     border: none;
-    padding: 10px 18px;
-    color: white;
-    font-size: 1.1rem;
     border-radius: 8px;
+    color: white;
+    padding: 12px 25px;
+    font-size: 1.2rem;
     cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 119, 204, 0.3);
+    transition: background 0.3s ease;
   }
-  nav button:hover, nav button.active {
-    background: #3069c6;
+  nav button:hover {
+    background: #004a75;
   }
-  section {
-    display: none;
+  main {
+    width: 95%;
+    max-width: 900px;
     background: white;
     border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    padding: 20px;
-    line-height: 1.6;
+    padding: 25px 30px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    margin-bottom: 40px;
+    min-height: 400px;
   }
-  section.active {
+  main > section {
+    display: none;
+  }
+  main > section.active {
     display: block;
   }
   .zekr {
-    margin-bottom: 20px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 14px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #d0e6f9;
+    padding-bottom: 15px;
   }
-  .zekr-text {
-    font-size: 1.15rem;
-    margin-bottom: 6px;
-    font-weight: 600;
+  .zekr p {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    margin: 0 0 10px 0;
   }
-  .counter-container {
+  .counter {
     display: flex;
     align-items: center;
     gap: 15px;
   }
-  .counter {
-    font-size: 1.3rem;
-    background-color: #4a90e2;
-    color: white;
-    padding: 8px 14px;
-    border-radius: 50%;
-    width: 44px;
-    height: 44px;
-    line-height: 44px;
-    text-align: center;
-    user-select: none;
-    cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.25);
-    transition: background-color 0.3s ease;
-  }
-  .counter.zero {
-    background-color: #cbd5f7;
-    color: #666;
-    cursor: default;
-  }
-  .target {
-    font-size: 1rem;
-    color: #666;
-    user-select: none;
-  }
-  .reset-btn {
-    margin: 25px auto 50px auto;
-    display: block;
-    background-color: #f04e30;
+  .counter button {
+    background: #0077cc;
     color: white;
     border: none;
-    padding: 14px 28px;
-    font-size: 1.15rem;
-    border-radius: 10px;
+    border-radius: 6px;
+    font-size: 1.3rem;
+    width: 38px;
+    height: 38px;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(240, 78, 48, 0.6);
-    transition: background-color 0.3s ease;
+    box-shadow: 0 3px 6px rgba(0, 119, 204, 0.4);
+    user-select: none;
+    transition: background 0.3s ease;
+  }
+  .counter button:hover {
+    background: #005a9e;
+  }
+  .counter .count {
+    font-weight: 700;
+    font-size: 1.3rem;
+    width: 40px;
+    text-align: center;
+    color: #003366;
+    user-select: none;
+  }
+  .counter .base-count {
+    font-size: 0.8rem;
+    color: #9bbde0;
+    user-select: none;
+  }
+  .audio-control {
+    margin-top: 8px;
+  }
+  .audio-control button {
+    background: #005fa3;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    user-select: none;
+  }
+  /* مسبحة الكترونية */
+  .tasbeeh-container {
+    text-align: center;
+    margin-top: 20px;
+  }
+  .tasbeeh-sphere {
+    margin: 0 auto;
+    width: 100px;
+    height: 100px;
+    perspective: 1000px;
+  }
+  .tasbeeh-sphere-inner {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, #004a75, #0077cc);
+    box-shadow: inset 0 0 15px #69a8e6;
+    position: relative;
+    cursor: grab;
+    user-select: none;
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease;
+  }
+  .tasbeeh-sphere-inner:active {
+    cursor: grabbing;
+  }
+  .tasbeeh-flag {
+    margin-top: 10px;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #005fa3;
+  }
+  .reset-btn {
+    margin-top: 15px;
+    background: #0077cc;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,119,204,0.4);
   }
   .reset-btn:hover {
-    background-color: #b9351f;
-  }
-  footer {
-    text-align: center;
-    padding: 20px;
-    color: #888;
-    font-size: 0.9rem;
-  }
-  audio {
-    display: block;
-    margin: 20px auto 40px auto;
-    width: 100%;
-    max-width: 400px;
+    background: #005a9e;
   }
 </style>
 </head>
 <body>
+<header>مسبحة المؤمن - أذكار ومسبحة إلكترونية</header>
 
-<!-- شاشة التحميل -->
-<div id="loading-screen">
-  <div>جارٍ تحميل الموقع<span class="dots"><span>.</span><span>.</span><span>.</span></span></div>
-</div>
-
-<header>المسبحة الإلكترونية - أذكار كاملة</header>
-
-<main>
 <nav>
-  <button class="tab-btn active" data-target="morning">أذكار الصباح</button>
-  <button class="tab-btn" data-target="evening">أذكار المساء</button>
-  <button class="tab-btn" data-target="afterPrayer">أذكار بعد الصلاة</button>
-  <button class="tab-btn" data-target="beforeSleep">أذكار قبل النوم</button>
+  <button data-target="sabah" class="nav-btn active">أذكار الصباح</button>
+  <button data-target="masaa">أذكار المساء</button>
+  <button data-target="baad-salah">أذكار بعد الصلاة</button>
+  <button data-target="nawm">أذكار النوم</button>
+  <button data-target="tasbeeh">المسبحة الإلكترونية</button>
 </nav>
 
-<section id="morning" class="active">
-  <div class="zekr">
-    <div class="zekr-text">أَصْبَحْنا وَأَصْبَحَ المُلكُ لِلّهِ وَالحَمْدُ لِلّهِ لا إِلَهَ إِلّا اللّهُ وَحْدَهُ لا شَرِيكَ لَهُ، لَهُ المُلكُ وَلَهُ الحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ</div>
-    <div class="counter-container">
-      <div class="counter" data-count="1" data-target="1">1</div>
-      <div class="target">مرّة واحدة</div>
-    </div>
-  </div>
-  <div class="zekr">
-    <div class="zekr-text">اللّهـمّ أَنْتَ رَبِّي لا إِلـهَ إِلاّ أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ وَأَبُوءُ بِذَنْبِي، فَاغْفِرْ لِي فَإِنَّهُ لا يَغْفِرُ الذُّنُوبَ إِلاّ أَنْتَ</div>
-    <div class="counter-container">
-      <div class="counter" data-count="3" data-target="3">3</div>
-      <div class="target">ثلاث مرات</div>
-    </div>
-  </div>
-  <!-- المزيد من أذكار الصباح -->
-</section>
+<main>
+  <!-- أذكار الصباح -->
+  <section id="sabah" class="active">
+    <h2>أذكار الصباح</h2>
 
-<section id="evening">
-  <div class="zekr">
-    <div class="zekr-text">أَمْسَيْنا وَأَمْسَى المُلكُ لِلّهِ وَالحَمْدُ لِلّهِ لا إِلَهَ إِلّا اللّهُ وَحْدَهُ لا شَرِيكَ لَهُ، لَهُ المُلكُ وَلَهُ الحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ</div>
-    <div class="counter-container">
-      <div class="counter" data-count="1" data-target="1">1</div>
-      <div class="target">مرّة واحدة</div>
+    <!-- مثال ذكر -->
+    <div class="zekr">
+      <p>اللّهُـمَّ أَنْتَ رَبِّـي لا إلهَ إلاّ أَنْتَ، خَلَقْتَني وَأَنا عَبْـدُك، وَأنا عَلَى عَهْدِكَ وَوَعْدِكَ ما اسْتَطَعْتُ...</p>
+      <div class="counter">
+        <button class="dec-btn">-</button>
+        <span class="count">1</span>
+        <span class="base-count">1</span>
+        <button class="reset-btn">↺</button>
+      </div>
     </div>
-  </div>
-  <div class="zekr">
-    <div class="zekr-text">اللّهـمّ أَنْتَ رَبِّي لا إِلـهَ إِلاّ أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ وَأَبُوءُ بِذَنْبِي، فَاغْفِرْ لِي فَإِنَّهُ لا يَغْفِرُ الذُّنُوبَ إِلاّ أَنْتَ</div>
-    <div class="counter-container">
-      <div class="counter" data-count="3" data-target="3">3</div>
-      <div class="target">ثلاث مرات</div>
-    </div>
-  </div>
-  <!-- المزيد من أذكار المساء -->
-</section>
 
-<section id="afterPrayer">
-  <div class="zekr">
-    <div class="zekr-text">سُبْحَانَ اللهِ</div>
-    <div class="counter-container">
-      <div class="counter" data-count="33" data-target="33">33</div>
-      <div class="target">ثلاث وثلاثون مرة</div>
+    <div class="zekr">
+      <p>رَضيـتُ بِاللهِ رَبَّـاً، وَبِالإسْلامِ ديـناً، وَبِمُحَـمَّدٍ ﷺ نَبِيّـاً.</p>
+      <div class="counter">
+        <button class="dec-btn">-</button>
+        <span class="count">3</span>
+        <span class="base-count">3</span>
+        <button class="reset-btn">↺</button>
+      </div>
     </div>
-  </div>
-  <div class="zekr">
-    <div class="zekr-text">الْحَمْدُ للهِ</div>
-    <div class="counter-container">
-      <div class="counter" data-count="33" data-target="33">33</div>
-      <div class="target">ثلاث وثلاثون مرة</div>
-    </div>
-  </div>
-  <div class="zekr">
-    <div class="zekr-text">الله أكبر</div>
-    <div class="counter-container">
-      <div class="counter" data-count="34" data-target="34">34</div>
-      <div class="target">أربع وثلاثون مرة</div>
-    </div>
-  </div>
-  <!-- المزيد من أذكار بعد الصلاة -->
-</section>
 
-<section id="beforeSleep">
-  <div class="zekr">
-    <div class="zekr-text">بِاسْمِكَ اللّهُمَّ أَمُوتُ وَأَحْيَا</div>
-    <div class="counter-container">
-      <div class="counter" data-count="1" data-target="1">1</div>
-      <div class="target">مرّة واحدة</div>
+    <div class="zekr">
+      <p>اللّهُـمَّ ما أَصْبَـحَ بي مِـنْ نِعْـمَةٍ فَمِـنْكَ وَحْـدَكَ لا شريكَ لَـكَ، فَلَكَ الْحَمْدُ وَلَكَ الشُّكْرُ.</p>
+      <div class="counter">
+        <button class="dec-btn">-</button>
+        <span class="count">1</span>
+        <span class="base-count">1</span>
+        <button class="reset-btn">↺</button>
+      </div>
     </div>
-  </div>
-  <div class="zekr">
-    <div class="zekr-text">سُبْحَانَ اللّهِ وَالْحَمْدُ لِلّهِ وَلا إِلٰهَ إِلَّا اللّهُ وَاللّهُ أَكْبَرُ</div>
-    <div class="counter-container">
-      <div class="counter" data-count="3" data-target="3">3</div>
-      <div class="target">ثلاث مرات</div>
+
+    <div class="zekr">
+      <p>اللّهُـمَّ إِنِّـي أَصْبَـحْتُ أُشْـهِدُك، وَأُشْـهِدُ حَمَـلَةَ عَرْشِـك، وَمَلَـئِكَتَـكَ، وَجَمِيعَ خَلْـقِك...</p>
+      <div class="counter">
+        <button class="dec-btn">-</button>
+        <span class="count">4</span>
+        <span class="base-count">4</span>
+        <button class="reset-btn">↺</button>
+      </div>
     </div>
-  </div>
-  <!-- المزيد من أذكار قبل النوم -->
-</section>
 
-<button class="reset-btn">إعادة تعيين العدادات</button>
+    <div class="zekr">
+      <p>أسْتَغْفِرُ اللهَ العظيمَ الذي لا إله إلا هو، الحي القيوم، وأتوب إليه.</p>
+      <div class="counter">
+        <button class="dec-btn">-</button>
+        <span class="count">3</span>
+        <span class="base-count">3</span>
+        <button class="reset-btn">↺</button>
+      </div>
+    </div>
 
-<!-- صوتيات الشيخ ياسر الدوسري -->
-<audio id="audio-fatiha" controls preload="auto" style="display:none;">
-  <source src="https://cdn.islamic.network/quran/audio/128/ar.yasser_aldosari/1.mp3" type="audio/mpeg" />
-</audio>
-<audio id="audio-ayatakursi" controls preload="auto" style="display:none;">
-  <source src="https://cdn.islamic.network/quran/audio/128/ar.yasser_aldosari/255.mp3" type="audio/mpeg" />
-</audio>
-<audio id="audio-almuawadhat" controls preload="auto" style="display:none;">
-  <source src="https://cdn.islamic.network/quran/audio/128/ar.yasser_aldosari/113.mp3" type="audio/mpeg" />
-</audio>
+    <div class="zekr">
+      <p>سُبْحـانَ اللهِ وَبِحَمْـدِهِ.</p>
+      <div class="counter">
+        <button class="dec-btn">-</button>
+        <span class="count">100</span>
+        <span class="base-count">100</span>
+        <button class="reset-btn">↺</button>
+      </div>
+    </div>
 
+    <div class="zekr">
+      <p>اللّهُـمَّ عافِـني في بَـدَنـي، اللّهُـمَّ عافِـني في سَـمْعي، اللّهُـمَّ عافِـني في بَصَري...</p>
+      <div class="counter">
+        <button class="dec-btn">-</button>
+        <span class="count">3</span>
+        <span class="base-count">3</span>
+        <button class="reset-btn">↺</button>
+      </div>
+    </div>
+
+    <audio id="audio-fatiha" src="https://server10.mp3quran.net/ds/003_01.mp3" preload="auto"></audio>
+    <div class="audio-control">
+      <button onclick="document.getElementById('audio-fatiha').play()">تشغيل سورة الفاتحة</button>
+      <button onclick="document.getElementById('audio-fatiha').pause()">إيقاف</button>
+    </div>
+  </section>
+
+  <!-- أذكار المساء (مثال بسيط) -->
+  <section id="masaa">
+    <h2>أذكار المساء</h2>
+    <p>قريباً سيتم إضافة أذكار المساء كاملة.</p>
+  </section>
+
+  <!-- أذكار بعد الصلاة -->
+  <section id="baad-salah">
+    <h2>أذكار بعد الصلاة</h2>
+    <p>قريباً سيتم إضافة أذكار بعد الصلاة كاملة.</p>
+  </section>
+
+  <!-- أذكار النوم -->
+  <section id="nawm">
+    <h2>أذكار النوم</h2>
+    <p>قريباً سيتم إضافة أذكار النوم كاملة.</p>
+  </section>
+
+  <!-- المسبحة الإلكترونية -->
+  <section id="tasbeeh">
+    <h2>المسبحة الإلكترونية</h2>
+    <div class="tasbeeh-container">
+      <div class="tasbeeh-sphere" id="sphere">
+        <div class="tasbeeh-sphere-inner" id="sphereInner"></div>
+      </div>
+      <div class="tasbeeh-flag" id="countDisplay">التسبيحات: 0</div>
+      <button class="reset-btn" id="resetTasbeeh">إعادة تعيين</button>
+    </div>
+  </section>
 </main>
 
-<footer>جميع الحقوق محفوظة © 2025</footer>
-
 <script>
-  // إزالة شاشة التحميل بعد اكتمال تحميل الصفحة
-  window.addEventListener('load', () => {
-    const loadingScreen = document.getElementById('loading-screen');
-    loadingScreen.style.opacity = '0';
-    setTimeout(() => loadingScreen.style.display = 'none', 600);
-  });
-
-  // التنقل بين تبويبات الأذكار
-  const tabButtons = document.querySelectorAll('.tab-btn');
-  const sections = document.querySelectorAll('section');
-
-  tabButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      tabButtons.forEach(b => b.classList.remove('active'));
-      sections.forEach(sec => sec.classList.remove('active'));
-      btn.classList.add('active');
-      const targetId = btn.getAttribute('data-target');
-      document.getElementById(targetId).classList.add('active');
+  // التبديل بين الأقسام
+  const navButtons = document.querySelectorAll("nav button");
+  const sections = document.querySelectorAll("main > section");
+  navButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      navButtons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      const target = btn.dataset.target;
+      sections.forEach(sec => {
+        sec.id === target ? sec.classList.add("active") : sec.classList.remove("active");
+      });
     });
   });
 
-  // عدادات الأذكار
-  const counters = document.querySelectorAll('.counter');
-  counters.forEach(counter => {
-    counter.addEventListener('click', () => {
-      let count = parseInt(counter.textContent);
-      if (count > 0) {
-        count--;
-        counter.textContent = count;
-        if (count === 0) {
-          counter.classList.add('zero');
-        }
+  // عدادات الأذكار (داخل القسم الصباح كمثال)
+  document.querySelectorAll("#sabah .zekr").forEach(zekr => {
+    const decBtn = zekr.querySelector(".dec-btn");
+    const resetBtn = zekr.querySelector(".reset-btn");
+    const countEl = zekr.querySelector(".count");
+    const baseCount = parseInt(zekr.querySelector(".base-count").textContent);
+
+    decBtn.addEventListener("click", () => {
+      let current = parseInt(countEl.textContent);
+      if (current > 0) {
+        current--;
+        countEl.textContent = current;
+        countEl.style.color = current === 0 ? "#999" : "#003366";
       }
     });
-  });
-
-  // زر إعادة تعيين العدادات
-  document.querySelector('.reset-btn').addEventListener('click', () => {
-    counters.forEach(counter => {
-      const target = counter.getAttribute('data-target');
-      counter.textContent = target;
-      counter.classList.remove('zero');
+    resetBtn.addEventListener("click", () => {
+      countEl.textContent = baseCount;
+      countEl.style.color = "#003366";
     });
   });
 
-  // تشغيل صوتيات الشيخ ياسر الدوسري حسب الحاجة
-  // يمكن إضافة أزرار لتشغيل الصوتيات ضمن الأذكار لو حبيت (غير موجود الآن)
+  // المسبحة الإلكترونية: دوران وعداد
+  const sphereInner = document.getElementById("sphereInner");
+  const countDisplay = document.getElementById("countDisplay");
+  const resetTasbeeh = document.getElementById("resetTasbeeh");
+  let tasbeehCount = 0;
+  let rotation = 0;
+
+  sphereInner.addEventListener("click", () => {
+    tasbeehCount++;
+    countDisplay.textContent = "التسبيحات: " + tasbeehCount;
+    rotation += 36; // كل ضغطة 36 درجة دوران
+    sphereInner.style.transform = `rotateY(${rotation}deg) rotateX(${rotation}deg)`;
+  });
+
+  resetTasbeeh.addEventListener("click", () => {
+    tasbeehCount = 0;
+    countDisplay.textContent = "التسبيحات: 0";
+    rotation = 0;
+    sphereInner.style.transform = "rotateY(0deg) rotateX(0deg)";
+  });
 </script>
 
 </body>

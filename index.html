@@ -1,22 +1,177 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مسبحة إلكترونية | سبحانك اللهم وبحمدك</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary-color: #2c786c;
-            --secondary-color: #f7b733;
-            --dark-color: #004445;
-            --light-color: #f8f1e5;
-            --success-color: #28a745;
-        }
-        ...
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>طمأنينة - مسبحة إلكترونية وأذكار</title>
+<style>
+  body {
+    background: #f5f7fa;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0; padding: 20px;
+    color: #333;
+    text-align: center;
+  }
+  h1 {
+    font-weight: 700;
+    color: #00695c;
+    margin-bottom: 20px;
+  }
+  .dzokar {
+    margin: 15px auto;
+    max-width: 600px;
+    background: white;
+    padding: 20px 25px;
+    border-radius: 15px;
+    box-shadow: 0 3px 7px rgba(0,0,0,0.1);
+    text-align: right;
+    direction: rtl;
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+  .dzokar h2 {
+    margin: 0 0 15px 0;
+    color: #00796b;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .audio-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 1.4rem;
+    color: #00796b;
+  }
+  .counter {
+    font-size: 2rem;
+    color: #004d40;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+  button {
+    font-size: 1rem;
+    padding: 7px 20px;
+    background: #00796b;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 0 5px 10px 0;
+    transition: background 0.3s ease;
+  }
+  button:hover {
+    background: #004d40;
+  }
+</style>
 </head>
 <body>
-    ...
+
+<h1>طمأنينة - مسبحة إلكترونية وأذكار</h1>
+
+<div class="dzokar" id="morning">
+  <h2>
+    أذكار الصباح
+    <button class="audio-btn" onclick="playAudio('morning')">🔊</button>
+  </h2>
+  <p>
+    أَصْبَحْنا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لا إِلٰهَ إِلَّا اللَّهُ وَحْدَهُ لا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ.<br>
+    رَضِيتُ بِاللَّهِ رَبًّا، وَبِالْإِسْلَامِ دِينًا، وَبِمُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ نَبِيًّا.<br>
+    اللَّهُمَّ أَنْتَ رَبِّي لا إِلٰهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ بِذَنْبِي، فَاغْفِرْ لِي، فَإِنَّهُ لا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ.<br>
+    اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ النُّشُورُ.
+  </p>
+  <div>
+    <div>العدد: <span id="countMorning" class="counter">0</span></div>
+    <button onclick="increaseCount('countMorning')">سبح</button>
+    <button onclick="resetCount('countMorning')">إعادة</button>
+  </div>
+</div>
+
+<div class="dzokar" id="evening">
+  <h2>
+    أذكار المساء
+    <button class="audio-btn" onclick="playAudio('evening')">🔊</button>
+  </h2>
+  <p>
+    أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لا إِلٰهَ إِلَّا اللَّهُ وَحْدَهُ لا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ.<br>
+    رَضِيتُ بِاللَّهِ رَبًّا، وَبِالْإِسْلَامِ دِينًا، وَبِمُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ نَبِيًّا.<br>
+    اللَّهُمَّ أَنْتَ رَبِّي لا إِلٰهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ بِذَنْبِي، فَاغْفِرْ لِي، فَإِنَّهُ لا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ.<br>
+    اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ النُّشُورُ.
+  </p>
+  <div>
+    <div>العدد: <span id="countEvening" class="counter">0</span></div>
+    <button onclick="increaseCount('countEvening')">سبح</button>
+    <button onclick="resetCount('countEvening')">إعادة</button>
+  </div>
+</div>
+
+<div class="dzokar" id="sleep">
+  <h2>
+    أذكار النوم
+    <button class="audio-btn" onclick="playAudio('sleep')">🔊</button>
+  </h2>
+  <p>
+    بِاسْمِكَ رَبِّي وَضَعْتُ جَنْبِي، وَبِكَ أَرْفَعُهُ، إِنْ أَمْسَكْتَ نَفْسِي فَاغْفِرْ لَهَا، وَإِنْ أَرْسَلْتَهَا فَاحْفَظْهَا بِمَا تَحْفَظُ بِهِ عِبَادَكَ الصَّالِحِينَ.
+  </p>
+  <div>
+    <div>العدد: <span id="countSleep" class="counter">0</span></div>
+    <button onclick="increaseCount('countSleep')">سبح</button>
+    <button onclick="resetCount('countSleep')">إعادة</button>
+  </div>
+</div>
+
+<div class="dzokar" id="afterPray">
+  <h2>
+    أذكار بعد الصلاة
+    <button class="audio-btn" onclick="playAudio('afterPray')">🔊</button>
+  </h2>
+  <p>
+    سُبْحَانَ اللَّهِ، وَالْحَمْدُ لِلَّهِ، وَلَا إِلٰهَ إِلَّا اللَّهُ، وَاللَّهُ أَكْبَرُ.
+  </p>
+  <div>
+    <div>العدد: <span id="countAfterPray" class="counter">0</span></div>
+    <button onclick="increaseCount('countAfterPray')">سبح</button>
+    <button onclick="resetCount('countAfterPray')">إعادة</button>
+  </div>
+</div>
+
+<audio id="audioPlayer"></audio>
+
+<script>
+  function increaseCount(id) {
+    const el = document.getElementById(id);
+    let val = parseInt(el.textContent);
+    val++;
+    el.textContent = val;
+  }
+
+  function resetCount(id) {
+    document.getElementById(id).textContent = 0;
+  }
+
+  function playAudio(type) {
+    const audioPlayer = document.getElementById('audioPlayer');
+    let src = '';
+    switch(type) {
+      case 'morning':
+        src = 'https://www.islamicfinder.org/wp-content/themes/islamicfinder/assets/audio/azkar/morning.mp3';
+        break;
+      case 'evening':
+        src = 'https://www.islamicfinder.org/wp-content/themes/islamicfinder/assets/audio/azkar/evening.mp3';
+        break;
+      case 'sleep':
+        src = 'https://www.islamicfinder.org/wp-content/themes/islamicfinder/assets/audio/azkar/sleep.mp3';
+        break;
+      case 'afterPray':
+        src = 'https://www.islamicfinder.org/wp-content/themes/islamicfinder/assets/audio/azkar/after_prayer.mp3';
+        break;
+    }
+    audioPlayer.src = src;
+    audioPlayer.play();
+  }
+</script>
+
 </body>
 </html>

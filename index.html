@@ -1,158 +1,159 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>طمأنينة - مسبحة إلكترونية وأذكار</title>
-<style>
-  body {
-    background: #f5f7fa;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0; padding: 20px;
-    color: #333;
-    text-align: center;
-  }
-  h1 {
-    font-weight: 700;
-    color: #00695c;
-    margin-bottom: 20px;
-  }
-  .dzokar {
-    margin: 15px auto;
-    max-width: 600px;
-    background: white;
-    padding: 20px 25px;
-    border-radius: 15px;
-    box-shadow: 0 3px 7px rgba(0,0,0,0.1);
-    text-align: right;
-    direction: rtl;
-    font-size: 1.1rem;
-    line-height: 1.6;
-  }
-  .dzokar h2 {
-    margin: 0 0 15px 0;
-    color: #00796b;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .audio-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    margin-left: 10px;
-    font-size: 1.4rem;
-    color: #00796b;
-  }
-  .counter {
-    font-size: 2rem;
-    color: #004d40;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    font-weight: 700;
-  }
-  button {
-    font-size: 1rem;
-    padding: 7px 20px;
-    background: #00796b;
-    border: none;
-    color: white;
-    border-radius: 8px;
-    cursor: pointer;
-    margin: 0 5px 10px 0;
-    transition: background 0.3s ease;
-  }
-  button:hover {
-    background: #004d40;
-  }
-</style>
+  <meta charset="UTF-8">
+  <title>طمأنينة | مسبحة وأذكار</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(#f0f4f8, #e3f2fd);
+      color: #222;
+      padding: 20px;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: #fff;
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      border: 4px double #4caf50;
+      background-image: url('https://www.transparenttextures.com/patterns/arabesque.png');
+    }
+    h1 {
+      color: #2e7d32;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .tasbeeh-section, .azkar-section {
+      margin-bottom: 40px;
+    }
+    .counter {
+      font-size: 3rem;
+      margin: 15px 0;
+      color: #388e3c;
+    }
+    .btn {
+      padding: 10px 20px;
+      margin: 5px;
+      border: none;
+      border-radius: 8px;
+      background-color: #66bb6a;
+      color: white;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background-color: #2e7d32;
+    }
+    .select-tasbeeh {
+      font-size: 1.1rem;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 8px;
+      border: 2px solid #4caf50;
+      width: 100%;
+      max-width: 100%;
+    }
+    .azkar {
+      background: #f1f8e9;
+      border-right: 5px solid #4caf50;
+      padding: 15px 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      line-height: 1.8;
+      font-size: 1.1rem;
+      position: relative;
+    }
+    .azkar h3 {
+      margin-top: 0;
+      color: #33691e;
+    }
+    .sound-btn {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      cursor: pointer;
+      color: #2e7d32;
+    }
+  </style>
 </head>
 <body>
 
-<h1>طمأنينة - مسبحة إلكترونية وأذكار</h1>
+<div class="container">
+  <h1>طمأنينة | مسبحة وأذكار</h1>
 
-<div class="dzokar" id="morning">
-  <h2>
-    أذكار الصباح
-    <button class="audio-btn" onclick="playAudio('morning')">🔊</button>
-  </h2>
-  <p>
-    أَصْبَحْنا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لا إِلٰهَ إِلَّا اللَّهُ وَحْدَهُ لا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ.<br>
-    رَضِيتُ بِاللَّهِ رَبًّا، وَبِالْإِسْلَامِ دِينًا، وَبِمُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ نَبِيًّا.<br>
-    اللَّهُمَّ أَنْتَ رَبِّي لا إِلٰهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ بِذَنْبِي، فَاغْفِرْ لِي، فَإِنَّهُ لا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ.<br>
-    اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ النُّشُورُ.
-  </p>
-  <div>
-    <div>العدد: <span id="countMorning" class="counter">0</span></div>
-    <button onclick="increaseCount('countMorning')">سبح</button>
-    <button onclick="resetCount('countMorning')">إعادة</button>
+  <!-- مسبحة إلكترونية -->
+  <div class="tasbeeh-section">
+    <h2>المسبحة الإلكترونية</h2>
+    <select id="tasbeehSelect" class="select-tasbeeh">
+      <option>سبحان الله</option>
+      <option>الحمد لله</option>
+      <option>الله أكبر</option>
+    </select>
+    <div class="counter" id="tasbeehCounter">0</div>
+    <button class="btn" onclick="increaseCounter()">سبح</button>
+    <button class="btn" onclick="resetCounter()">إعادة</button>
   </div>
-</div>
 
-<div class="dzokar" id="evening">
-  <h2>
-    أذكار المساء
-    <button class="audio-btn" onclick="playAudio('evening')">🔊</button>
-  </h2>
-  <p>
-    أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لا إِلٰهَ إِلَّا اللَّهُ وَحْدَهُ لا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ.<br>
-    رَضِيتُ بِاللَّهِ رَبًّا، وَبِالْإِسْلَامِ دِينًا، وَبِمُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ نَبِيًّا.<br>
-    اللَّهُمَّ أَنْتَ رَبِّي لا إِلٰهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ بِذَنْبِي، فَاغْفِرْ لِي، فَإِنَّهُ لا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ.<br>
-    اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ النُّشُورُ.
-  </p>
-  <div>
-    <div>العدد: <span id="countEvening" class="counter">0</span></div>
-    <button onclick="increaseCount('countEvening')">سبح</button>
-    <button onclick="resetCount('countEvening')">إعادة</button>
-  </div>
-</div>
+  <!-- الأذكار -->
+  <div class="azkar-section">
+    <div class="azkar">
+      <h3>🌅 أذكار الصباح</h3>
+      <button class="sound-btn" onclick="playAudio('morning')">🔊</button>
+      <p>
+        أصبحنا وأصبح الملك لله والحمد لله لا إله إلا الله وحده لا شريك له، له الملك وله الحمد وهو على كل شيء قدير...
+      </p>
+    </div>
 
-<div class="dzokar" id="sleep">
-  <h2>
-    أذكار النوم
-    <button class="audio-btn" onclick="playAudio('sleep')">🔊</button>
-  </h2>
-  <p>
-    بِاسْمِكَ رَبِّي وَضَعْتُ جَنْبِي، وَبِكَ أَرْفَعُهُ، إِنْ أَمْسَكْتَ نَفْسِي فَاغْفِرْ لَهَا، وَإِنْ أَرْسَلْتَهَا فَاحْفَظْهَا بِمَا تَحْفَظُ بِهِ عِبَادَكَ الصَّالِحِينَ.
-  </p>
-  <div>
-    <div>العدد: <span id="countSleep" class="counter">0</span></div>
-    <button onclick="increaseCount('countSleep')">سبح</button>
-    <button onclick="resetCount('countSleep')">إعادة</button>
-  </div>
-</div>
+    <div class="azkar">
+      <h3>🌇 أذكار المساء</h3>
+      <button class="sound-btn" onclick="playAudio('evening')">🔊</button>
+      <p>
+        أمسينا وأمسى الملك لله والحمد لله لا إله إلا الله وحده لا شريك له، له الملك وله الحمد وهو على كل شيء قدير...
+      </p>
+    </div>
 
-<div class="dzokar" id="afterPray">
-  <h2>
-    أذكار بعد الصلاة
-    <button class="audio-btn" onclick="playAudio('afterPray')">🔊</button>
-  </h2>
-  <p>
-    سُبْحَانَ اللَّهِ، وَالْحَمْدُ لِلَّهِ، وَلَا إِلٰهَ إِلَّا اللَّهُ، وَاللَّهُ أَكْبَرُ.
-  </p>
-  <div>
-    <div>العدد: <span id="countAfterPray" class="counter">0</span></div>
-    <button onclick="increaseCount('countAfterPray')">سبح</button>
-    <button onclick="resetCount('countAfterPray')">إعادة</button>
+    <div class="azkar">
+      <h3>🌙 أذكار النوم</h3>
+      <button class="sound-btn" onclick="playAudio('sleep')">🔊</button>
+      <p>
+        باسمك ربي وضعت جنبي وبك أرفعه، إن أمسكت نفسي فارحمها وإن أرسلتها فاحفظها بما تحفظ به عبادك الصالحين.
+      </p>
+    </div>
+
+    <div class="azkar">
+      <h3>🕌 أذكار بعد الصلاة</h3>
+      <button class="sound-btn" onclick="playAudio('after')">🔊</button>
+      <p>
+        سبحان الله (33 مرة)، الحمد لله (33 مرة)، الله أكبر (34 مرة)
+      </p>
+    </div>
   </div>
+
 </div>
 
 <audio id="audioPlayer"></audio>
 
 <script>
-  function increaseCount(id) {
-    const el = document.getElementById(id);
-    let val = parseInt(el.textContent);
-    val++;
-    el.textContent = val;
+  let count = 0;
+  function increaseCounter() {
+    count++;
+    document.getElementById('tasbeehCounter').textContent = count;
   }
-
-  function resetCount(id) {
-    document.getElementById(id).textContent = 0;
+  function resetCounter() {
+    count = 0;
+    document.getElementById('tasbeehCounter').textContent = count;
   }
 
   function playAudio(type) {
-    const audioPlayer = document.getElementById('audioPlayer');
+    const player = document.getElementById("audioPlayer");
     let src = '';
     switch(type) {
       case 'morning':
@@ -164,12 +165,12 @@
       case 'sleep':
         src = 'https://www.islamicfinder.org/wp-content/themes/islamicfinder/assets/audio/azkar/sleep.mp3';
         break;
-      case 'afterPray':
+      case 'after':
         src = 'https://www.islamicfinder.org/wp-content/themes/islamicfinder/assets/audio/azkar/after_prayer.mp3';
         break;
     }
-    audioPlayer.src = src;
-    audioPlayer.play();
+    player.src = src;
+    player.play();
   }
 </script>
 

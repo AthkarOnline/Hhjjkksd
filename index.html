@@ -3,332 +3,87 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>مسبحة المؤمن - أذكار الصباح</title>
+<title>مسبحة المؤمن - الصفحة الرئيسية</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cairo&display=swap');
   body {
-    font-family: 'Cairo', sans-serif;
-    background: linear-gradient(135deg, #0b3d0b, #215521);
     margin: 0; padding: 0;
-    color: #f5f5f1;
+    font-family: 'Cairo', sans-serif;
+    background: linear-gradient(135deg, #1a237e, #0d136b);
+    color: #f0e6d2;
     min-height: 100vh;
-    direction: rtl;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
   header {
-    text-align: center;
-    padding: 25px 10px;
-    background: linear-gradient(90deg, #215521, #a3b837);
-    color: #f9f9f7;
-    font-size: 2.6rem;
+    font-size: 3rem;
     font-weight: 900;
-    letter-spacing: 3px;
-    box-shadow: 0 8px 22px rgba(0,0,0,0.4);
+    margin-bottom: 50px;
+    color: #ffd700;
+    text-shadow:
+      0 0 6px #ffd700,
+      0 0 12px #ffd700,
+      0 0 18px #ffd700;
     user-select: none;
   }
-  main {
-    max-width: 900px;
-    margin: 40px auto 60px;
-    background: #e5f0dc;
-    border-radius: 25px;
-    padding: 30px 40px;
-    box-shadow: 0 18px 38px rgba(0,0,0,0.2);
-    color: #174214;
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    max-width: 650px;
+    justify-content: center;
   }
-  h2 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #2a5600;
-    font-weight: 900;
-    font-size: 2rem;
-  }
-  /* المسبحة */
-  .tasbeeh-container {
-    text-align: center;
-    margin-bottom: 35px;
-    user-select: none;
-  }
-  .beads {
-    margin: 20px auto 10px;
-    width: 320px;
-    height: 55px;
-    position: relative;
-  }
-  .bead {
-    position: absolute;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, #d0e4a5, #3f6515);
-    box-shadow:
-      inset 5px 5px 10px #e0f2b3,
-      inset -5px -5px 10px #2d4a07,
-      0 4px 10px rgba(20, 45, 0, 0.75);
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3));
-    user-select: none;
-  }
-  .bead.active {
-    background: radial-gradient(circle at 30% 30%, #f0f9c0, #7ea827);
-    box-shadow:
-      inset 7px 7px 14px #f4fbcd,
-      inset -7px -7px 16px #5d8915,
-      0 6px 16px rgba(50, 90, 0, 0.95);
-    transform: scale(1.3) translateY(-8px);
-    z-index: 10;
-  }
-  /* ترتيب الخرز دائري */
-  .bead:nth-child(1)  { left: 50%; top:  0; transform-origin: center bottom; }
-  .bead:nth-child(2)  { left: 67%; top:  5px; }
-  .bead:nth-child(3)  { left: 79%; top: 15px; }
-  .bead:nth-child(4)  { left: 88%; top: 30px; }
-  .bead:nth-child(5)  { left: 94%; top: 55px; }
-  .bead:nth-child(6)  { left: 94%; top: 85px; }
-  .bead:nth-child(7)  { left: 88%; top: 110px; }
-  .bead:nth-child(8)  { left: 79%; top: 125px; }
-  .bead:nth-child(9)  { left: 67%; top: 135px; }
-  .bead:nth-child(10) { left: 50%; top: 140px; }
-  .bead:nth-child(11) { left: 33%; top: 135px; }
-  .bead:nth-child(12) { left: 21%; top: 125px; }
-  .bead:nth-child(13) { left: 12%; top: 110px; }
-  .bead:nth-child(14) { left: 6%;  top: 85px; }
-  .bead:nth-child(15) { left: 6%;  top: 55px; }
-  .bead:nth-child(16) { left: 12%; top: 30px; }
-  .bead:nth-child(17) { left: 21%; top: 15px; }
-  .bead:nth-child(18) { left: 33%; top: 5px; }
-  /* الأزرار */
   button {
-    cursor: pointer;
+    background: linear-gradient(145deg, #283593, #536dfe);
+    border: 3px solid #ffd700;
+    border-radius: 16px;
+    padding: 20px 40px;
+    font-size: 1.6rem;
     font-weight: 700;
-    font-size: 1.1rem;
-    background: linear-gradient(145deg, #a9c044, #466c0f);
-    color: #f0f4e8;
-    border: none;
-    border-radius: 10px;
-    padding: 10px 25px;
-    margin: 12px 8px 25px 8px;
-    box-shadow: 0 6px 15px rgba(116,146,46,0.8);
-    transition: background-color 0.3s ease;
+    color: #fff8dc;
+    cursor: pointer;
+    box-shadow:
+      0 4px 15px rgba(255, 215, 0, 0.6);
+    transition: background 0.3s ease, transform 0.2s ease;
     user-select: none;
+    min-width: 220px;
+    text-align: center;
   }
   button:hover {
-    background: linear-gradient(145deg, #d1e085, #688d0f);
+    background: linear-gradient(145deg, #536dfe, #3d51b5);
+    transform: scale(1.08);
   }
-  .reset-btn {
-    background: linear-gradient(145deg, #7e2a15, #b33f1a);
+  button:active {
+    transform: scale(0.98);
   }
-  .reset-btn:hover {
-    background: linear-gradient(145deg, #ca3c10, #ec6a4d);
+  footer {
+    margin-top: 60px;
+    font-size: 0.9rem;
+    color: #bbb;
   }
-  /* الأذكار */
-  .zekr {
-    margin-bottom: 25px;
-    border-radius: 12px;
-    background: #d9e8a2;
-    padding: 20px 25px;
-    box-shadow: inset 2px 2px 8px #9caa4b, inset -2px -2px 8px #c9d380;
-    position: relative;
-  }
-  .zekr h3 {
-    margin: 0 0 12px 0;
-    font-size: 1.5rem;
-    color: #3a5600;
-  }
-  .zekr p {
-    font-size: 1.23rem;
-    line-height: 1.6;
-    color: #3c5a00;
-  }
-  .counter {
-    position: absolute;
-    bottom: 12px;
-    left: 20px;
-    background: linear-gradient(145deg, #7b8f29, #a7c92f);
-    color: #1f2c00;
-    font-weight: 900;
-    font-size: 1.3rem;
-    padding: 8px 18px;
-    border-radius: 30px;
-    box-shadow: 0 4px 10px #739328;
-    cursor: pointer;
-    user-select: none;
-    transition: background-color 0.3s ease;
-  }
-  .counter:hover {
-    background: linear-gradient(145deg, #accb3d, #c7e34a);
-  }
-  audio {
-    display: none;
-  }
-  /* تحديد هدف التسبيح */
-  .goal-container {
-    text-align: center;
-    margin-bottom: 25px;
-  }
-  .goal-input {
-    width: 100px;
-    padding: 10px;
-    font-size: 1.1rem;
-    border-radius: 20px;
-    border: none;
-    text-align: center;
-    font-weight: 900;
-    color: #3a5b00;
-    box-shadow: inset 2px 2px 8px #8eb544, inset -2px -2px 8px #b6dc38;
-    user-select: none;
-  }
-  .goal-label {
-    color: #385100;
-    font-weight: 800;
-    margin-right: 10px;
-    font-size: 1.2rem;
-  }
-  /* إخفاء التبويبات المؤقتة */
-  .hidden {
-    display: none;
+  @media (max-width: 500px) {
+    button {
+      min-width: 150px;
+      font-size: 1.3rem;
+      padding: 15px 25px;
+    }
   }
 </style>
 </head>
 <body>
-<header>مسبحة المؤمن - أذكار الصباح</header>
-<main>
-  <div class="tasbeeh-container" aria-label="مسبحة إلكترونية">
-    <div class="beads" id="beads"></div>
-    <div>
-      <button id="tasbeehBtn">تسبيح</button>
-      <button id="resetBtn" class="reset-btn">إعادة</button>
-    </div>
-    <div class="goal-container">
-      <label for="goalInput" class="goal-label">حدد هدف التسبيح:</label>
-      <input type="number" id="goalInput" class="goal-input" min="1" max="1000" value="33" />
-    </div>
-    <p>التسبيحات: <span id="countDisplay">0</span> / <span id="goalDisplay">33</span></p>
+  <header>مسبحة المؤمن</header>
+  <div class="container">
+    <button onclick="location.href='#tasbeeh'">المسبحة الإلكترونية</button>
+    <button onclick="location.href='#morning'">أذكار الصباح</button>
+    <button onclick="location.href='#evening'">أذكار المساء</button>
+    <button onclick="location.href='#sleep'">أذكار النوم</button>
+    <button onclick="location.href='#afterPrayer'">أذكار بعد الصلاة</button>
   </div>
-
-  <section id="azkarList">
-    <!-- مثال ذكر مع عداد -->
-    <article class="zekr" data-count="3">
-      <h3>بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيمِ</h3>
-      <p>قراءة الفاتحة (مرة واحدة)</p>
-      <div class="counter" tabindex="0" aria-label="عداد تكرار 3 مرات">3</div>
-      <audio id="audio1" src="https://cdn.islamic.network/quran/audio/64/ar.yasser_dosari/001.mp3"></audio>
-    </article>
-
-    <article class="zekr" data-count="3">
-      <h3>أَعُوذُ بِاللهِ مِنَ الشَّيْطَانِ الرَّجِيمِ</h3>
-      <p>المعوذتان (مرة واحدة لكل معوذتين)</p>
-      <div class="counter" tabindex="0" aria-label="عداد تكرار 3 مرات">3</div>
-      <audio id="audio2" src="https://cdn.islamic.network/quran/audio/64/ar.yasser_dosari/113.mp3"></audio>
-      <audio id="audio3" src="https://cdn.islamic.network/quran/audio/64/ar.yasser_dosari/114.mp3"></audio>
-    </article>
-
-    <article class="zekr" data-count="3">
-      <h3>آية الكرسي</h3>
-      <p>مرة واحدة</p>
-      <div class="counter" tabindex="0" aria-label="عداد تكرار 3 مرات">3</div>
-      <audio id="audio4" src="https://cdn.islamic.network/quran/audio/64/ar.yasser_dosari/002.mp3"></audio>
-    </article>
-
-    <article class="zekr" data-count="3">
-      <h3>سُبْحَانَ اللهِ وَبِحَمْدِهِ</h3>
-      <p>33 مرة</p>
-      <div class="counter" tabindex="0" aria-label="عداد تكرار 33 مرات">33</div>
-    </article>
-
-    <article class="zekr" data-count="3">
-      <h3>اللّهُ أَكْبَرُ</h3>
-      <p>33 مرة</p>
-      <div class="counter" tabindex="0" aria-label="عداد تكرار 33 مرات">33</div>
-    </article>
-
-    <article class="zekr" data-count="3">
-      <h3>لا إِلَهَ إِلَّا اللهُ وَحْدَهُ لا شَرِيكَ لَهُ</h3>
-      <p>33 مرة</p>
-      <div class="counter" tabindex="0" aria-label="عداد تكرار 33 مرات">33</div>
-    </article>
-
-  </section>
-</main>
-
-<script>
-  const tasbeehBtn = document.getElementById('tasbeehBtn');
-  const resetBtn = document.getElementById('resetBtn');
-  const beadsContainer = document.getElementById('beads');
-  const countDisplay = document.getElementById('countDisplay');
-  const goalInput = document.getElementById('goalInput');
-  const goalDisplay = document.getElementById('goalDisplay');
-  const azkarList = document.getElementById('azkarList');
-
-  let count = 0;
-  let goal = parseInt(goalInput.value);
-
-  goalInput.addEventListener('input', () => {
-    goal = parseInt(goalInput.value) || 33;
-    if(goal < 1) goal = 1;
-    if(goal > 1000) goal = 1000;
-    goalDisplay.textContent = goal;
-    resetCount();
-  });
-
-  function resetCount() {
-    count = 0;
-    countDisplay.textContent = count;
-    updateBeads(count);
-    resetAzkarCounters();
-  }
-
-  function resetAzkarCounters() {
-    const zekrItems = azkarList.querySelectorAll('.zekr');
-    zekrItems.forEach(zekr => {
-      let originalCount = parseInt(zekr.dataset.count);
-      let counterDiv = zekr.querySelector('.counter');
-      counterDiv.textContent = originalCount;
-      zekr.dataset.current = originalCount;
-    });
-  }
-
-  function updateBeads(count) {
-    beadsContainer.innerHTML = '';
-    const totalBeads = 33; // ثابت عدد خرزات المسبحة (ممكن تتغير)
-    for(let i = 0; i < totalBeads; i++) {
-      const bead = document.createElement('div');
-      bead.classList.add('bead');
-      if(i === count % totalBeads) bead.classList.add('active');
-      // ترتيب دائري
-      const angle = (360 / totalBeads) * i;
-      const radius = 130;
-      bead.style.left = (radius * Math.cos(angle * Math.PI / 180) + radius) + 'px';
-      bead.style.top = (radius * Math.sin(angle * Math.PI / 180) + radius) + 'px';
-      beadsContainer.appendChild(bead);
-    }
-  }
-
-  tasbeehBtn.addEventListener('click', () => {
-    if(count < goal){
-      count++;
-      countDisplay.textContent = count;
-      updateBeads(count);
-
-      // تقليل عداد الذكر النشط التالي (تدوير عبر الأذكار)
-      reduceNextZekrCounter();
-    }
-  });
-
-  resetBtn.addEventListener('click', () => {
-    resetCount();
-  });
-
-  function reduceNextZekrCounter() {
-    const zekrItems = Array.from(azkarList.querySelectorAll('.zekr'));
-    // نبدأ من أول ذكر له عداد > 0
-    for(let zekr of zekrItems){
-      let counterDiv = zekr.querySelector('.counter');
-      let currentCount = parseInt(counterDiv.textContent);
-      if(currentCount > 0){
-        counterDiv.textContent = currentCount -1;
-        zekr.dataset.current = currentCount -1;
-        playAudioForZekr(zekr);
-        break;
+  <footer>© 2025 مسبحة المؤمن - كل الحقوق محفوظة</footer>
+</body>
+</html>break;
       }
     }
   }

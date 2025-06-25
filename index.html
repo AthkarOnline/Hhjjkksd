@@ -74,6 +74,18 @@
     transform: scale(0.96);
     box-shadow: 0 4px 12px rgba(66, 144, 245, 0.5);
   }
+  .reset-button {
+    margin-top: 50px;
+    max-width: 300px;
+    width: 80%;
+    background: linear-gradient(145deg, #f39c12, #d35400);
+    border-color: #e67e22;
+    box-shadow: 0 6px 15px rgba(243, 156, 18, 0.7);
+  }
+  .reset-button:hover {
+    background: linear-gradient(145deg, #d35400, #f39c12);
+    box-shadow: 0 8px 20px rgba(243, 156, 18, 0.9);
+  }
   footer {
     margin-top: 60px;
     font-size: 1rem;
@@ -101,6 +113,7 @@
     <button onclick="location.href='#sleep'">أذكار النوم</button>
     <button onclick="location.href='#afterPrayer'">أذكار بعد الصلاة</button>
   </div>
+  <button class="reset-button" onclick="alert('وظيفة إعادة التعيين لاحقاً')">إعادة تعيين الكل</button>
   <footer>© 2025 مسبحة المؤمن - كل الحقوق محفوظة</footer>
 </body>
 </html>

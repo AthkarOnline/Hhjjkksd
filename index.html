@@ -9,65 +9,85 @@
   body {
     margin: 0; padding: 0;
     font-family: 'Cairo', sans-serif;
-    background: linear-gradient(135deg, #1a237e, #0d136b);
-    color: #f0e6d2;
+    background: linear-gradient(135deg, #d0e8f2, #f9f5f0);
+    color: #333;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  /* زخارف ناعمة في الخلفية */
+  body::before {
+    content: "";
+    position: absolute;
+    top: -50px; left: -50px; right: -50px; bottom: -50px;
+    background: url('https://i.ibb.co/kx7hTf1/arabic-pattern.png') no-repeat center center;
+    background-size: 300px;
+    opacity: 0.05;
+    pointer-events: none;
+    animation: slowFade 20s infinite alternate ease-in-out;
+  }
+  @keyframes slowFade {
+    0% {opacity: 0.04;}
+    100% {opacity: 0.08;}
   }
   header {
     font-size: 3rem;
     font-weight: 900;
     margin-bottom: 50px;
-    color: #ffd700;
-    text-shadow:
-      0 0 6px #ffd700,
-      0 0 12px #ffd700,
-      0 0 18px #ffd700;
+    color: #2c3e50;
     user-select: none;
+    text-shadow: 0 0 5px rgba(0,0,0,0.1);
   }
   .container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 25px;
-    max-width: 650px;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px 40px;
+    max-width: 720px;
+    width: 90%;
+    padding: 0 10px;
   }
   button {
-    background: linear-gradient(145deg, #283593, #536dfe);
-    border: 3px solid #ffd700;
-    border-radius: 16px;
-    padding: 20px 40px;
-    font-size: 1.6rem;
+    background: linear-gradient(145deg, #87c8f6, #4290f5);
+    border: 2.5px solid #1b4f9c;
+    border-radius: 18px;
+    padding: 20px 0;
+    font-size: 1.5rem;
     font-weight: 700;
-    color: #fff8dc;
+    color: #fff;
     cursor: pointer;
-    box-shadow:
-      0 4px 15px rgba(255, 215, 0, 0.6);
-    transition: background 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 6px 15px rgba(66, 144, 245, 0.4);
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
     user-select: none;
-    min-width: 220px;
+    width: 100%;
     text-align: center;
   }
   button:hover {
-    background: linear-gradient(145deg, #536dfe, #3d51b5);
-    transform: scale(1.08);
+    background: linear-gradient(145deg, #4290f5, #1e65d1);
+    box-shadow: 0 8px 20px rgba(66, 144, 245, 0.7);
+    transform: scale(1.06);
   }
   button:active {
-    transform: scale(0.98);
+    transform: scale(0.96);
+    box-shadow: 0 4px 12px rgba(66, 144, 245, 0.5);
   }
   footer {
     margin-top: 60px;
-    font-size: 0.9rem;
-    color: #bbb;
+    font-size: 1rem;
+    color: #555;
+    user-select: none;
   }
-  @media (max-width: 500px) {
+  @media (max-width: 480px) {
+    header {
+      font-size: 2.2rem;
+      margin-bottom: 30px;
+    }
     button {
-      min-width: 150px;
       font-size: 1.3rem;
-      padding: 15px 25px;
+      padding: 18px 0;
     }
   }
 </style>
@@ -82,25 +102,5 @@
     <button onclick="location.href='#afterPrayer'">أذكار بعد الصلاة</button>
   </div>
   <footer>© 2025 مسبحة المؤمن - كل الحقوق محفوظة</footer>
-</body>
-</html>break;
-      }
-    }
-  }
-
-  function playAudioForZekr(zekr) {
-    const audios = zekr.querySelectorAll('audio');
-    if(audios.length > 0){
-      audios.forEach(audio => {
-        audio.pause();
-        audio.currentTime = 0;
-      });
-      audios[0].play();
-    }
-  }
-
-  // إعداد العدادات الابتدائية
-  resetCount();
-</script>
 </body>
 </html>

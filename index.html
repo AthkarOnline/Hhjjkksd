@@ -1,119 +1,172 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>مسبحة المؤمن - الصفحة الرئيسية</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Cairo&display=swap');
-  body {
-    margin: 0; padding: 0;
-    font-family: 'Cairo', sans-serif;
-    background: linear-gradient(135deg, #d0e8f2, #f9f5f0);
-    color: #333;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-  }
-  /* زخارف ناعمة في الخلفية */
-  body::before {
-    content: "";
-    position: absolute;
-    top: -50px; left: -50px; right: -50px; bottom: -50px;
-    background: url('https://i.ibb.co/kx7hTf1/arabic-pattern.png') no-repeat center center;
-    background-size: 300px;
-    opacity: 0.05;
-    pointer-events: none;
-    animation: slowFade 20s infinite alternate ease-in-out;
-  }
-  @keyframes slowFade {
-    0% {opacity: 0.04;}
-    100% {opacity: 0.08;}
-  }
-  header {
-    font-size: 3rem;
-    font-weight: 900;
-    margin-bottom: 50px;
-    color: #2c3e50;
-    user-select: none;
-    text-shadow: 0 0 5px rgba(0,0,0,0.1);
-  }
-  .container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 30px 40px;
-    max-width: 720px;
-    width: 90%;
-    padding: 0 10px;
-  }
-  button {
-    background: linear-gradient(145deg, #87c8f6, #4290f5);
-    border: 2.5px solid #1b4f9c;
-    border-radius: 18px;
-    padding: 20px 0;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #fff;
-    cursor: pointer;
-    box-shadow: 0 6px 15px rgba(66, 144, 245, 0.4);
-    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    user-select: none;
-    width: 100%;
-    text-align: center;
-  }
-  button:hover {
-    background: linear-gradient(145deg, #4290f5, #1e65d1);
-    box-shadow: 0 8px 20px rgba(66, 144, 245, 0.7);
-    transform: scale(1.06);
-  }
-  button:active {
-    transform: scale(0.96);
-    box-shadow: 0 4px 12px rgba(66, 144, 245, 0.5);
-  }
-  .reset-button {
-    margin-top: 50px;
-    max-width: 300px;
-    width: 80%;
-    background: linear-gradient(145deg, #f39c12, #d35400);
-    border-color: #e67e22;
-    box-shadow: 0 6px 15px rgba(243, 156, 18, 0.7);
-  }
-  .reset-button:hover {
-    background: linear-gradient(145deg, #d35400, #f39c12);
-    box-shadow: 0 8px 20px rgba(243, 156, 18, 0.9);
-  }
-  footer {
-    margin-top: 60px;
-    font-size: 1rem;
-    color: #555;
-    user-select: none;
-  }
-  @media (max-width: 480px) {
-    header {
-      font-size: 2.2rem;
-      margin-bottom: 30px;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>مسبحة المؤمن</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom, #f0fff0, #d2f2d2);
+      color: #333;
+      text-align: center;
+      direction: rtl;
+    }
+    #loader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      z-index: 1000;
+    }
+    .container {
+      display: none;
+      padding: 20px;
+    }
+    .counter {
+      font-size: 48px;
+      margin: 20px 0;
+    }
+    .beads-container {
+      display: flex;
+      overflow-x: auto;
+      padding: 10px;
+      margin-bottom: 20px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .bead {
+      width: 50px;
+      height: 50px;
+      margin: 0 5px;
+      background-color: #4caf50;
+      border-radius: 50%;
+      scroll-snap-align: center;
+      transition: transform 0.2s;
+      flex-shrink: 0;
+    }
+    .bead:active {
+      transform: scale(1.1);
     }
     button {
-      font-size: 1.3rem;
-      padding: 18px 0;
+      background-color: #388e3c;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 8px;
+      margin: 5px;
     }
-  }
-</style>
+    .dzikr {
+      background: #fff;
+      padding: 15px;
+      margin: 10px auto;
+      border-radius: 10px;
+      max-width: 90%;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .dzikr-count {
+      font-size: 24px;
+      color: #4caf50;
+      cursor: pointer;
+    }
+    audio {
+      display: block;
+      margin: 10px auto;
+    }
+  </style>
 </head>
 <body>
-  <header>مسبحة المؤمن</header>
-  <div class="container">
-    <button onclick="location.href='#tasbeeh'">المسبحة الإلكترونية</button>
-    <button onclick="location.href='#morning'">أذكار الصباح</button>
-    <button onclick="location.href='#evening'">أذكار المساء</button>
-    <button onclick="location.href='#sleep'">أذكار النوم</button>
-    <button onclick="location.href='#afterPrayer'">أذكار بعد الصلاة</button>
+  <div id="loader">✨ جاري التحميل...</div>
+  <div class="container" id="main">
+    <h1>🌿 مسبحة المؤمن</h1>
+    <div class="counter" id="tasbeehCount">0</div>
+    <div class="beads-container" id="beads">
+      <!-- خرز -->
+      <div class="bead"></div>
+      <div class="bead"></div>
+      <div class="bead"></div>
+      <div class="bead"></div>
+      <div class="bead"></div>
+      <div class="bead"></div>
+      <div class="bead"></div>
+      <div class="bead"></div>
+    </div>
+    <button onclick="resetCount()">🔄 إعادة تعيين الكل</button>
+
+    <h2>🕊️ أذكار الصباح</h2>
+
+    <div class="dzikr">
+      <p>بِسْمِ اللَّهِ الَّذِي لا يَضُرُّ مَعَ اسْمِهِ شَيءٌ فِي الْأَرْضِ وَلا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ</p>
+      <div class="dzikr-count" onclick="decrease(this)" data-start="3">3</div>
+    </div>
+
+    <div class="dzikr">
+      <p>اللّهـمَّ أَنْتَ رَبِّـي، لا إلهَ إلاّ أَنْتَ، خَلَقْتَني وَأَنا عَبْـدُك... إلى آخر الدعاء</p>
+      <div class="dzikr-count" onclick="decrease(this)" data-start="1">1</div>
+    </div>
+
+    <div class="dzikr">
+      <p>الفاتحة</p>
+      <audio controls>
+        <source src="https://server12.mp3quran.net/yasser/001.mp3" type="audio/mpeg">
+        متصفحك لا يدعم تشغيل الصوت
+      </audio>
+    </div>
+
+    <div class="dzikr">
+      <p>آية الكرسي</p>
+      <audio controls>
+        <source src="https://server12.mp3quran.net/yasser/255.mp3" type="audio/mpeg">
+        متصفحك لا يدعم تشغيل الصوت
+      </audio>
+    </div>
+
   </div>
-  <button class="reset-button" onclick="alert('وظيفة إعادة التعيين لاحقاً')">إعادة تعيين الكل</button>
-  <footer>© 2025 مسبحة المؤمن - كل الحقوق محفوظة</footer>
+
+  <script>
+    // شاشة تحميل
+    window.onload = () => {
+      setTimeout(() => {
+        document.getElementById("loader").style.display = "none";
+        document.getElementById("main").style.display = "block";
+      }, 1500);
+    };
+
+    let count = 0;
+    const countDisplay = document.getElementById("tasbeehCount");
+    const beads = document.getElementById("beads");
+
+    beads.addEventListener("scroll", () => {
+      // كل مرة تمر خرزة نزيد العداد
+      count++;
+      countDisplay.textContent = count;
+    });
+
+    function resetCount() {
+      count = 0;
+      countDisplay.textContent = "0";
+      document.querySelectorAll(".dzikr-count").forEach(el => {
+        el.textContent = el.dataset.start;
+      });
+    }
+
+    function decrease(el) {
+      let num = parseInt(el.textContent);
+      if (num > 0) {
+        num--;
+        el.textContent = num;
+        if (num === 0) {
+          el.style.color = "gray";
+        }
+      }
+    }
+  </script>
 </body>
 </html>

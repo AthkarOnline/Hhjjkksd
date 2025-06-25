@@ -144,7 +144,7 @@
 </head>
 <body>
 
-<div id="preloader">
+<div id="preloader" aria-label="جارٍ تحميل الموقع">
   <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Al-Masjid_an-Nabawi_Medina_Mosque_Logo.svg/120px-Al-Masjid_an-Nabawi_Medina_Mosque_Logo.svg.png" alt="مسجد" />
   <p>جاري تحميل الموقع ...</p>
 </div>
@@ -153,61 +153,53 @@
 
 <main>
   <nav class="nav-buttons" role="navigation" aria-label="أقسام الأذكار">
-    <button class="active" data-target="morning">أذكار الصباح</button>
-    <button data-target="evening">أذكار المساء</button>
-    <button data-target="afterPrayer">أذكار بعد الصلاة</button>
-    <button data-target="sleep">أذكار النوم</button>
-    <button data-target="misbaha">المسبحة الإلكترونية</button>
+    <button class="active" data-target="morning" aria-pressed="true">أذكار الصباح</button>
+    <button data-target="evening" aria-pressed="false">أذكار المساء</button>
+    <button data-target="afterPrayer" aria-pressed="false">أذكار بعد الصلاة</button>
+    <button data-target="sleep" aria-pressed="false">أذكار النوم</button>
+    <button data-target="misbaha" aria-pressed="false">المسبحة الإلكترونية</button>
   </nav>
 
-  <section id="morning" class="active" aria-label="أذكار الصباح">
-    <!-- Morning Azkar -->
-  </section>
-
-  <section id="evening" aria-label="أذكار المساء">
-    <!-- Evening Azkar -->
-  </section>
-
-  <section id="afterPrayer" aria-label="أذكار بعد الصلاة">
-    <!-- After Prayer Azkar -->
-  </section>
-
-  <section id="sleep" aria-label="أذكار النوم">
-    <!-- Sleep Azkar -->
-  </section>
-
-  <section id="misbaha" aria-label="المسبحة الإلكترونية">
-    <!-- Electronic Misbaha -->
-  </section>
+  <section id="morning" class="active" aria-label="أذكار الصباح" tabindex="0"></section>
+  <section id="evening" aria-label="أذكار المساء" tabindex="0"></section>
+  <section id="afterPrayer" aria-label="أذكار بعد الصلاة" tabindex="0"></section>
+  <section id="sleep" aria-label="أذكار النوم" tabindex="0"></section>
+  <section id="misbaha" aria-label="المسبحة الإلكترونية" tabindex="0"></section>
 </main>
 
 <footer>جميع الحقوق محفوظة © 2025</footer>
 
+<!-- أصوات الشيخ ياسر الدوسري -->
 <audio id="audioFatiha" src="https://cdn.islamic.network/quran/audio/128/ar.yasser_dosari/1.mp3" preload="auto"></audio>
 <audio id="audioAyatKursi" src="https://cdn.islamic.network/quran/audio/128/ar.yasser_dosari/2.mp3" preload="auto"></audio>
 <audio id="audioMuawadhat" src="https://cdn.islamic.network/quran/audio/128/ar.yasser_dosari/3.mp3" preload="auto"></audio>
 <audio id="audioKhatim" src="https://cdn.islamic.network/quran/audio/128/ar.yasser_dosari/4.mp3" preload="auto"></audio>
 
 <script>
-  // Preloader hide after load
+  // إخفاء شاشة التحميل عند انتهاء التحميل
   window.addEventListener('load', () => {
     document.getElementById('preloader').classList.add('hidden');
   });
 
-  // Sections and buttons
+  // تحكم في التنقل بين الأقسام
   const buttons = document.querySelectorAll('.nav-buttons button');
   const sections = document.querySelectorAll('main section');
   buttons.forEach(btn => {
     btn.addEventListener('click', () => {
-      buttons.forEach(b => b.classList.remove('active'));
+      buttons.forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
+      });
       btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
+
       const target = btn.getAttribute('data-target');
       sections.forEach(s => s.classList.remove('active'));
       document.getElementById(target).classList.add('active');
     });
   });
 
-  // Azkar Data with counts and audio play triggers
+  // بيانات الأذكار مع عدد التكرارات وأصوات للقراءة
   const azkarData = {
     morning: [
       {
@@ -231,8 +223,8 @@
         text: 'لا إله إلا الله وحده لا شريك له، له الملك وله الحمد وهو على كل شيء قدير',
         times: 1,
         audioId: 'audioFatiha'
-      },
-      // إضافة المزيد حسب المطلوب...
+      }
+      // يمكن إضافة المزيد هنا
     ],
     evening: [
       {
@@ -243,8 +235,8 @@
       {
         text: 'سُبْحَانَ اللَّهِ وَبِحَمْدِهِ',
         times: 100
-      },
-      // إضافة المزيد حسب المطلوب...
+      }
+      // يمكن إضافة المزيد هنا
     ],
     afterPrayer: [
       {
@@ -254,8 +246,8 @@
       {
         text: 'اللّهُ أَكْبَرُ',
         times: 3
-      },
-      // إضافة المزيد حسب المطلوب...
+      }
+      // يمكن إضافة المزيد هنا
     ],
     sleep: [
       {
@@ -266,8 +258,8 @@
         text: 'اللّهُ لا إِلٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ',
         times: 1,
         audioId: 'audioAyatKursi'
-      },
-      // إضافة المزيد حسب المطلوب...
+      }
+      // يمكن إضافة المزيد هنا
     ],
     misbaha: [
       {
@@ -285,6 +277,7 @@
     ]
   };
 
+  // إنشاء عنصر ذكر مع عداد قابل للنقر
   function createZikrItem(zikr) {
     const container = document.createElement('div');
     container.className = 'zikr';
@@ -306,19 +299,21 @@
     button.disabled = zikr.times === 0;
 
     button.addEventListener('click', () => {
-      if (remaining.textContent > 0) {
-        remaining.textContent--;
-        if (remaining.textContent == 0) {
+      let current = Number(remaining.textContent);
+      if (current > 0) {
+        current--;
+        remaining.textContent = current;
+        if (current === 0) {
           button.disabled = true;
           button.classList.add('finished');
-        }
-      }
-      // تشغيل الصوت إذا موجود
-      if (zikr.audioId && remaining.textContent == 0) {
-        const audio = document.getElementById(zikr.audioId);
-        if(audio){
-          audio.currentTime = 0;
-          audio.play();
+          // تشغيل الصوت إذا موجود
+          if (zikr.audioId) {
+            const audio = document.getElementById(zikr.audioId);
+            if(audio){
+              audio.currentTime = 0;
+              audio.play();
+            }
+          }
         }
       }
     });
@@ -332,7 +327,7 @@
     return container;
   }
 
-  // تحميل الأذكار في كل قسم
+  // تحميل الأذكار في القسم المحدد
   function loadAzkar(sectionId, azkarList) {
     const section = document.getElementById(sectionId);
     section.innerHTML = '';
@@ -341,11 +336,10 @@
     });
   }
 
-  // تحميل كل الأقسام
+  // تحميل جميع الأقسام
   for(const sectionId in azkarData) {
     loadAzkar(sectionId, azkarData[sectionId]);
   }
-
 </script>
 
 </body>

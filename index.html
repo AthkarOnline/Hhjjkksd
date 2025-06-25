@@ -58,6 +58,7 @@
         :root {
             --primary: #4361ee;
             --primary-dark: #3a0ca3;
+            --primary-light: #4895ef;
             --secondary: #7209b7;
             --accent: #4cc9f0;
             --light: #f8f9fa;
@@ -68,9 +69,12 @@
             --card-bg: rgba(255, 255, 255, 0.95);
             --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             --shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            --shadow-light: 0 8px 20px rgba(0, 0, 0, 0.1);
             --border-radius: 25px;
             --text-primary: #2d3748;
             --text-secondary: #4a5568;
+            --gold: #FFD700;
+            --gold-dark: #D4AF37;
         }
 
         * {
@@ -113,6 +117,21 @@
             opacity: 0;
             animation: fadeIn 0.6s forwards;
             margin: 20px auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="none" width="100" height="100"/><path fill="rgba(67, 97, 238, 0.05)" d="M20,20 Q40,5 60,20 T100,20 Q85,40 100,60 T100,100 Q60,85 20,100 T0,100 Q5,60 0,20 T20,20" /></svg>');
+            background-size: 200px;
+            opacity: 0.3;
+            z-index: -1;
         }
 
         .page.active {
@@ -130,6 +149,7 @@
             text-align: center;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         .header::before {
@@ -193,6 +213,10 @@
             margin-bottom: 20px;
             position: relative;
             display: inline-block;
+            background: linear-gradient(45deg, var(--primary-dark), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .welcome-text h2::after {
@@ -203,7 +227,7 @@
             transform: translateX(-50%);
             width: 100px;
             height: 4px;
-            background: var(--accent);
+            background: linear-gradient(90deg, var(--primary), var(--accent));
             border-radius: 2px;
         }
 
@@ -232,12 +256,28 @@
             font-size: 1.25rem;
             font-weight: 500;
             transition: var(--transition);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            box-shadow: var(--shadow-light);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 150px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .option-btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(145deg, var(--primary-light), var(--primary-dark));
+            opacity: 0;
+            transition: var(--transition);
+            z-index: -1;
         }
 
         .option-btn:hover {
@@ -245,9 +285,18 @@
             box-shadow: 0 15px 30px rgba(0,0,0,0.2);
         }
 
+        .option-btn:hover::before {
+            opacity: 1;
+        }
+
         .option-btn i {
             font-size: 2.5rem;
             margin-bottom: 15px;
+            transition: var(--transition);
+        }
+
+        .option-btn:hover i {
+            transform: scale(1.1);
         }
 
         .dhikr-container {
@@ -263,12 +312,15 @@
             align-items: center;
             margin-bottom: 30px;
             padding-bottom: 15px;
-            border-bottom: 2px solid var(--light);
+            border-bottom: 2px solid rgba(0,0,0,0.05);
         }
 
         .dhikr-header h2 {
             color: var(--primary-dark);
             font-size: 1.8rem;
+            background: linear-gradient(45deg, var(--primary-dark), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .back-btn {
@@ -308,6 +360,33 @@
             color: var(--text-primary);
             line-height: 1.8;
             max-width: 700px;
+            background: linear-gradient(45deg, #2d3748, #4a5568);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            padding: 20px;
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .dhikr-text::before {
+            content: """;
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            font-size: 4rem;
+            color: rgba(67, 97, 238, 0.1);
+            font-family: Georgia, serif;
+        }
+
+        .dhikr-text::after {
+            content: """;
+            position: absolute;
+            bottom: -30px;
+            left: 20px;
+            font-size: 4rem;
+            color: rgba(67, 97, 238, 0.1);
+            font-family: Georgia, serif;
+            transform: rotate(180deg);
         }
 
         .dhikr-reference {
@@ -315,6 +394,9 @@
             color: var(--text-secondary);
             margin-top: 15px;
             font-style: italic;
+            padding: 8px 15px;
+            background: rgba(67, 97, 238, 0.1);
+            border-radius: 10px;
         }
 
         .counter-container {
@@ -350,6 +432,9 @@
             text-align: center;
             font-weight: bold;
             color: var(--primary-dark);
+            background: rgba(67, 97, 238, 0.1);
+            border-radius: 15px;
+            padding: 10px 20px;
         }
 
         .reset-btn {
@@ -364,11 +449,29 @@
             margin-top: 20px;
             font-weight: 500;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reset-btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--danger);
+            transform: translateX(-100%);
+            transition: var(--transition);
+            z-index: -1;
         }
 
         .reset-btn:hover {
-            background: var(--danger);
             color: white;
+        }
+
+        .reset-btn:hover::before {
+            transform: translateX(0);
         }
 
         .footer {
@@ -384,13 +487,196 @@
             color: var(--primary);
             text-decoration: none;
             transition: var(--transition);
+            position: relative;
+        }
+
+        .footer a::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
         }
 
         .footer a:hover {
             color: var(--primary-dark);
-            text-decoration: underline;
         }
 
+        .footer a:hover::after {
+            width: 100%;
+        }
+
+        /* تحسينات المسبحة الإلكترونية */
+        .counter-page {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(212, 175, 55, 0.1));
+        }
+
+        .counter-page .header {
+            background: linear-gradient(to right, var(--gold), var(--gold-dark));
+        }
+
+        .dhikr-counter-display {
+            font-size: 5rem;
+            font-weight: bold;
+            color: var(--gold-dark);
+            margin: 20px 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .dhikr-counter-display.active {
+            transform: scale(1.1);
+        }
+
+        .dhikr-select-container {
+            margin-top: 30px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .dhikr-select {
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: 15px;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.8);
+            color: var(--text-primary);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: var(--transition);
+        }
+
+        .dhikr-select:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.3);
+            outline: none;
+        }
+
+        .selected-dhikr {
+            font-size: 1.8rem;
+            color: var(--gold-dark);
+            margin-top: 20px;
+            padding: 15px 30px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 15px;
+            border-left: 4px solid var(--gold);
+        }
+
+        /* تحسينات صفحة عن التطبيق */
+        .feature-list {
+            text-align: right;
+            list-style-type: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .feature-list li {
+            margin-bottom: 15px;
+            padding: 12px 20px;
+            background: rgba(67, 97, 238, 0.05);
+            border-radius: 12px;
+            transition: var(--transition);
+        }
+
+        .feature-list li:hover {
+            background: rgba(67, 97, 238, 0.1);
+            transform: translateX(-5px);
+        }
+
+        .feature-list i {
+            color: var(--success);
+            margin-left: 10px;
+        }
+
+        .how-to-list {
+            padding-right: 20px;
+        }
+
+        .how-to-list li {
+            margin-bottom: 15px;
+            padding: 12px;
+            border-bottom: 1px dashed rgba(0,0,0,0.1);
+        }
+
+        /* إضافة شريط التقدم */
+        .completion-bar {
+            width: 100%;
+            height: 10px;
+            background: rgba(0,0,0,0.05);
+            border-radius: 5px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .completion-progress {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 5px;
+            transition: var(--transition);
+        }
+
+        /* إشعار التذكير */
+        .reminder-notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            padding: 15px 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 1000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+            max-width: 350px;
+        }
+
+        .reminder-notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .reminder-notification i {
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+
+        .reminder-content {
+            flex: 1;
+        }
+
+        .reminder-content h3 {
+            margin-bottom: 5px;
+            color: var(--primary-dark);
+        }
+
+        .close-reminder {
+            background: transparent;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+
+        /* التأثيرات الجديدة */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* تحسينات للجوال */
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 2.2rem;
@@ -422,6 +708,10 @@
             .dhikr-text {
                 font-size: 1.5rem;
             }
+            
+            .dhikr-counter-display {
+                font-size: 3.5rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -451,10 +741,28 @@
                 font-size: 1.8rem;
                 min-width: 60px;
             }
+            
+            .reminder-notification {
+                right: 10px;
+                left: 10px;
+                max-width: none;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- إشعار التذكير -->
+    <div class="reminder-notification" id="reminderNotification">
+        <i class="fas fa-bell"></i>
+        <div class="reminder-content">
+            <h3>تذكير بالأذكار</h3>
+            <p>حان وقت أذكار المساء، احرص على ذكر الله في كل وقت</p>
+        </div>
+        <button class="close-reminder" onclick="closeReminder()">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    
     <!-- صفحة الترحيب -->
     <div id="welcomePage" class="page active">
         <div class="header">
@@ -488,7 +796,7 @@
                     <i class="fas fa-mosque"></i>
                     أذكار بعد الصلاة
                 </button>
-                <button class="option-btn" onclick="showPage('counterPage')">
+                <button class="option-btn pulse" onclick="showPage('counterPage')">
                     <i class="fas fa-hands-praying"></i>
                     مسبحة إلكترونية
                 </button>
@@ -496,6 +804,14 @@
                     <i class="fas fa-info-circle"></i>
                     عن التطبيق
                 </button>
+            </div>
+            
+            <div style="margin-top: 40px; background: rgba(67, 97, 238, 0.05); padding: 20px; border-radius: 15px;">
+                <h3 style="margin-bottom: 15px; color: var(--primary-dark);">تقدمك اليومي</h3>
+                <div class="completion-bar">
+                    <div class="completion-progress" id="dailyProgress" style="width: 30%"></div>
+                </div>
+                <p style="margin-top: 10px; font-size: 1.1rem;">أكملت 30% من أذكارك اليومية</p>
             </div>
         </div>
         
@@ -571,7 +887,7 @@
     </div>
     
     <!-- صفحة المسبحة الإلكترونية -->
-    <div id="counterPage" class="page">
+    <div id="counterPage" class="page counter-page">
         <div class="header">
             <h1>المسبحة الإلكترونية</h1>
             <p>عدّ أذكارك بسهولة مع المسبحة الرقمية</p>
@@ -588,25 +904,31 @@
             </div>
             
             <div class="dhikr-content">
-                <div class="counter-container">
-                    <button class="counter-btn" onclick="changeCount(-1)">-</button>
-                    <div class="counter-display">0</div>
-                    <button class="counter-btn" onclick="changeCount(1)">+</button>
-                </div>
-                <button class="reset-btn" onclick="resetCount()">إعادة العداد</button>
+                <div class="dhikr-counter-display" id="dhikrCounter">0</div>
                 
-                <div style="margin-top: 40px;">
-                    <p style="font-size: 1.2rem; margin-bottom: 20px;">اختر ذكراً:</p>
-                    <select id="dhikrSelect" style="padding: 12px 20px; border-radius: 15px; border: 2px solid var(--light); font-size: 1.1rem; width: 100%; max-width: 300px;">
+                <div class="counter-container">
+                    <button class="counter-btn" onclick="changeDhikrCount(-1)">-</button>
+                    <button class="counter-btn" style="width: 80px; height: 80px; font-size: 2.2rem;" onclick="changeDhikrCount(1)">
+                        <i class="fas fa-hand-pointer"></i>
+                    </button>
+                    <button class="counter-btn" onclick="changeDhikrCount(-1)">-</button>
+                </div>
+                <button class="reset-btn" onclick="resetDhikrCount()">إعادة العداد</button>
+                
+                <div class="dhikr-select-container">
+                    <p style="font-size: 1.2rem; margin-bottom: 10px;">اختر ذكراً:</p>
+                    <select id="dhikrSelect" class="dhikr-select">
                         <option>سبحان الله</option>
                         <option>الحمد لله</option>
                         <option>الله أكبر</option>
                         <option>لا إله إلا الله</option>
                         <option>أستغفر الله</option>
+                        <option>لا حول ولا قوة إلا بالله</option>
+                        <option>سبحان الله وبحمده</option>
                     </select>
                 </div>
                 
-                <div id="selectedDhikr" style="margin-top: 30px; font-size: 1.8rem; color: var(--primary-dark);"></div>
+                <div class="selected-dhikr" id="selectedDhikr">سبحان الله</div>
             </div>
         </div>
     </div>
@@ -633,21 +955,23 @@
                     <p>تطبيق "أذكار المسلم" هو تطبيق مجاني يهدف إلى تسهيل الوصول إلى الأذكار اليومية الثابتة من القرآن الكريم والسنة النبوية الصحيحة. تم تطويره بحيث يكون سهل الاستخدام ويحافظ على التراث الإسلامي الأصيل.</p>
                     
                     <h3 style="margin: 25px 0 15px; color: var(--primary);">مميزات التطبيق:</h3>
-                    <ul style="text-align: right; list-style-type: none; padding: 0;">
-                        <li style="margin-bottom: 10px; padding-right: 20px; position: relative;"><i class="fas fa-check-circle" style="color: var(--success); position: absolute; right: 0;"></i>أذكار الصباح والمساء</li>
-                        <li style="margin-bottom: 10px; padding-right: 20px; position: relative;"><i class="fas fa-check-circle" style="color: var(--success); position: absolute; right: 0;"></i>أذكار النوم والاستيقاظ</li>
-                        <li style="margin-bottom: 10px; padding-right: 20px; position: relative;"><i class="fas fa-check-circle" style="color: var(--success); position: absolute; right: 0;"></i>أذكار ما بعد الصلاة</li>
-                        <li style="margin-bottom: 10px; padding-right: 20px; position: relative;"><i class="fas fa-check-circle" style="color: var(--success); position: absolute; right: 0;"></i>مسبحة إلكترونية لعد الأذكار</li>
-                        <li style="margin-bottom: 10px; padding-right: 20px; position: relative;"><i class="fas fa-check-circle" style="color: var(--success); position: absolute; right: 0;"></i>واجهة مستخدم بسيطة وسهلة</li>
-                        <li style="margin-bottom: 10px; padding-right: 20px; position: relative;"><i class="fas fa-check-circle" style="color: var(--success); position: absolute; right: 0;"></i>مصادر موثوقة من القرآن والسنة</li>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i>أذكار الصباح والمساء</li>
+                        <li><i class="fas fa-check-circle"></i>أذكار النوم والاستيقاظ</li>
+                        <li><i class="fas fa-check-circle"></i>أذكار ما بعد الصلاة</li>
+                        <li><i class="fas fa-check-circle"></i>مسبحة إلكترونية لعد الأذكار</li>
+                        <li><i class="fas fa-check-circle"></i>واجهة مستخدم بسيطة وسهلة</li>
+                        <li><i class="fas fa-check-circle"></i>مصادر موثوقة من القرآن والسنة</li>
+                        <li><i class="fas fa-check-circle"></i>تتبع التقدم اليومي</li>
+                        <li><i class="fas fa-check-circle"></i>تذكيرات بالأذكار</li>
                     </ul>
                     
                     <h3 style="margin: 25px 0 15px; color: var(--primary);">كيفية الاستخدام:</h3>
-                    <ol style="text-align: right; padding-right: 20px;">
-                        <li style="margin-bottom: 10px;">اختر نوع الذكر الذي تريده من الصفحة الرئيسية</li>
-                        <li style="margin-bottom: 10px;">اقرأ الذكر بتدبر وخشوع</li>
-                        <li style="margin-bottom: 10px;">استخدم المسبحة الإلكترونية لعد الأذكار</li>
-                        <li style="margin-bottom: 10px;">احرص على المواظبة على الأذكار يومياً</li>
+                    <ol class="how-to-list">
+                        <li>اختر نوع الذكر الذي تريده من الصفحة الرئيسية</li>
+                        <li>اقرأ الذكر بتدبر وخشوع</li>
+                        <li>استخدم المسبحة الإلكترونية لعد الأذكار</li>
+                        <li>احرص على المواظبة على الأذكار يومياً</li>
                     </ol>
                 </div>
             </div>
@@ -690,6 +1014,27 @@
             });
         }
         
+        // متغيرات المسبحة الإلكترونية
+        let dhikrCount = 0;
+        const dhikrCounter = document.getElementById('dhikrCounter');
+        
+        function changeDhikrCount(amount) {
+            dhikrCount += amount;
+            if (dhikrCount < 0) dhikrCount = 0;
+            dhikrCounter.textContent = dhikrCount;
+            
+            // إضافة تأثير عند النقر
+            dhikrCounter.classList.add('active');
+            setTimeout(() => {
+                dhikrCounter.classList.remove('active');
+            }, 200);
+        }
+        
+        function resetDhikrCount() {
+            dhikrCount = 0;
+            dhikrCounter.textContent = dhikrCount;
+        }
+        
         // تحديث الذكر المختار في المسبحة
         const dhikrSelect = document.getElementById('dhikrSelect');
         const selectedDhikr = document.getElementById('selectedDhikr');
@@ -700,6 +1045,30 @@
         
         // تهيئة القيمة الأولى
         selectedDhikr.textContent = dhikrSelect.value;
+        
+        // إظهار إشعار التذكير بعد 5 ثواني
+        setTimeout(() => {
+            document.getElementById('reminderNotification').classList.add('show');
+        }, 5000);
+        
+        // إغلاق إشعار التذكير
+        function closeReminder() {
+            document.getElementById('reminderNotification').classList.remove('show');
+        }
+        
+        // جعل شاشة المسبحة قابلة للنقر في أي مكان لزيادة العداد
+        document.getElementById('counterPage').addEventListener('click', function(e) {
+            if (e.target.closest('.counter-btn') || e.target.closest('select')) return;
+            changeDhikrCount(1);
+        });
+        
+        // تحديث شريط التقدم بشكل عشوائي (في تطبيق حقيقي سيكون مرتبط بقاعدة بيانات)
+        setInterval(() => {
+            const progress = document.getElementById('dailyProgress');
+            const randomProgress = 30 + Math.floor(Math.random() * 20);
+            progress.style.width = randomProgress + '%';
+            progress.nextElementSibling.textContent = `أكملت ${randomProgress}% من أذكارك اليومية`;
+        }, 5000);
     </script>
 </body>
 </html>

@@ -3,130 +3,349 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>مسبحة المؤمن - واجهة الاستقبال</title>
+<title>المسبحة الإلكترونية الذكية</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cairo&display=swap');
-
-  body, html {
-    margin: 0; padding: 0; height: 100%;
+  body {
+    margin: 0; padding: 0;
     font-family: 'Cairo', sans-serif;
-    background: linear-gradient(135deg, #b3d4fc 0%, #e3f2fd 100%);
-    overflow: hidden;
+    background: linear-gradient(135deg, #a8dadc, #457b9d);
+    color: #1d3557;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
-
-  /* شاشة التحميل */
-  #loader {
+  header {
+    background: #1d3557;
+    color: #f1faee;
+    padding: 1rem;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 700;
+    box-shadow: 0 4px 8px rgba(29, 53, 87, 0.6);
+  }
+  main {
+    flex-grow: 1;
+    max-width: 900px;
+    margin: 1rem auto 2rem;
+    background: #f1faee;
+    border-radius: 12px;
+    padding: 1rem 2rem 2rem;
+    box-shadow: 0 0 20px rgba(29, 53, 87, 0.2);
+  }
+  .nav-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+  .nav-buttons button {
+    background: #457b9d;
+    border: none;
+    color: #f1faee;
+    font-size: 1.1rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    min-width: 140px;
+  }
+  .nav-buttons button:hover, .nav-buttons button.active {
+    background: #1d3557;
+  }
+  section {
+    display: none;
+  }
+  section.active {
+    display: block;
+  }
+  .zikr {
+    margin-bottom: 1rem;
+    background: #a8dadc;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 5px rgba(29,53,87,0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .zikr-text {
+    font-size: 1.2rem;
+    flex: 1;
+    line-height: 1.5;
+    margin-left: 1rem;
+  }
+  .counts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    user-select: none;
+  }
+  .counts .remaining {
+    font-size: 1rem;
+    color: #457b9dcc;
+    margin-bottom: 6px;
+  }
+  .counts button {
+    font-size: 1.2rem;
+    background: #457b9d;
+    border: none;
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    color: #f1faee;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.3s ease;
+  }
+  .counts button:active {
+    background: #1d3557;
+  }
+  .counts button.finished {
+    background: #6c757d;
+    cursor: default;
+  }
+  footer {
+    text-align: center;
+    padding: 1rem;
+    color: #1d3557cc;
+    font-size: 0.9rem;
+  }
+  /* Preloader styles */
+  #preloader {
     position: fixed;
-    top:0; left:0; width: 100%; height: 100%;
-    background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, #a8dadc, #457b9d);
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #fff;
-    font-size: 28px;
-    text-shadow: 0 0 10px rgba(0,0,0,0.7);
-    z-index: 1000;
+    z-index: 9999;
     flex-direction: column;
   }
-  #loader .moon {
-    font-size: 60px;
-    margin-bottom: 10px;
-    animation: moonGlow 2s infinite alternate;
-  }
-  @keyframes moonGlow {
-    0% { text-shadow: 0 0 10px #fff; }
-    100% { text-shadow: 0 0 25px #ffd700; }
-  }
-
-  /* الواجهة الرئيسية */
-  .container {
-    display: none;
-    height: 100vh;
-    padding: 30px 20px;
-    box-sizing: border-box;
-    text-align: center;
-  }
-
-  h1 {
+  #preloader img {
+    max-width: 150px;
     margin-bottom: 15px;
-    font-size: 36px;
-    color: #0d47a1;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
   }
-
-  p.subtitle {
-    font-size: 20px;
-    color: #1565c0;
-    margin-bottom: 40px;
+  #preloader p {
+    color: #f1faee;
+    font-size: 1.3rem;
     font-weight: 600;
   }
-
-  .buttons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
+  /* Preloader hidden */
+  .hidden {
+    display: none !important;
   }
-
-  button {
-    background: #2196f3;
-    border: none;
-    color: white;
-    padding: 18px 30px;
-    font-size: 20px;
-    border-radius: 12px;
-    cursor: pointer;
-    min-width: 200px;
-    transition: background 0.3s ease;
-    box-shadow: 0 5px 15px rgba(33, 150, 243, 0.4);
-  }
-
-  button:hover {
-    background: #1976d2;
-  }
-
-  /* استجابة الشاشة */
-  @media(max-width: 500px) {
-    button {
-      min-width: 140px;
-      padding: 14px 20px;
-      font-size: 16px;
-    }
+  /* Audio controls style */
+  audio {
+    display: none;
   }
 </style>
 </head>
 <body>
 
-<div id="loader">
-  <div class="moon">🌙</div>
-  جاري التحميل...
+<div id="preloader">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Al-Masjid_an-Nabawi_Medina_Mosque_Logo.svg/120px-Al-Masjid_an-Nabawi_Medina_Mosque_Logo.svg.png" alt="مسجد" />
+  <p>جاري تحميل الموقع ...</p>
 </div>
 
-<div class="container" id="main-content">
-  <h1>✨ أهلاً بك في مسبحة المؤمن</h1>
-  <p class="subtitle">اختر القسم الذي تريد:</p>
-  <div class="buttons">
-    <button onclick="goToSection('tasbeeh')">▶️ المسبحة الإلكترونية</button>
-    <button onclick="goToSection('morning')">🌄 أذكار الصباح</button>
-    <button onclick="goToSection('evening')">🌇 أذكار المساء</button>
-    <button onclick="goToSection('sleep')">💤 أذكار النوم</button>
-    <button onclick="goToSection('afterPrayer')">🙏 أذكار بعد الصلاة</button>
-  </div>
-</div>
+<header>المسبحة الإلكترونية الذكية</header>
+
+<main>
+  <nav class="nav-buttons" role="navigation" aria-label="أقسام الأذكار">
+    <button class="active" data-target="morning">أذكار الصباح</button>
+    <button data-target="evening">أذكار المساء</button>
+    <button data-target="afterPrayer">أذكار بعد الصلاة</button>
+    <button data-target="sleep">أذكار النوم</button>
+    <button data-target="misbaha">المسبحة الإلكترونية</button>
+  </nav>
+
+  <section id="morning" class="active" aria-label="أذكار الصباح">
+    <!-- Morning Azkar -->
+  </section>
+
+  <section id="evening" aria-label="أذكار المساء">
+    <!-- Evening Azkar -->
+  </section>
+
+  <section id="afterPrayer" aria-label="أذكار بعد الصلاة">
+    <!-- After Prayer Azkar -->
+  </section>
+
+  <section id="sleep" aria-label="أذكار النوم">
+    <!-- Sleep Azkar -->
+  </section>
+
+  <section id="misbaha" aria-label="المسبحة الإلكترونية">
+    <!-- Electronic Misbaha -->
+  </section>
+</main>
+
+<footer>جميع الحقوق محفوظة © 2025</footer>
+
+<audio id="audioFatiha" src="https://cdn.islamic.network/quran/audio/128/ar.yasser_dosari/1.mp3" preload="auto"></audio>
+<audio id="audioAyatKursi" src="https://cdn.islamic.network/quran/audio/128/ar.yasser_dosari/2.mp3" preload="auto"></audio>
+<audio id="audioMuawadhat" src="https://cdn.islamic.network/quran/audio/128/ar.yasser_dosari/3.mp3" preload="auto"></audio>
+<audio id="audioKhatim" src="https://cdn.islamic.network/quran/audio/128/ar.yasser_dosari/4.mp3" preload="auto"></audio>
 
 <script>
-  // تحميل واظهار الواجهة بعد 2.5 ثانية
-  window.onload = () => {
-    setTimeout(() => {
-      document.getElementById('loader').style.display = 'none';
-      document.getElementById('main-content').style.display = 'block';
-    }, 2500);
+  // Preloader hide after load
+  window.addEventListener('load', () => {
+    document.getElementById('preloader').classList.add('hidden');
+  });
+
+  // Sections and buttons
+  const buttons = document.querySelectorAll('.nav-buttons button');
+  const sections = document.querySelectorAll('main section');
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const target = btn.getAttribute('data-target');
+      sections.forEach(s => s.classList.remove('active'));
+      document.getElementById(target).classList.add('active');
+    });
+  });
+
+  // Azkar Data with counts and audio play triggers
+  const azkarData = {
+    morning: [
+      {
+        text: 'اللّهُ لا إِلٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ',
+        times: 1,
+        audioId: 'audioAyatKursi'
+      },
+      {
+        text: 'سُبْحَانَ اللَّهِ وَبِحَمْدِهِ',
+        times: 100
+      },
+      {
+        text: 'أَسْتَغْفِرُ اللَّهَ',
+        times: 100
+      },
+      {
+        text: 'اللّهُ أَكْبَرُ',
+        times: 100
+      },
+      {
+        text: 'لا إله إلا الله وحده لا شريك له، له الملك وله الحمد وهو على كل شيء قدير',
+        times: 1,
+        audioId: 'audioFatiha'
+      },
+      // إضافة المزيد حسب المطلوب...
+    ],
+    evening: [
+      {
+        text: 'اللّهُ لا إِلٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ',
+        times: 1,
+        audioId: 'audioAyatKursi'
+      },
+      {
+        text: 'سُبْحَانَ اللَّهِ وَبِحَمْدِهِ',
+        times: 100
+      },
+      // إضافة المزيد حسب المطلوب...
+    ],
+    afterPrayer: [
+      {
+        text: 'أستغفر الله',
+        times: 3
+      },
+      {
+        text: 'اللّهُ أَكْبَرُ',
+        times: 3
+      },
+      // إضافة المزيد حسب المطلوب...
+    ],
+    sleep: [
+      {
+        text: 'بسمك ربي وضعت جنبي',
+        times: 1
+      },
+      {
+        text: 'اللّهُ لا إِلٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ',
+        times: 1,
+        audioId: 'audioAyatKursi'
+      },
+      // إضافة المزيد حسب المطلوب...
+    ],
+    misbaha: [
+      {
+        text: 'سُبْحَانَ اللَّهِ',
+        times: 33
+      },
+      {
+        text: 'الْحَمْدُ لِلَّهِ',
+        times: 33
+      },
+      {
+        text: 'اللّهُ أَكْبَرُ',
+        times: 34
+      }
+    ]
   };
 
-  function goToSection(section) {
-    alert('الانتقال إلى القسم: ' + section + ' (هذه وظيفة تجريبية)');
-    // هنا تضع الكود لفتح القسم المطلوب أو تغيّر المحتوى حسب التصميم النهائي
+  function createZikrItem(zikr) {
+    const container = document.createElement('div');
+    container.className = 'zikr';
+
+    const text = document.createElement('div');
+    text.className = 'zikr-text';
+    text.textContent = zikr.text;
+
+    const counts = document.createElement('div');
+    counts.className = 'counts';
+
+    const remaining = document.createElement('div');
+    remaining.className = 'remaining';
+    remaining.textContent = zikr.times;
+
+    const button = document.createElement('button');
+    button.textContent = '-';
+    button.title = 'إنقاص العدد';
+    button.disabled = zikr.times === 0;
+
+    button.addEventListener('click', () => {
+      if (remaining.textContent > 0) {
+        remaining.textContent--;
+        if (remaining.textContent == 0) {
+          button.disabled = true;
+          button.classList.add('finished');
+        }
+      }
+      // تشغيل الصوت إذا موجود
+      if (zikr.audioId && remaining.textContent == 0) {
+        const audio = document.getElementById(zikr.audioId);
+        if(audio){
+          audio.currentTime = 0;
+          audio.play();
+        }
+      }
+    });
+
+    counts.appendChild(remaining);
+    counts.appendChild(button);
+
+    container.appendChild(text);
+    container.appendChild(counts);
+
+    return container;
   }
+
+  // تحميل الأذكار في كل قسم
+  function loadAzkar(sectionId, azkarList) {
+    const section = document.getElementById(sectionId);
+    section.innerHTML = '';
+    azkarList.forEach(zikr => {
+      section.appendChild(createZikrItem(zikr));
+    });
+  }
+
+  // تحميل كل الأقسام
+  for(const sectionId in azkarData) {
+    loadAzkar(sectionId, azkarData[sectionId]);
+  }
+
 </script>
 
 </body>

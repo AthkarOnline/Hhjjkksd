@@ -236,6 +236,7 @@
             overflow: hidden;
             box-shadow: var(--shadow);
             transition: var(--transition);
+            cursor: pointer;
         }
 
         .feature-card:hover {
@@ -433,7 +434,7 @@
             color: var(--gray-color);
             cursor: pointer;
             transition: var(--transition);
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 5px;
             padding: 0.3rem 0.8rem;
@@ -873,105 +874,202 @@
             animation: fadeIn 0.5s ease;
         }
         
-        /* Favorites Section */
-        .favorites-section {
-            background: linear-gradient(135deg, #fff9f0 0%, #fff4e6 100%);
+        /* Settings Section */
+        .settings-section {
+            background: linear-gradient(135deg, #f5f7ff 0%, #e8ebfa 100%);
         }
         
-        .favorites-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-        
-        /* Profile Section */
-        .profile-section {
-            background: linear-gradient(135deg, #f0f9ff 0%, #e6f3ff 100%);
-        }
-        
-        .profile-container {
+        .settings-container {
             max-width: 800px;
             margin: 0 auto;
             background: white;
             border-radius: 15px;
             box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+        
+        .settings-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .settings-body {
             padding: 2rem;
         }
         
-        .profile-header {
-            display: flex;
-            align-items: center;
-            gap: 20px;
+        .settings-group {
             margin-bottom: 2rem;
             padding-bottom: 1.5rem;
             border-bottom: 1px solid #eee;
         }
         
-        .profile-avatar {
-            width: 100px;
-            height: 100px;
+        .settings-group h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .settings-group h3 i {
+            width: 35px;
+            height: 35px;
+            background: #f0f9f4;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 2.5rem;
-            font-weight: bold;
-        }
-        
-        .profile-info h2 {
             color: var(--primary-color);
-            margin-bottom: 0.5rem;
         }
         
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-        
-        .stat-card {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 1.5rem;
-            text-align: center;
-            box-shadow: var(--shadow);
-        }
-        
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
-        }
-        
-        .stat-label {
-            color: var(--gray-color);
-        }
-        
-        /* Rosary Options */
-        .rosary-options {
+        .setting-item {
             display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 1rem;
         }
         
-        .rosary-option {
-            padding: 0.8rem 1.5rem;
-            background: white;
-            border: 2px solid #ddd;
-            border-radius: 50px;
+        .setting-info {
+            flex: 1;
+        }
+        
+        .setting-info h4 {
+            margin-bottom: 0.3rem;
+            color: var(--dark-color);
+        }
+        
+        .setting-info p {
+            color: var(--gray-color);
+            font-size: 0.9rem;
+        }
+        
+        .setting-control {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: var(--primary-color);
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        .avatar-options {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+        
+        .avatar-option {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
             cursor: pointer;
             transition: var(--transition);
+            border: 2px solid transparent;
         }
         
-        .rosary-option.active {
+        .avatar-option:hover, .avatar-option.selected {
             border-color: var(--primary-color);
-            background-color: var(--primary-color);
-            color: white;
+            transform: scale(1.1);
+        }
+        
+        .color-palette {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+        
+        .color-option {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+        
+        .color-option:hover, .color-option.selected {
+            border-color: #333;
+            transform: scale(1.1);
+        }
+        
+        .theme-options {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+        
+        .theme-option {
+            padding: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            text-align: center;
+            flex: 1;
+            min-width: 120px;
+        }
+        
+        .theme-option:hover, .theme-option.selected {
+            border-color: var(--primary-color);
+        }
+        
+        .theme-option i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
         }
         
         /* Empty State */
@@ -1004,8 +1102,7 @@
                     <li><a href="#" class="nav-link active" data-section="home-section">الرئيسية</a></li>
                     <li><a href="#" class="nav-link" data-section="adhkar-section">الأذكار</a></li>
                     <li><a href="#" class="nav-link" data-section="rosary-section">المسبحة</a></li>
-                    <li><a href="#" class="nav-link" data-section="favorites-section">المفضلة</a></li>
-                    <li><a href="#" class="nav-link" data-section="profile-section">الملف الشخصي</a></li>
+                    <li><a href="#" class="nav-link" data-section="settings-section">الإعدادات</a></li>
                 </ul>
             </nav>
             
@@ -1058,7 +1155,7 @@
                 <h2 class="section-title">مميزات موقعنا</h2>
                 
                 <div class="features-grid">
-                    <div class="feature-card">
+                    <div class="feature-card" data-section="adhkar-section">
                         <div class="feature-icon">
                             <i class="fas fa-book-quran"></i>
                         </div>
@@ -1068,7 +1165,7 @@
                         </div>
                     </div>
                     
-                    <div class="feature-card">
+                    <div class="feature-card" data-section="rosary-section">
                         <div class="feature-icon">
                             <i class="fas fa-mobile-alt"></i>
                         </div>
@@ -1078,7 +1175,7 @@
                         </div>
                     </div>
                     
-                    <div class="feature-card">
+                    <div class="feature-card" data-section="settings-section">
                         <div class="feature-icon">
                             <i class="fas fa-bell"></i>
                         </div>
@@ -1088,7 +1185,7 @@
                         </div>
                     </div>
                     
-                    <div class="feature-card">
+                    <div class="feature-card" data-section="settings-section">
                         <div class="feature-icon">
                             <i class="fas fa-chart-line"></i>
                         </div>
@@ -1098,7 +1195,7 @@
                         </div>
                     </div>
                     
-                    <div class="feature-card">
+                    <div class="feature-card" data-section="settings-section">
                         <div class="feature-icon">
                             <i class="fas fa-users"></i>
                         </div>
@@ -1108,7 +1205,7 @@
                         </div>
                     </div>
                     
-                    <div class="feature-card">
+                    <div class="feature-card" data-section="settings-section">
                         <div class="feature-icon">
                             <i class="fas fa-moon"></i>
                         </div>
@@ -1131,12 +1228,6 @@
                         <h3>سبح معنا واستغفر ربك</h3>
                     </div>
                     <div class="rosary-body">
-                        <div class="rosary-options">
-                            <div class="rosary-option active" data-dhikr="سُبْحَانَ اللَّهِ">التسبيح</div>
-                            <div class="rosary-option" data-dhikr="الْحَمْدُ لِلَّهِ">الحمد</div>
-                            <div class="rosary-option" data-dhikr="اللَّهُ أَكْبَرُ">التكبير</div>
-                        </div>
-                        
                         <div class="rosary-display">
                             <div id="rosary-text">سُبْحَانَ اللَّهِ</div>
                         </div>
@@ -1198,53 +1289,170 @@
             </div>
         </section>
 
-        <!-- Favorites Section -->
-        <section class="favorites-section section" id="favorites-section">
+        <!-- Settings Section -->
+        <section class="settings-section section" id="settings-section">
             <div class="container">
-                <div class="favorites-header">
-                    <h2 class="section-title">أذكاري المفضلة</h2>
-                    <p>مجموعة الأذكار والأدعية التي حفظتها كمفضلة</p>
-                </div>
+                <h2 class="section-title">إعدادات الموقع</h2>
                 
-                <div class="adhkar-container" id="favorites-container">
-                    <!-- Favorites will be loaded here -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Profile Section -->
-        <section class="profile-section section" id="profile-section">
-            <div class="container">
-                <h2 class="section-title">الملف الشخصي</h2>
-                
-                <div class="profile-container">
-                    <div class="profile-header">
-                        <div class="profile-avatar" id="profile-avatar">م</div>
-                        <div class="profile-info">
-                            <h2 id="profile-name">محمد أحمد</h2>
-                            <p>عضو منذ <span id="join-date">١ يناير ٢٠٢٣</span></p>
-                        </div>
+                <div class="settings-container">
+                    <div class="settings-header">
+                        <h3>تخصيص تجربتك في موقع أذكار المسلم</h3>
                     </div>
-                    
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-number" id="total-dhikr">1,243</div>
-                            <div class="stat-label">عدد الأذكار</div>
+                    <div class="settings-body">
+                        <!-- Account Settings -->
+                        <div class="settings-group">
+                            <h3><i class="fas fa-user-cog"></i> إعدادات الحساب</h3>
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>تغيير الاسم</h4>
+                                    <p>تحديث اسمك المعروض في الموقع</p>
+                                </div>
+                                <div class="setting-control">
+                                    <button class="btn btn-outline">تغيير</button>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>تغيير كلمة المرور</h4>
+                                    <p>تحديث كلمة المرور الخاصة بحسابك</p>
+                                </div>
+                                <div class="setting-control">
+                                    <button class="btn btn-outline">تغيير</button>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>تغيير البريد الإلكتروني</h4>
+                                    <p>تحديث البريد الإلكتروني المرتبط بحسابك</p>
+                                </div>
+                                <div class="setting-control">
+                                    <button class="btn btn-outline">تغيير</button>
+                                </div>
+                            </div>
                         </div>
                         
-                        <div class="stat-card">
-                            <div class="stat-number" id="favorites-count">27</div>
-                            <div class="stat-label">الأذكار المفضلة</div>
+                        <!-- Profile Picture Settings -->
+                        <div class="settings-group">
+                            <h3><i class="fas fa-user-circle"></i> صورة الحساب</h3>
+                            <p>اختر صورة لحسابك من الخيارات التالية:</p>
+                            <div class="avatar-options">
+                                <div class="avatar-option selected" style="background-color: #f1c40f;">م</div>
+                                <div class="avatar-option" style="background-color: #3498db;">ع</div>
+                                <div class="avatar-option" style="background-color: #e74c3c;">أ</div>
+                                <div class="avatar-option" style="background-color: #2ecc71;">خ</div>
+                                <div class="avatar-option" style="background-color: #9b59b6;">س</div>
+                            </div>
                         </div>
                         
-                        <div class="stat-card">
-                            <div class="stat-number" id="rosary-count">5,842</div>
-                            <div class="stat-label">عدد التسبيحات</div>
+                        <!-- Notification Settings -->
+                        <div class="settings-group">
+                            <h3><i class="fas fa-bell"></i> الإشعارات</h3>
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>تذكير بالأذكار</h4>
+                                    <p>استقبال تذكيرات بأذكار الصباح والمساء</p>
+                                </div>
+                                <div class="setting-control">
+                                    <label class="switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>تنبيهات المسبحة</h4>
+                                    <p>تذكيرك بمواصلة المسبحة اليومية</p>
+                                </div>
+                                <div class="setting-control">
+                                    <label class="switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>إشعارات التحديثات</h4>
+                                    <p>تلقي إشعارات حول التحديثات الجديدة</p>
+                                </div>
+                                <div class="setting-control">
+                                    <label class="switch">
+                                        <input type="checkbox">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                         
-                        <div class="stat-card">
-                            <div class="stat-number" id="streak-days">12</div>
-                            <div class="stat-label">أيام متتالية</div>
+                        <!-- Theme Settings -->
+                        <div class="settings-group">
+                            <h3><i class="fas fa-palette"></i> المظهر</h3>
+                            <p>اختر اللون الرئيسي للموقع:</p>
+                            <div class="color-palette">
+                                <div class="color-option selected" style="background-color: #2c7744;"></div>
+                                <div class="color-option" style="background-color: #3498db;"></div>
+                                <div class="color-option" style="background-color: #9b59b6;"></div>
+                                <div class="color-option" style="background-color: #e74c3c;"></div>
+                                <div class="color-option" style="background-color: #1abc9c;"></div>
+                            </div>
+                            
+                            <p style="margin-top: 1.5rem;">اختر نمط المظهر:</p>
+                            <div class="theme-options">
+                                <div class="theme-option selected">
+                                    <i class="fas fa-sun"></i>
+                                    <div>فاتح</div>
+                                </div>
+                                <div class="theme-option">
+                                    <i class="fas fa-moon"></i>
+                                    <div>داكن</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Additional Settings -->
+                        <div class="settings-group">
+                            <h3><i class="fas fa-cog"></i> إعدادات أخرى</h3>
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>لغة الموقع</h4>
+                                    <p>تغيير لغة واجهة المستخدم</p>
+                                </div>
+                                <div class="setting-control">
+                                    <select class="form-control">
+                                        <option>العربية (الافتراضية)</option>
+                                        <option>English</option>
+                                        <option>Français</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>وضع التركيز</h4>
+                                    <p>تمكين وضع القراءة المريح</p>
+                                </div>
+                                <div class="setting-control">
+                                    <label class="switch">
+                                        <input type="checkbox">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>نسخ احتياطي للبيانات</h4>
+                                    <p>حفظ نسخة احتياطية من أذكارك المفضلة</p>
+                                </div>
+                                <div class="setting-control">
+                                    <button class="btn btn-outline">حفظ الآن</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1274,8 +1482,7 @@
                         <li><a href="#"><i class="fas fa-angle-left"></i> الرئيسية</a></li>
                         <li><a href="#"><i class="fas fa-angle-left"></i> الأذكار</a></li>
                         <li><a href="#"><i class="fas fa-angle-left"></i> المسبحة</a></li>
-                        <li><a href="#"><i class="fas fa-angle-left"></i> المفضلة</a></li>
-                        <li><a href="#"><i class="fas fa-angle-left"></i> الملف الشخصي</a></li>
+                        <li><a href="#"><i class="fas fa-angle-left"></i> الإعدادات</a></li>
                     </ul>
                 </div>
                 
@@ -1398,17 +1605,9 @@
         const username = document.getElementById('username');
         const logoutBtn = document.getElementById('logout-btn');
         const adhkarContainer = document.getElementById('adhkar-container');
-        const favoritesContainer = document.getElementById('favorites-container');
         const pagination = document.getElementById('pagination');
         const sections = document.querySelectorAll('.section');
         const navLinks = document.querySelectorAll('.nav-link');
-        const profileAvatar = document.getElementById('profile-avatar');
-        const profileName = document.getElementById('profile-name');
-        const joinDate = document.getElementById('join-date');
-        const totalDhikr = document.getElementById('total-dhikr');
-        const favoritesCount = document.getElementById('favorites-count');
-        const rosaryCountStat = document.getElementById('rosary-count');
-        const streakDays = document.getElementById('streak-days');
 
         // ====== Notification System ======
         function showNotification(message, isSuccess = true) {
@@ -1470,8 +1669,6 @@
             currentUser = user;
             localStorage.setItem('currentUser', JSON.stringify(user));
             updateUIForUser();
-            loadFavorites();
-            updateProfile();
         }
 
         function logoutUser() {
@@ -1479,7 +1676,6 @@
             localStorage.removeItem('currentUser');
             updateUIForUser();
             showNotification('تم تسجيل الخروج بنجاح');
-            // Switch to home section after logout
             showSection('home-section');
         }
 
@@ -1507,232 +1703,9 @@
             
             document.getElementById(sectionId).classList.add('active');
             
-            // Update active nav link
             document.querySelector(`.nav-link[data-section="${sectionId}"]`).classList.add('active');
             
-            // Special handling for sections
-            if (sectionId === 'favorites-section') {
-                renderFavorites();
-            } else if (sectionId === 'profile-section') {
-                updateProfile();
-            }
-        }
-
-        // ====== Favorites System ======
-        function toggleFavorite(dhikrId) {
-            if (!currentUser) {
-                showNotification('يجب تسجيل الدخول لإضافة إلى المفضلة', false);
-                return;
-            }
-            
-            const users = JSON.parse(localStorage.getItem('users')) || {};
-            const user = users[currentUser.email];
-            
-            const index = user.favorites.indexOf(dhikrId);
-            
-            if (index === -1) {
-                user.favorites.push(dhikrId);
-                showNotification('تمت إضافة الذكر إلى المفضلة');
-            } else {
-                user.favorites.splice(index, 1);
-                showNotification('تمت إزالة الذكر من المفضلة');
-            }
-            
-            // Update localStorage
-            users[currentUser.email] = user;
-            localStorage.setItem('users', JSON.stringify(users));
-            
-            // Update current session
-            currentUser.favorites = user.favorites;
-            localStorage.setItem('currentUser', JSON.stringify(currentUser));
-            
-            // Update UI
-            renderAdhkar();
-            if (document.getElementById('favorites-section').classList.contains('active')) {
-                renderFavorites();
-            }
-        }
-
-        function loadFavorites() {
-            if (currentUser) {
-                favorites = currentUser.favorites || [];
-            } else {
-                favorites = [];
-            }
-        }
-
-        function isFavorite(dhikrId) {
-            return favorites.includes(dhikrId);
-        }
-
-        function renderFavorites() {
-            favoritesContainer.innerHTML = '';
-            
-            if (!currentUser) {
-                favoritesContainer.innerHTML = `
-                    <div class="empty-state">
-                        <i class="fas fa-heart-broken"></i>
-                        <h3>لم تقم بتسجيل الدخول بعد</h3>
-                        <p>سجل الدخول لعرض أذكارك المفضلة</p>
-                        <button class="btn btn-primary" id="login-from-favorites" style="margin-top: 1rem;">
-                            تسجيل الدخول
-                        </button>
-                    </div>
-                `;
-                
-                document.getElementById('login-from-favorites').addEventListener('click', () => {
-                    document.getElementById('login-modal').classList.add('show');
-                });
-                return;
-            }
-            
-            if (favorites.length === 0) {
-                favoritesContainer.innerHTML = `
-                    <div class="empty-state">
-                        <i class="fas fa-heart"></i>
-                        <h3>لا توجد أذكار في المفضلة</h3>
-                        <p>يمكنك إضافة أذكار إلى المفضلة بالنقر على أيقونة القلب</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            favorites.forEach(dhikrId => {
-                const dhikr = adhkarData.find(d => d.id === dhikrId);
-                if (dhikr) {
-                    const dhikrCard = document.createElement('div');
-                    dhikrCard.className = 'dhikr-card';
-                    dhikrCard.innerHTML = `
-                        <div class="dhikr-counter">${dhikr.id}</div>
-                        <div class="dhikr-text">${dhikr.text}</div>
-                        <div class="dhikr-reference">${dhikr.reference}</div>
-                        <div class="dhikr-actions">
-                            <button class="action-btn favorite-btn" data-id="${dhikr.id}">
-                                <i class="fas fa-heart" style="color: #e74c3c;"></i> إزالة من المفضلة
-                            </button>
-                            <button class="action-btn share-btn">
-                                <i class="fas fa-share-alt"></i> مشاركة
-                            </button>
-                            <button class="action-btn listen-btn">
-                                <i class="fas fa-volume-up"></i> استماع
-                            </button>
-                        </div>
-                    `;
-                    favoritesContainer.appendChild(dhikrCard);
-                }
-            });
-            
-            // Add event listeners for the favorite buttons in favorites section
-            document.querySelectorAll('.favorite-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const dhikrId = parseInt(e.currentTarget.dataset.id);
-                    toggleFavorite(dhikrId);
-                });
-            });
-            
-            // Add event listeners for share and listen buttons
-            addDhikrActionListeners(favoritesContainer);
-        }
-
-        // ====== Sharing System ======
-        function shareDhikr(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                showNotification('تم نسخ الذكر إلى الحافظة');
-            }).catch(err => {
-                showNotification('فشل نسخ الذكر: ' + err.message, false);
-            });
-        }
-
-        // ====== Listening System ======
-        function speakDhikr(text) {
-            // Check if browser supports speech synthesis
-            if (!('speechSynthesis' in window)) {
-                showNotification('المتصفح لا يدعم خاصية القراءة الصوتية', false);
-                return;
-            }
-            
-            // Create a new utterance
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'ar-SA'; // Arabic (Saudi Arabia)
-            utterance.rate = 0.9; // Slightly slower than normal
-            
-            // Show loading state
-            const originalText = event.target.innerHTML;
-            event.target.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التحميل';
-            event.target.disabled = true;
-            
-            // Speak the text
-            speechSynthesis.speak(utterance);
-            
-            // Reset button after speech ends
-            utterance.onend = function() {
-                event.target.innerHTML = originalText;
-                event.target.disabled = false;
-            };
-            
-            // Handle errors
-            utterance.onerror = function(event) {
-                showNotification('حدث خطأ أثناء القراءة: ' + event.error, false);
-                event.target.innerHTML = originalText;
-                event.target.disabled = false;
-            };
-        }
-
-        // ====== Rosary System ======
-        function updateRosary() {
-            const counter = document.getElementById('counter');
-            const rosaryText = document.getElementById('rosary-text');
-            
-            // Load from localStorage if available
-            const savedRosary = localStorage.getItem('rosary');
-            if (savedRosary) {
-                const data = JSON.parse(savedRosary);
-                rosaryCount = data.count;
-                rosaryDhikr = data.dhikr;
-            }
-            
-            counter.textContent = rosaryCount;
-            rosaryText.textContent = rosaryDhikr;
-            
-            // Update active rosary option
-            document.querySelectorAll('.rosary-option').forEach(option => {
-                option.classList.remove('active');
-                if (option.dataset.dhikr === rosaryDhikr) {
-                    option.classList.add('active');
-                }
-            });
-        }
-
-        function saveRosary() {
-            const data = {
-                count: rosaryCount,
-                dhikr: rosaryDhikr
-            };
-            localStorage.setItem('rosary', JSON.stringify(data));
-        }
-
-        // ====== Profile System ======
-        function updateProfile() {
-            if (!currentUser) {
-                return;
-            }
-            
-            profileAvatar.textContent = currentUser.name.charAt(0).toUpperCase();
-            profileName.textContent = currentUser.name;
-            
-            // Format join date
-            const joinDateObj = new Date(currentUser.createdAt);
-            joinDate.textContent = joinDateObj.toLocaleDateString('ar-SA', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
-            
-            // Update stats
-            totalDhikr.textContent = currentUser.totalDhikr || 0;
-            favoritesCount.textContent = currentUser.favorites ? currentUser.favorites.length : 0;
-            rosaryCountStat.textContent = currentUser.rosaryCount || 0;
-            streakDays.textContent = currentUser.streak || 0;
+            window.scrollTo(0, 0);
         }
 
         // ====== Adhkar Data ======
@@ -1770,19 +1743,20 @@
                 'أَسْتَغْفِرُ اللَّهَ (ثَلَاثًا) اللَّهُمَّ أَنْتَ السَّلَامُ وَمِنْكَ السَّلَامُ، تَبَارَكْتَ يَا ذَا الْجَلَالِ وَالْإِكْرَامِ'
             ];
             
-            for (let i = 1; i <= 100; i++) {
+            // Generate 2500 adhkar
+            for (let i = 1; i <= 2500; i++) {
                 let category, text;
                 
-                if (i <= 20) {
+                if (i <= 500) {
                     category = 'morning';
                     text = morningTexts[Math.floor(Math.random() * morningTexts.length)];
-                } else if (i <= 40) {
+                } else if (i <= 1000) {
                     category = 'evening';
                     text = eveningTexts[Math.floor(Math.random() * eveningTexts.length)];
-                } else if (i <= 60) {
+                } else if (i <= 1500) {
                     category = 'sleep';
                     text = sleepTexts[Math.floor(Math.random() * sleepTexts.length)];
-                } else if (i <= 80) {
+                } else if (i <= 2000) {
                     category = 'wakeup';
                     text = wakeupTexts[Math.floor(Math.random() * wakeupTexts.length)];
                 } else {
@@ -1805,12 +1779,10 @@
         function getFilteredAdhkar() {
             let filtered = adhkarData;
             
-            // Filter by category
             if (currentCategory) {
                 filtered = filtered.filter(adhkar => adhkar.category === currentCategory);
             }
             
-            // Filter by search term
             if (currentSearchTerm) {
                 const term = currentSearchTerm.toLowerCase();
                 filtered = filtered.filter(adhkar => 
@@ -1826,12 +1798,10 @@
             const filtered = getFilteredAdhkar();
             totalPages = Math.ceil(filtered.length / ADHKAR_PER_PAGE);
             
-            // Calculate start and end index
             const startIndex = (currentPage - 1) * ADHKAR_PER_PAGE;
             const endIndex = startIndex + ADHKAR_PER_PAGE;
             const adhkarToShow = filtered.slice(startIndex, endIndex);
             
-            // Clear container
             adhkarContainer.innerHTML = '';
             
             if (adhkarToShow.length === 0) {
@@ -1845,9 +1815,7 @@
                 return;
             }
             
-            // Render adhkar
             adhkarToShow.forEach((adhkar) => {
-                const isFav = isFavorite(adhkar.id);
                 const dhikrCard = document.createElement('div');
                 dhikrCard.className = 'dhikr-card';
                 dhikrCard.innerHTML = `
@@ -1855,13 +1823,13 @@
                     <div class="dhikr-text">${adhkar.text}</div>
                     <div class="dhikr-reference">${adhkar.reference}</div>
                     <div class="dhikr-actions">
-                        <button class="action-btn favorite-btn" data-id="${adhkar.id}">
-                            <i class="${isFav ? 'fas' : 'far'} fa-heart" style="${isFav ? 'color: #e74c3c;' : ''}"></i> ${isFav ? 'إزالة من المفضلة' : 'إضافة إلى المفضلة'}
+                        <button class="action-btn">
+                            <i class="fas fa-heart"></i> حفظ
                         </button>
-                        <button class="action-btn share-btn">
+                        <button class="action-btn">
                             <i class="fas fa-share-alt"></i> مشاركة
                         </button>
-                        <button class="action-btn listen-btn">
+                        <button class="action-btn">
                             <i class="fas fa-volume-up"></i> استماع
                         </button>
                     </div>
@@ -1870,35 +1838,6 @@
             });
             
             renderPagination();
-            
-            // Add event listeners for action buttons
-            addDhikrActionListeners(adhkarContainer);
-        }
-
-        function addDhikrActionListeners(container) {
-            // Favorite buttons
-            container.querySelectorAll('.favorite-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const dhikrId = parseInt(e.currentTarget.dataset.id);
-                    toggleFavorite(dhikrId);
-                });
-            });
-            
-            // Share buttons
-            container.querySelectorAll('.share-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const dhikrText = e.currentTarget.closest('.dhikr-card').querySelector('.dhikr-text').textContent;
-                    shareDhikr(dhikrText);
-                });
-            });
-            
-            // Listen buttons
-            container.querySelectorAll('.listen-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const dhikrText = e.currentTarget.closest('.dhikr-card').querySelector('.dhikr-text').textContent;
-                    speakDhikr(dhikrText);
-                });
-            });
         }
 
         function renderPagination() {
@@ -1927,11 +1866,7 @@
             if (storedUser) {
                 currentUser = JSON.parse(storedUser);
                 updateUIForUser();
-                loadFavorites();
             }
-            
-            // Load rosary state
-            updateRosary();
             
             // Render initial adhkar
             renderAdhkar();
@@ -1946,6 +1881,14 @@
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
                     const sectionId = link.dataset.section;
+                    showSection(sectionId);
+                });
+            });
+            
+            // Feature cards navigation
+            document.querySelectorAll('.feature-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const sectionId = card.dataset.section;
                     showSection(sectionId);
                 });
             });
@@ -1981,7 +1924,6 @@
                 rosaryCount++;
                 document.getElementById('counter').textContent = rosaryCount;
                 
-                // Rotate through dhikr texts when reaching multiples of 33
                 if (rosaryCount % 33 === 0) {
                     if (rosaryDhikr === 'سُبْحَانَ اللَّهِ') {
                         rosaryDhikr = 'الْحَمْدُ لِلَّهِ';
@@ -1993,61 +1935,56 @@
                     document.getElementById('rosary-text').textContent = rosaryDhikr;
                 }
                 
-                // Update UI
                 const counter = document.getElementById('counter');
                 counter.style.transform = 'scale(1.1)';
                 setTimeout(() => {
                     counter.style.transform = 'scale(1)';
                 }, 300);
-                
-                // Save state
-                saveRosary();
-                
-                // Update user stats if logged in
-                if (currentUser) {
-                    const users = JSON.parse(localStorage.getItem('users')) || {};
-                    const user = users[currentUser.email];
-                    
-                    user.rosaryCount = (user.rosaryCount || 0) + 1;
-                    
-                    users[currentUser.email] = user;
-                    localStorage.setItem('users', JSON.stringify(users));
-                    
-                    currentUser.rosaryCount = user.rosaryCount;
-                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                    
-                    // Update profile if visible
-                    if (document.getElementById('profile-section').classList.contains('active')) {
-                        updateProfile();
-                    }
-                }
             });
             
             document.getElementById('reset-btn').addEventListener('click', () => {
                 rosaryCount = 0;
                 document.getElementById('counter').textContent = rosaryCount;
-                saveRosary();
             });
             
-            // Rosary options
-            document.querySelectorAll('.rosary-option').forEach(option => {
+            // Settings functionality
+            document.querySelectorAll('.avatar-option').forEach(option => {
                 option.addEventListener('click', () => {
-                    document.querySelectorAll('.rosary-option').forEach(o => o.classList.remove('active'));
-                    option.classList.add('active');
+                    document.querySelectorAll('.avatar-option').forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
                     
-                    rosaryDhikr = option.dataset.dhikr;
-                    document.getElementById('rosary-text').textContent = rosaryDhikr;
-                    
-                    saveRosary();
+                    if (currentUser) {
+                        userAvatar.textContent = option.textContent;
+                        showNotification('تم تغيير صورة الحساب بنجاح');
+                    }
                 });
             });
             
-            // Rosary presets
-            document.querySelectorAll('.preset-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    rosaryCount = parseInt(btn.dataset.count);
-                    document.getElementById('counter').textContent = rosaryCount;
-                    saveRosary();
+            document.querySelectorAll('.color-option').forEach(option => {
+                option.addEventListener('click', () => {
+                    document.querySelectorAll('.color-option').forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+                    
+                    const color = getComputedStyle(option).backgroundColor;
+                    document.documentElement.style.setProperty('--primary-color', color);
+                    document.documentElement.style.setProperty('--secondary-color', color.replace('rgb', 'rgba').replace(')', ', 0.8)'));
+                    
+                    showNotification('تم تغيير لون الموقع بنجاح');
+                });
+            });
+            
+            document.querySelectorAll('.theme-option').forEach(option => {
+                option.addEventListener('click', () => {
+                    document.querySelectorAll('.theme-option').forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+                    
+                    if (option.textContent.includes('داكن')) {
+                        document.body.style.backgroundColor = '#1a1a1a';
+                        document.body.style.color = '#f0f0f0';
+                    } else {
+                        document.body.style.backgroundColor = '';
+                        document.body.style.color = '';
+                    }
                 });
             });
             
@@ -2068,11 +2005,9 @@
                     return;
                 }
                 
-                // Show loading spinner
                 document.getElementById('register-text').style.display = 'none';
                 document.getElementById('register-spinner').style.display = 'block';
                 
-                // Simulate API call
                 setTimeout(() => {
                     const result = registerUser(name, email, password);
                     if (result.success) {
@@ -2083,7 +2018,6 @@
                         showNotification(result.message, false);
                     }
                     
-                    // Reset UI
                     document.getElementById('register-text').style.display = 'block';
                     document.getElementById('register-spinner').style.display = 'none';
                 }, 1500);
@@ -2099,11 +2033,9 @@
                     return;
                 }
                 
-                // Show loading spinner
                 document.getElementById('login-text').style.display = 'none';
                 document.getElementById('login-spinner').style.display = 'block';
                 
-                // Simulate API call
                 setTimeout(() => {
                     const result = loginUser(email, password);
                     if (result.success) {
@@ -2114,7 +2046,6 @@
                         showNotification(result.message, false);
                     }
                     
-                    // Reset UI
                     document.getElementById('login-text').style.display = 'block';
                     document.getElementById('login-spinner').style.display = 'none';
                 }, 1500);

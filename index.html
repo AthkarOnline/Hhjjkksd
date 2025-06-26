@@ -3,1350 +3,1150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أذكار المسلم | تطبيق الأذكار اليومية من القرآن والسنة</title>
-    <meta name="description" content="تطبيق مجاني للأذكار اليومية: أذكار الصباح والمساء، أذكار النوم، أذكار بعد الصلاة، مسبحة إلكترونية مع عداد.">
-    <meta name="keywords" content="أذكار, أذكار المسلم, أذكار الصباح, أذكار المساء, أذكار النوم, أذكار بعد الصلاة, مسبحة إلكترونية, أدعية, أذكار يومية, ذكر, تطبيق أذكار">
-    <meta name="author" content="موقع أذكار المسلم">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://athkarmuslim.com/">
-    <meta property="og:title" content="أذكار المسلم | تطبيق الأذكار اليومية من القرآن والسنة">
-    <meta property="og:description" content="تطبيق مجاني للأذكار اليومية: أذكار الصباح والمساء، أذكار النوم، أذكار بعد الصلاة، مسبحة إلكترونية مع عداد.">
-    <meta property="og:image" content="https://athkarmuslim.com/images/og-image.jpg">
-    
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://athkarmuslim.com/">
-    <meta property="twitter:title" content="أذكار المسلم | تطبيق الأذكار اليومية من القرآن والسنة">
-    <meta property="twitter:description" content="تطبيق مجاني للأذكار اليومية: أذكار الصباح والمساء، أذكار النوم، أذكار بعد الصلاة، مسبحة إلكترونية مع عداد.">
-    <meta property="twitter:image" content="https://athkarmuslim.com/images/og-image.jpg">
-    
-    <!-- روابط التصميم -->
+    <title>موسوعة الأذكار - الذكر الشامل من الكتاب والسنة</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #4361ee;
-            --primary-dark: #3a0ca3;
-            --primary-light: #4895ef;
-            --secondary: #7209b7;
-            --accent: #4cc9f0;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --success: #4ade80;
-            --warning: #facc15;
-            --danger: #f87171;
-            --card-bg: rgba(255, 255, 255, 0.95);
-            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            --shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-            --border-radius: 25px;
-            --text-primary: #2d3748;
-            --text-secondary: #4a5568;
-            --gold: #FFD700;
-            --gold-dark: #D4AF37;
-            --night-blue: #0f1a3a;
-            --night-purple: #4a235a;
-            --morning-sun: #ff9a3c;
-            --evening-sky: #6a5af9;
-            --prayer-green: #0b8457;
+            --primary-color: #2c5f2d;
+            --secondary-color: #97bc62;
+            --accent-color: #f0f7da;
+            --text-color: #333;
+            --light-color: #f9f9f9;
+            --dark-color: #1a3c1d;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
         }
-
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Tajawal', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
+        
         body {
-            background: linear-gradient(135deg, var(--night-blue), var(--night-purple));
+            background: linear-gradient(135deg, #f5f9f0 0%, #e6f3e1 100%);
+            color: var(--text-color);
+            line-height: 1.8;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: var(--text-primary);
-            padding: 20px;
-            overflow-x: hidden;
-            line-height: 1.8;
+            position: relative;
+            padding-bottom: 120px;
         }
-
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
+        
+        /* التصميم العام */
+        .container {
             width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
         }
-
-        .star {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            animation: twinkle var(--duration, 5s) infinite ease-in-out;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.2; }
-            50% { opacity: 1; }
-        }
-
-        .page {
-            display: none;
-            width: 100%;
-            max-width: 900px;
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
+        
+        header {
+            background: linear-gradient(to right, var(--primary-color), var(--dark-color));
+            color: white;
+            padding: 1rem 0;
             box-shadow: var(--shadow);
-            overflow: hidden;
-            backdrop-filter: blur(12px);
-            transform: scale(0.95);
-            opacity: 0;
-            animation: fadeIn 0.6s forwards;
-            margin: 20px auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .page::before {
-            content: "";
-            position: absolute;
+            position: sticky;
             top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="none" width="100" height="100"/><path fill="rgba(67, 97, 238, 0.05)" d="M20,20 Q40,5 60,20 T100,20 Q85,40 100,60 T100,100 Q60,85 20,100 T0,100 Q5,60 0,20 T20,20" /></svg>');
-            background-size: 200px;
-            opacity: 0.3;
-            z-index: -1;
+            z-index: 1000;
         }
-
-        .page.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .header {
-            background: linear-gradient(to right, var(--primary), var(--primary-dark));
-            color: white;
-            padding: 30px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .header.morning {
-            background: linear-gradient(to right, var(--morning-sun), #ff6b6b);
-        }
-
-        .header.evening {
-            background: linear-gradient(to right, var(--evening-sky), #4a00e0);
-        }
-
-        .header.sleep {
-            background: linear-gradient(to right, var(--night-purple), #0f3460);
-        }
-
-        .header.prayer {
-            background: linear-gradient(to right, var(--prayer-green), #0b8457);
-        }
-
-        .header.counter {
-            background: linear-gradient(to right, var(--gold), var(--gold-dark));
-        }
-
-        .header::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
-            transform: rotate(30deg);
-        }
-
-        .header h1 {
-            font-size: 2.2rem;
-            margin-bottom: 12px;
-            font-weight: 700;
-            position: relative;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.2);
-        }
-
-        .header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            position: relative;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .progress-container {
-            width: 100%;
-            height: 12px;
-            background: rgba(255, 255, 255, 0.25);
-            position: relative;
-            margin-top: 20px;
-            border-radius: 6px;
-            overflow: hidden;
-        }
-
-        .progress-bar {
-            height: 100%;
-            width: 0;
-            background: var(--accent);
-            border-radius: 6px;
-            transition: var(--transition);
-        }
-
-        .welcome-container {
-            padding: 40px 30px;
-            text-align: center;
-            position: relative;
-        }
-
-        .welcome-text {
-            margin-bottom: 40px;
-        }
-
-        .welcome-text h2 {
-            font-size: 2.2rem;
-            color: var(--primary-dark);
-            margin-bottom: 20px;
-            position: relative;
-            display: inline-block;
-            background: linear-gradient(45deg, var(--primary-dark), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .welcome-text h2::after {
-            content: "";
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            border-radius: 2px;
-        }
-
-        .welcome-text p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: var(--text-secondary);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .options-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .option-btn {
-            background: linear-gradient(145deg, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            padding: 20px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 1.1rem;
-            font-weight: 500;
-            transition: var(--transition);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 140px;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .option-btn::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(145deg, var(--primary-light), var(--primary-dark));
-            opacity: 0;
-            transition: var(--transition);
-            z-index: -1;
-        }
-
-        .option-btn:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-        }
-
-        .option-btn:hover::before {
-            opacity: 1;
-        }
-
-        .option-btn i {
-            font-size: 2.2rem;
-            margin-bottom: 15px;
-            transition: var(--transition);
-        }
-
-        .option-btn:hover i {
-            transform: scale(1.1);
-        }
-
-        .option-btn.morning {
-            background: linear-gradient(145deg, var(--morning-sun), #ff6b6b);
-        }
-
-        .option-btn.evening {
-            background: linear-gradient(145deg, var(--evening-sky), #4a00e0);
-        }
-
-        .option-btn.sleep {
-            background: linear-gradient(145deg, var(--night-purple), #0f3460);
-        }
-
-        .option-btn.prayer {
-            background: linear-gradient(145deg, var(--prayer-green), #0b8457);
-        }
-
-        .option-btn.counter {
-            background: linear-gradient(145deg, var(--gold), var(--gold-dark));
-        }
-
-        .dhikr-container {
-            padding: 25px;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .dhikr-header {
+        
+        .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid rgba(0,0,0,0.05);
+            flex-wrap: wrap;
         }
-
-        .dhikr-header h2 {
-            color: var(--primary-dark);
-            font-size: 1.7rem;
-            background: linear-gradient(45deg, var(--primary-dark), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .back-btn {
-            background: var(--light);
-            border: none;
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
+        
+        .logo {
             display: flex;
             align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 1.2rem;
-            color: var(--primary);
-            transition: var(--transition);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            gap: 10px;
+            animation: fadeIn 1s ease;
         }
-
-        .back-btn:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateX(-5px);
+        
+        .logo i {
+            font-size: 2.2rem;
+            color: var(--accent-color);
+            animation: pulse 2s infinite;
         }
-
-        .dhikr-content {
-            flex: 1;
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-shadow: 0 2px 3px rgba(0,0,0,0.2);
+        }
+        
+        .nav-links {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-
-        .dhikr-text {
-            font-size: 1.6rem;
-            margin-bottom: 30px;
-            color: var(--text-primary);
-            line-height: 1.8;
-            max-width: 700px;
-            background: linear-gradient(45deg, #2d3748, #4a5568);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            padding: 20px;
-            border-radius: 15px;
-            position: relative;
-        }
-
-        .dhikr-text::before {
-            content: """;
-            position: absolute;
-            top: -10px;
-            right: 20px;
-            font-size: 4rem;
-            color: rgba(67, 97, 238, 0.1);
-            font-family: Georgia, serif;
-        }
-
-        .dhikr-text::after {
-            content: """;
-            position: absolute;
-            bottom: -30px;
-            left: 20px;
-            font-size: 4rem;
-            color: rgba(67, 97, 238, 0.1);
-            font-family: Georgia, serif;
-            transform: rotate(180deg);
-        }
-
-        .dhikr-reference {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            margin-top: 15px;
-            font-style: italic;
-            padding: 8px 15px;
-            background: rgba(67, 97, 238, 0.1);
-            border-radius: 10px;
-        }
-
-        .dhikr-navigation {
-            display: flex;
+            list-style: none;
             gap: 15px;
-            margin-top: 25px;
+            flex-wrap: wrap;
         }
-
-        .nav-btn {
-            background: var(--primary);
+        
+        .nav-links a {
             color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 1rem;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 30px;
             transition: var(--transition);
             display: flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
-
-        .nav-btn:hover {
-            background: var(--primary-dark);
+        
+        .nav-links a:hover {
+            background-color: var(--secondary-color);
             transform: translateY(-3px);
         }
-
-        .nav-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
+        
+        .nav-links a i {
+            font-size: 1.1rem;
         }
-
-        .counter-container {
+        
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url('https://images.unsplash.com/photo-1519735771060-6e7b943d4d4f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') center/cover no-repeat;
+            height: 400px;
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-top: 25px;
+            justify-content: center;
+            position: relative;
+            margin: 20px 0 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            animation: zoomIn 20s infinite alternate;
         }
-
-        .counter-btn {
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            background: var(--primary);
+        
+        .hero-content {
+            position: relative;
+            color: white;
+            text-align: center;
+            max-width: 800px;
+            padding: 20px;
+        }
+        
+        .hero-content h2 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            animation: fadeInDown 1s ease;
+        }
+        
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 1s ease;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+            color: white;
+            padding: 14px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            animation: pulse 2s infinite;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .category-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            border: 2px solid var(--accent-color);
+        }
+        
+        .category-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .category-icon {
+            background: linear-gradient(to right, var(--primary-color), var(--dark-color));
+            color: white;
+            text-align: center;
+            padding: 25px;
+            font-size: 2.8rem;
+        }
+        
+        .category-content {
+            padding: 25px;
+        }
+        
+        .category-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .category-content h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--secondary-color);
+        }
+        
+        .category-content ul {
+            list-style: none;
+        }
+        
+        .category-content li {
+            margin-bottom: 12px;
+            position: relative;
+            padding-right: 25px;
+            transition: var(--transition);
+        }
+        
+        .category-content li:hover {
+            color: var(--primary-color);
+            transform: translateX(-5px);
+        }
+        
+        .category-content li:before {
+            content: "•";
+            color: var(--secondary-color);
+            position: absolute;
+            right: 0;
+            font-size: 1.5rem;
+            top: -2px;
+        }
+        
+        .featured-azkar {
+            background: white;
+            border-radius: 15px;
+            padding: 35px;
+            margin: 50px 0;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--accent-color);
+        }
+        
+        .featured-azkar:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+        }
+        
+        .section-title {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            position: relative;
+            font-size: 2.2rem;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 50%;
+            transform: translateX(50%);
+            width: 150px;
+            height: 4px;
+            background: var(--secondary-color);
+            border-radius: 2px;
+        }
+        
+        .azkar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+        
+        .zekr-card {
+            background: var(--accent-color);
+            border-radius: 12px;
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+            border-right: 5px solid var(--secondary-color);
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .zekr-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .zekr-card h4 {
+            color: var(--dark-color);
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .zekr-card h4:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--primary-color);
+        }
+        
+        .zekr-text {
+            font-size: 1.25rem;
+            line-height: 1.9;
+            margin-bottom: 20px;
+            text-align: justify;
+            font-weight: 500;
+            color: #2a5230;
+        }
+        
+        .zekr-reference {
+            font-style: italic;
+            color: #5a7d5e;
+            font-size: 1rem;
+            text-align: left;
+            padding: 8px 15px;
+            background: rgba(255,255,255,0.7);
+            border-radius: 5px;
+            display: inline-block;
+        }
+        
+        .counter {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            justify-content: center;
+        }
+        
+        .counter button {
+            background: var(--primary-color);
             color: white;
             border: none;
-            font-size: 1.6rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             cursor: pointer;
+            font-weight: bold;
+            font-size: 1.2rem;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: var(--transition);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
         }
-
-        .counter-btn:active {
-            transform: scale(0.95);
-        }
-
-        .counter-display {
-            font-size: 2rem;
-            min-width: 70px;
-            text-align: center;
-            font-weight: bold;
-            color: var(--primary-dark);
-            background: rgba(67, 97, 238, 0.1);
-            border-radius: 15px;
-            padding: 10px 20px;
-        }
-
-        .reset-btn {
-            background: var(--light);
-            color: var(--danger);
-            border: none;
-            padding: 12px 25px;
-            border-radius: 12px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: var(--transition);
-            margin-top: 20px;
-            font-weight: 500;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .reset-btn::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--danger);
-            transform: translateX(-100%);
-            transition: var(--transition);
-            z-index: -1;
-        }
-
-        .reset-btn:hover {
-            color: white;
-        }
-
-        .reset-btn:hover::before {
-            transform: translateX(0);
-        }
-
-        .footer {
-            background: var(--light);
-            padding: 20px;
-            text-align: center;
-            color: var(--text-secondary);
-            font-size: 1rem;
-            border-top: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .footer a {
-            color: var(--primary);
-            text-decoration: none;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .footer a::after {
-            content: "";
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: var(--transition);
-        }
-
-        .footer a:hover {
-            color: var(--primary-dark);
-        }
-
-        .footer a:hover::after {
-            width: 100%;
-        }
-
-        /* صفحة المسبحة الإلكترونية */
-        .counter-page {
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(212, 175, 55, 0.1));
-        }
-
-        .dhikr-counter-display {
-            font-size: 4rem;
-            font-weight: bold;
-            color: var(--gold-dark);
-            margin: 20px 0;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            transition: transform 0.2s ease;
-        }
-
-        .dhikr-counter-display.active {
+        
+        .counter button:hover {
+            background: var(--dark-color);
             transform: scale(1.1);
         }
-
-        .dhikr-select-container {
-            margin-top: 30px;
-            width: 100%;
-            max-width: 400px;
+        
+        .counter span {
+            margin: 0 20px;
+            font-weight: bold;
+            min-width: 40px;
+            text-align: center;
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            background: white;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
         }
-
-        .dhikr-select {
-            width: 100%;
-            padding: 14px 20px;
-            border-radius: 15px;
-            border: 2px solid rgba(212, 175, 55, 0.3);
-            font-size: 1.1rem;
-            background: rgba(255, 255, 255, 0.8);
-            color: var(--text-primary);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: var(--transition);
-        }
-
-        .dhikr-select:focus {
-            border-color: var(--gold);
-            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.3);
-            outline: none;
-        }
-
-        .selected-dhikr {
-            font-size: 1.6rem;
-            color: var(--gold-dark);
-            margin-top: 20px;
-            padding: 15px 30px;
-            background: rgba(255, 215, 0, 0.1);
-            border-radius: 15px;
-            border-left: 4px solid var(--gold);
-        }
-
-        /* صفحة عن التطبيق */
-        .feature-list {
-            text-align: right;
-            list-style-type: none;
-            padding: 0;
-            margin: 20px 0;
-        }
-
-        .feature-list li {
-            margin-bottom: 15px;
-            padding: 12px 20px;
-            background: rgba(67, 97, 238, 0.05);
+        
+        .ad-container {
+            background: white;
             border-radius: 12px;
+            padding: 20px;
+            margin: 40px 0;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 2px dashed var(--secondary-color);
+            position: relative;
+        }
+        
+        .ad-label {
+            display: inline-block;
+            background: var(--accent-color);
+            color: var(--primary-color);
+            padding: 6px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .ad-content {
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f9f9f9;
+            border-radius: 10px;
+            font-weight: bold;
+            color: #888;
+            font-size: 1.2rem;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border-top: 4px solid var(--secondary-color);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .feature-icon {
+            font-size: 3.5rem;
+            color: var(--primary-color);
+            margin-bottom: 25px;
             transition: var(--transition);
         }
-
-        .feature-list li:hover {
-            background: rgba(67, 97, 238, 0.1);
-            transform: translateX(-5px);
+        
+        .feature-card:hover .feature-icon {
+            transform: scale(1.2);
+            color: var(--secondary-color);
         }
-
-        .feature-list i {
-            color: var(--success);
-            margin-left: 10px;
+        
+        .feature-card h3 {
+            color: var(--dark-color);
+            margin-bottom: 20px;
+            font-size: 1.6rem;
         }
-
-        .how-to-list {
+        
+        .feature-card p {
+            color: #555;
+            font-size: 1.1rem;
+        }
+        
+        footer {
+            background: linear-gradient(to right, var(--dark-color), var(--primary-color));
+            color: white;
+            padding: 50px 0 20px;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--secondary-color);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+        
+        .footer-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-color);
+            transform: translateX(5px);
+        }
+        
+        .footer-links a i {
+            font-size: 0.9rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 50%;
+            transition: var(--transition);
+            font-size: 1.2rem;
+        }
+        
+        .social-links a:hover {
+            background: var(--secondary-color);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            font-size: 1rem;
+            color: #ccc;
+        }
+        
+        /* صفحة سياسة الخصوصية */
+        .privacy-policy {
+            background: white;
+            border-radius: 15px;
+            padding: 45px;
+            margin: 50px 0;
+            box-shadow: var(--shadow);
+            line-height: 1.9;
+            border: 2px solid var(--accent-color);
+        }
+        
+        .privacy-policy h2 {
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 2.2rem;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .privacy-policy h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 50%;
+            transform: translateX(50%);
+            width: 150px;
+            height: 4px;
+            background: var(--secondary-color);
+        }
+        
+        .privacy-policy h3 {
+            color: var(--dark-color);
+            margin: 35px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            font-size: 1.6rem;
+        }
+        
+        .privacy-policy p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .privacy-policy ul {
+            margin: 20px 0 20px 40px;
+        }
+        
+        .privacy-policy li {
+            margin-bottom: 15px;
+            position: relative;
             padding-right: 20px;
         }
-
-        .how-to-list li {
-            margin-bottom: 15px;
-            padding: 12px;
-            border-bottom: 1px dashed rgba(0,0,0,0.1);
+        
+        .privacy-policy li:before {
+            content: "•";
+            color: var(--secondary-color);
+            position: absolute;
+            right: 0;
+            font-size: 1.5rem;
+            top: -3px;
         }
-
-        /* إضافة شريط التقدم */
-        .completion-bar {
-            width: 100%;
-            height: 10px;
-            background: rgba(0,0,0,0.05);
-            border-radius: 5px;
-            margin: 15px 0;
-            overflow: hidden;
+        
+        /* تصميم متجاوب */
+        @media (max-width: 992px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-links {
+                justify-content: center;
+            }
+            
+            .hero-content h2 {
+                font-size: 2.3rem;
+            }
+            
+            .hero {
+                height: 350px;
+            }
         }
-
-        .completion-progress {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            border-radius: 5px;
-            transition: var(--transition);
-        }
-
-        /* تحسينات للجوال */
+        
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 1.9rem;
+            .hero-content h2 {
+                font-size: 2rem;
             }
             
-            .header p {
-                font-size: 1rem;
+            .hero-content p {
+                font-size: 1.1rem;
             }
             
-            .welcome-text h2 {
+            .section-title {
                 font-size: 1.8rem;
             }
             
-            .welcome-text p {
-                font-size: 1rem;
-            }
-            
-            .options-grid {
-                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-                gap: 15px;
-            }
-            
-            .option-btn {
-                padding: 18px 12px;
-                font-size: 1rem;
-                min-height: 120px;
-            }
-            
-            .dhikr-text {
-                font-size: 1.4rem;
-            }
-            
-            .dhikr-counter-display {
-                font-size: 3.5rem;
+            .privacy-policy {
+                padding: 30px;
             }
         }
-
+        
         @media (max-width: 480px) {
-            .header {
-                padding: 25px 15px;
+            .logo h1 {
+                font-size: 1.5rem;
             }
             
-            .header h1 {
+            .hero-content h2 {
+                font-size: 1.7rem;
+            }
+            
+            .btn {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+            
+            .category-card {
+                margin-bottom: 20px;
+            }
+            
+            .section-title {
                 font-size: 1.6rem;
             }
-            
-            .welcome-container {
-                padding: 30px 15px;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
             }
-            
-            .dhikr-container {
-                padding: 15px;
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
-            
-            .counter-btn {
-                width: 48px;
-                height: 48px;
-                font-size: 1.4rem;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
             }
-            
-            .counter-display {
-                font-size: 1.8rem;
-                min-width: 60px;
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes zoomIn {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
         }
     </style>
 </head>
 <body>
-    <!-- إنشاء النجوم في الخلفية -->
-    <div class="stars" id="starsContainer"></div>
-    
-    <!-- صفحة الترحيب -->
-    <div id="welcomePage" class="page active">
-        <div class="header">
-            <h1>أذكار المسلم</h1>
-            <p>تطبيق الأذكار اليومية من القرآن والسنة النبوية</p>
-            <div class="progress-container">
-                <div class="progress-bar" style="width: 10%"></div>
-            </div>
-        </div>
-        
-        <div class="welcome-container">
-            <div class="welcome-text">
-                <h2>مرحباً بك</h2>
-                <p>تطبيق "أذكار المسلم" يجمع لك أهم الأذكار اليومية الثابتة من القرآن الكريم وصحيح السنة النبوية. اختر نوع الذكر الذي تريده وابدأ بحفظ الله في كل وقت.</p>
-            </div>
-            
-            <div class="options-grid">
-                <button class="option-btn morning" onclick="showPage('morningPage')">
-                    <i class="fas fa-sun"></i>
-                    أذكار الصباح
-                </button>
-                <button class="option-btn evening" onclick="showPage('eveningPage')">
-                    <i class="fas fa-moon"></i>
-                    أذكار المساء
-                </button>
-                <button class="option-btn sleep" onclick="showPage('sleepPage')">
-                    <i class="fas fa-bed"></i>
-                    أذكار النوم
-                </button>
-                <button class="option-btn prayer" onclick="showPage('prayerPage')">
-                    <i class="fas fa-mosque"></i>
-                    أذكار بعد الصلاة
-                </button>
-                <button class="option-btn counter" onclick="showPage('counterPage')">
-                    <i class="fas fa-hands-praying"></i>
-                    مسبحة إلكترونية
-                </button>
-                <button class="option-btn" onclick="showPage('aboutPage')">
-                    <i class="fas fa-info-circle"></i>
-                    عن التطبيق
-                </button>
-            </div>
-            
-            <div style="margin-top: 40px; background: rgba(67, 97, 238, 0.05); padding: 20px; border-radius: 15px;">
-                <h3 style="margin-bottom: 15px; color: var(--primary-dark);">تقدمك اليومي</h3>
-                <div class="completion-bar">
-                    <div class="completion-progress" id="dailyProgress" style="width: 30%"></div>
+    <!-- شريط الرأس -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-praying-hands"></i>
+                    <h1>موسوعة الأذكار الشاملة</h1>
                 </div>
-                <p style="margin-top: 10px; font-size: 1.1rem;">أكملت 30% من أذكارك اليومية</p>
+                <ul class="nav-links">
+                    <li><a href="#"><i class="fas fa-home"></i> الرئيسية</a></li>
+                    <li><a href="#"><i class="fas fa-book-open"></i> الأذكار</a></li>
+                    <li><a href="#"><i class="fas fa-pray"></i> الأدعية</a></li>
+                    <li><a href="#"><i class="fas fa-book-quran"></i> القرآن</a></li>
+                    <li><a href="#"><i class="fas fa-graduation-cap"></i> المصادر</a></li>
+                    <li><a href="#privacy"><i class="fas fa-info-circle"></i> سياسة الخصوصية</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- إعلان AdSense أعلى الصفحة -->
+        <div class="ad-container">
+            <div class="ad-label">إعلانات Google</div>
+            <div class="ad-content">
+                مساحة إعلانية لـ Google AdSense
             </div>
         </div>
         
-        <div class="footer">
-            <p>جميع الحقوق محفوظة © 2023 | <a href="#">سياسة الخصوصية</a> | <a href="#">تواصل معنا</a></p>
+        <!-- قسم البطل -->
+        <section class="hero">
+            <div class="hero-content">
+                <h2>الذكر نور القلب وراحة الروح</h2>
+                <p>موسوعة شاملة للأذكار والأدعية الثابتة من الكتاب والسنة، مقسمة حسب الأوقات والمناسبات، مع ذكر المصادر الموثوقة</p>
+                <a href="#azkar" class="btn">اكتشف الأذكار الآن <i class="fas fa-arrow-left"></i></a>
+            </div>
+        </section>
+        
+        <!-- فئات الأذكار -->
+        <section id="azkar">
+            <h2 class="section-title">فئات الأذكار الشاملة</h2>
+            <div class="categories">
+                <!-- فئة الصباح والمساء -->
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <div class="category-content">
+                        <h3>أذكار الصباح والمساء</h3>
+                        <ul>
+                            <li>أذكار الصباح الكاملة</li>
+                            <li>أذكار المساء الكاملة</li>
+                            <li>أذكار مختصرة</li>
+                            <li>دعاء الصباح والمساء</li>
+                            <li>أذكار الحفظ والوقاية</li>
+                            <li>أذكار الرقية الشرعية</li>
+                            <li>دعاء تحصين النفس</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- فئة اليوم والليلة -->
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="category-content">
+                        <h3>أذكار اليوم والليلة</h3>
+                        <ul>
+                            <li>أذكار الاستيقاظ</li>
+                            <li>أذكار النوم</li>
+                            <li>أذكار دخول المنزل والخروج</li>
+                            <li>أذكار الأكل والشرب</li>
+                            <li>أذكار قضاء الحاجة</li>
+                            <li>أذكار الركوب والسفر</li>
+                            <li>أذكار العطاس</li>
+                            <li>أذكار سماع الأذان</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- فئة الصلاة -->
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-mosque"></i>
+                    </div>
+                    <div class="category-content">
+                        <h3>أذكار الصلاة</h3>
+                        <ul>
+                            <li>أذكار قبل الصلاة</li>
+                            <li>أذكار أثناء الصلاة</li>
+                            <li>أذكار بعد الصلاة</li>
+                            <li>أذكار المسجد</li>
+                            <li>دعاء الاستفتاح</li>
+                            <li>التشهد والصلاة الإبراهيمية</li>
+                            <li>أذكار السجود</li>
+                            <li>أذكار الركوع</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- فئة جديدة: العمل والدراسة -->
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <div class="category-content">
+                        <h3>أذكار العمل والدراسة</h3>
+                        <ul>
+                            <li>دعاء بدء العمل</li>
+                            <li>أذكار قبل المذاكرة</li>
+                            <li>دعاء التوفيق في الدراسة</li>
+                            <li>أذكار عند التثاقل</li>
+                            <li>دعاء بعد إنجاز المهمات</li>
+                            <li>أذكار اتخاذ القرار</li>
+                            <li>دعاء قبل الاجتماع</li>
+                            <li>أذكار النجاح والتفوق</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- فئة جديدة: الرزق والهموم -->
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                    <div class="category-content">
+                        <h3>أذكار الرزق والهموم</h3>
+                        <ul>
+                            <li>دعاء تفريج الهم</li>
+                            <li>أذكار طلب الرزق</li>
+                            <li>دعاء سيدنا يونس</li>
+                            <li>أذكار دفع الدين</li>
+                            <li>دعاء الكرب العظيم</li>
+                            <li>أذكار الشفاء من المرض</li>
+                            <li>دعاء الهم والحزن</li>
+                            <li>أذكار الاستغفار</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- فئة جديدة: الأسرة والبيت -->
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div class="category-content">
+                        <h3>أذكار الأسرة والبيت</h3>
+                        <ul>
+                            <li>دعاء دخول المنزل</li>
+                            <li>أذكار الخروج من المنزل</li>
+                            <li>دعاء للزوج والأبناء</li>
+                            <li>أذكار زيارة المريض</li>
+                            <li>دعاء العقيقة</li>
+                            <li>أذكار عند سماع الرعد</li>
+                            <li>أذكار المطر والرياح</li>
+                            <li>دعاء الزواج</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- إعلان AdSense في منتصف الصفحة -->
+        <div class="ad-container">
+            <div class="ad-label">إعلانات Google</div>
+            <div class="ad-content">
+                مساحة إعلانية لـ Google AdSense
+            </div>
+        </div>
+        
+        <!-- أذكار مميزة -->
+        <section class="featured-azkar">
+            <h2 class="section-title">أذكار مميزة</h2>
+            <div class="azkar-grid">
+                <!-- ذكر 1 -->
+                <div class="zekr-card">
+                    <h4>أذكار الصباح</h4>
+                    <div class="zekr-text">
+                        أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ، رَبِّ أَسْأَلُكَ خَيْرَ مَا فِي هَذَا الْيَوْمِ وَخَيْرَ مَا بَعْدَهُ، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا فِي هَذَا الْيَوْمِ وَشَرِّ مَا بَعْدَهُ، رَبِّ أَعُوذُ بِكَ مِنَ الْكَسَلِ وَسُوءِ الْكِبَرِ، رَبِّ أَعُوذُ بِكَ مِنْ عَذَابٍ فِي النَّارِ وَعَذَابٍ فِي الْقَبْرِ.
+                    </div>
+                    <div class="zekr-reference">
+                        [مسلم 4/2088]
+                    </div>
+                    <div class="counter">
+                        <button>-</button>
+                        <span>0</span>
+                        <button>+</button>
+                    </div>
+                </div>
+                
+                <!-- ذكر 2 -->
+                <div class="zekr-card">
+                    <h4>دعاء الكرب</h4>
+                    <div class="zekr-text">
+                        لَا إِلَهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ. اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ، وَالْعَجْزِ وَالْكَسَلِ، وَالْبُخْلِ وَالْجُبْنِ، وَضَلَعِ الدَّيْنِ وَغَلَبَةِ الرِّجَالِ.
+                    </div>
+                    <div class="zekr-reference">
+                        [الأنبياء: 87، البخاري 7/158]
+                    </div>
+                    <div class="counter">
+                        <button>-</button>
+                        <span>0</span>
+                        <button>+</button>
+                    </div>
+                </div>
+                
+                <!-- ذكر 3 -->
+                <div class="zekr-card">
+                    <h4>دعاء الرزق</h4>
+                    <div class="zekr-text">
+                        اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا، وَرِزْقًا طَيِّبًا، وَعَمَلًا مُتَقَبَّلًا. اللَّهُمَّ اكْفِنِي بِحَلَالِكَ عَنْ حَرَامِكَ، وَأَغْنِنِي بِفَضْلِكَ عَمَّنْ سِوَاكَ.
+                    </div>
+                    <div class="zekr-reference">
+                        [ابن ماجه 925، الترمذي 3561]
+                    </div>
+                    <div class="counter">
+                        <button>-</button>
+                        <span>0</span>
+                        <button>+</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ميزات الموقع -->
+        <section>
+            <h2 class="section-title">مميزات موقعنا</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>أذكار موثقة</h3>
+                    <p>جميع الأذكار مأخوذة من مصادر موثوقة من الكتاب والسنة الصحيحة</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>تقسيم منظم</h3>
+                    <p>الأذكار مقسمة حسب الأوقات والمناسبات لتسهيل الوصول إليها</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>تصميم متجاوب</h3>
+                    <p>الموقع يعمل على جميع الأجهزة من هواتف وأجهزة لوحية وحواسيب</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-counter"></i>
+                    </div>
+                    <h3>عداد الأذكار</h3>
+                    <p>أداة عدّاد لتسجيل عدد مرات ترديد الأذكار وتتبع التقدم</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-ad"></i>
+                    </div>
+                    <h3>دعم الإعلانات</h3>
+                    <p>يدعم الإعلانات لتغطية تكاليف الموقع وتطويره</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>خصوصية مضمونة</h3>
+                    <p>نلتزم بسياسة خصوصية واضحة تحمي بيانات المستخدمين</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- صفحة سياسة الخصوصية -->
+        <section id="privacy" class="privacy-policy">
+            <h2>سياسة الخصوصية</h2>
+            
+            <h3>مقدمة</h3>
+            <p>نحن في موقع "موسوعة الأذكار" نولي خصوصية زوارنا أهمية كبرى. توضح سياسة الخصوصية هذه كيف نتعامل مع المعلومات التي قد يتم جمعها من خلال استخدام الموقع.</p>
+            
+            <h3>المعلومات التي نجمعها</h3>
+            <p>لا نجمع أي معلومات شخصية عنك إلا إذا اخترت تزويدنا بها طواعية. قد يشمل ذلك:</p>
+            <ul>
+                <li>عند الاشتراك في النشرة البريدية: اسمك وعنوان بريدك الإلكتروني</li>
+                <li>عند التواصل معنا: اسمك، بريدك الإلكتروني، ومحتوى رسالتك</li>
+                <li>عند استخدام عداد الأذكار: يتم حفظ العداد في متصفحك فقط ولا يتم إرساله لخوادمنا</li>
+            </ul>
+            
+            <h3>ملفات تعريف الارتباط (Cookies)</h3>
+            <p>نستخدم ملفات تعريف الاركرة لتحسين تجربة المستخدم ولأغراض إحصائية. لا تحتوي هذه الملفات على معلومات شخصية.</p>
+            
+            <h3>إعلانات الطرف الثالث</h3>
+            <p>نستخدم Google AdSense لعرض الإعلانات. شركات الإعلان هذه قد تستخدم ملفات تعريف الارتباط لجمع معلومات حول زياراتك لهذا الموقع ومواقع أخرى لتقديم إعلانات مخصصة.</p>
+            
+            <h3>روابط لمواقع خارجية</h3>
+            <p>قد يحتوي موقعنا على روابط لمواقع خارجية. نحن لسنا مسؤولين عن سياسات الخصوصية أو المحتوى في تلك المواقع.</p>
+            
+            <h3>التغييرات على سياسة الخصوصية</h3>
+            <p>نحتفظ بحق تحديث سياسة الخصوصية هذه في أي وقت. سيتم نشر أي تغييرات على هذه الصفحة.</p>
+            
+            <h3>موافقتك</h3>
+            <p>باستخدامك لهذا الموقع، فإنك توافق على سياسة الخصوصية هذه.</p>
+            
+            <h3>اتصل بنا</h3>
+            <p>إذا كان لديك أي استفسار حول سياسة الخصوصية، يرجى التواصل معنا عبر البريد الإلكتروني: privacy@athkar.com</p>
+        </section>
+        
+        <!-- إعلان AdSense أسفل الصفحة -->
+        <div class="ad-container">
+            <div class="ad-label">إعلانات Google</div>
+            <div class="ad-content">
+                مساحة إعلانية لـ Google AdSense
+            </div>
         </div>
     </div>
     
-    <!-- صفحة أذكار الصباح -->
-    <div id="morningPage" class="page">
-        <div class="header morning">
-            <h1>أذكار الصباح</h1>
-            <p>أذكار تقال في الصباح لحفظ المسلم بإذن الله</p>
-            <div class="progress-container">
-                <div class="progress-bar" style="width: 40%"></div>
-            </div>
-        </div>
-        
-        <div class="dhikr-container">
-            <div class="dhikr-header">
-                <button class="back-btn" onclick="showPage('welcomePage')"><i class="fas fa-arrow-right"></i></button>
-                <h2>أذكار الصباح</h2>
-                <div id="morningCounter">1/6</div>
-            </div>
-            
-            <div class="dhikr-content">
-                <div class="dhikr-text" id="morningDhikrText">
-                    أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، رَبِّ أَسْأَلُكَ خَيْرَ مَا فِي هَذَا الْيَوْمِ وَخَيْرَ مَا بَعْدَهُ، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا فِي هَذَا الْيَوْمِ وَشَرِّ مَا بَعْدَهُ، رَبِّ أَعُوذُ بِكَ مِنَ الْكَسَلِ وَسُوءِ الْكِبَرِ، رَبِّ أَعُوذُ بِكَ مِنْ عَذَابٍ فِي النَّارِ وَعَذَابٍ فِي الْقَبْرِ.
-                </div>
-                <div class="dhikr-reference" id="morningDhikrRef">[مسلم 4/2088]</div>
-                
-                <div class="counter-container">
-                    <button class="counter-btn" onclick="changeCount(-1)">-</button>
-                    <div class="counter-display">0</div>
-                    <button class="counter-btn" onclick="changeCount(1)">+</button>
-                </div>
-                <button class="reset-btn" onclick="resetCount()">إعادة العداد</button>
-                
-                <div class="dhikr-navigation">
-                    <button class="nav-btn" onclick="prevDhikr('morning')" disabled>
-                        <i class="fas fa-arrow-right"></i> السابق
-                    </button>
-                    <button class="nav-btn" onclick="nextDhikr('morning')">
-                        التالي <i class="fas fa-arrow-left"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- صفحة أذكار المساء -->
-    <div id="eveningPage" class="page">
-        <div class="header evening">
-            <h1>أذكار المساء</h1>
-            <p>أذكار تقال في المساء لحفظ المسلم بإذن الله</p>
-            <div class="progress-container">
-                <div class="progress-bar" style="width: 40%"></div>
-            </div>
-        </div>
-        
-        <div class="dhikr-container">
-            <div class="dhikr-header">
-                <button class="back-btn" onclick="showPage('welcomePage')"><i class="fas fa-arrow-right"></i></button>
-                <h2>أذكار المساء</h2>
-                <div id="eveningCounter">1/6</div>
-            </div>
-            
-            <div class="dhikr-content">
-                <div class="dhikr-text" id="eveningDhikrText">
-                    أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، رَبِّ أَسْأَلُكَ خَيْرَ مَا فِي هَذِهِ اللَّيْلَةِ وَخَيْرَ مَا بَعْدَهَا، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا فِي هَذِهِ اللَّيْلَةِ وَشَرِّ مَا بَعْدَهَا، رَبِّ أَعُوذُ بِكَ مِنَ الْكَسَلِ وَسُوءِ الْكِبَرِ، رَبِّ أَعُوذُ بِكَ مِنْ عَذَابٍ فِي النَّارِ وَعَذَابٍ فِي الْقَبْرِ.
-                </div>
-                <div class="dhikr-reference" id="eveningDhikrRef">[مسلم 4/2088]</div>
-                
-                <div class="counter-container">
-                    <button class="counter-btn" onclick="changeCount(-1)">-</button>
-                    <div class="counter-display">0</div>
-                    <button class="counter-btn" onclick="changeCount(1)">+</button>
-                </div>
-                <button class="reset-btn" onclick="resetCount()">إعادة العداد</button>
-                
-                <div class="dhikr-navigation">
-                    <button class="nav-btn" onclick="prevDhikr('evening')" disabled>
-                        <i class="fas fa-arrow-right"></i> السابق
-                    </button>
-                    <button class="nav-btn" onclick="nextDhikr('evening')">
-                        التالي <i class="fas fa-arrow-left"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- صفحة أذكار النوم -->
-    <div id="sleepPage" class="page">
-        <div class="header sleep">
-            <h1>أذكار النوم</h1>
-            <p>أذكار تقال قبل النوم لحفظ المسلم بإذن الله</p>
-            <div class="progress-container">
-                <div class="progress-bar" style="width: 40%"></div>
-            </div>
-        </div>
-        
-        <div class="dhikr-container">
-            <div class="dhikr-header">
-                <button class="back-btn" onclick="showPage('welcomePage')"><i class="fas fa-arrow-right"></i></button>
-                <h2>أذكار النوم</h2>
-                <div id="sleepCounter">1/7</div>
-            </div>
-            
-            <div class="dhikr-content">
-                <div class="dhikr-text" id="sleepDhikrText">
-                    بِاسْمِكَ رَبِّ وَضَعْتُ جَنْبِي، وَبِكَ أَرْفَعُهُ، إِنْ أَمْسَكْتَ نَفْسِي فَارْحَمْهَا، وَإِنْ أَرْسَلْتَهَا فَاحْفَظْهَا، بِمَا تَحْفَظُ بِهِ عِبَادَكَ الصَّالِحِينَ.
-                </div>
-                <div class="dhikr-reference" id="sleepDhikrRef">[البخاري 6320]</div>
-                
-                <div class="counter-container">
-                    <button class="counter-btn" onclick="changeCount(-1)">-</button>
-                    <div class="counter-display">0</div>
-                    <button class="counter-btn" onclick="changeCount(1)">+</button>
-                </div>
-                <button class="reset-btn" onclick="resetCount()">إعادة العداد</button>
-                
-                <div class="dhikr-navigation">
-                    <button class="nav-btn" onclick="prevDhikr('sleep')" disabled>
-                        <i class="fas fa-arrow-right"></i> السابق
-                    </button>
-                    <button class="nav-btn" onclick="nextDhikr('sleep')">
-                        التالي <i class="fas fa-arrow-left"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- صفحة أذكار بعد الصلاة -->
-    <div id="prayerPage" class="page">
-        <div class="header prayer">
-            <h1>أذكار بعد الصلاة</h1>
-            <p>أذكار تقال بعد الانتهاء من الصلاة</p>
-            <div class="progress-container">
-                <div class="progress-bar" style="width: 40%"></div>
-            </div>
-        </div>
-        
-        <div class="dhikr-container">
-            <div class="dhikr-header">
-                <button class="back-btn" onclick="showPage('welcomePage')"><i class="fas fa-arrow-right"></i></button>
-                <h2>أذكار بعد الصلاة</h2>
-                <div id="prayerCounter">1/7</div>
-            </div>
-            
-            <div class="dhikr-content">
-                <div class="dhikr-text" id="prayerDhikrText">
-                    أَسْتَغْفِرُ اللهَ (ثلاثاً) اللَّهُمَّ أَنْتَ السَّلَامُ وَمِنْكَ السَّلَامُ تَبَارَكْتَ يَا ذَا الْجَلَالِ وَالْإِكْرَامِ.
-                </div>
-                <div class="dhikr-reference" id="prayerDhikrRef">[مسلم 591]</div>
-                
-                <div class="counter-container">
-                    <button class="counter-btn" onclick="changeCount(-1)">-</button>
-                    <div class="counter-display">0</div>
-                    <button class="counter-btn" onclick="changeCount(1)">+</button>
-                </div>
-                <button class="reset-btn" onclick="resetCount()">إعادة العداد</button>
-                
-                <div class="dhikr-navigation">
-                    <button class="nav-btn" onclick="prevDhikr('prayer')" disabled>
-                        <i class="fas fa-arrow-right"></i> السابق
-                    </button>
-                    <button class="nav-btn" onclick="nextDhikr('prayer')">
-                        التالي <i class="fas fa-arrow-left"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- صفحة المسبحة الإلكترونية -->
-    <div id="counterPage" class="page counter-page">
-        <div class="header counter">
-            <h1>المسبحة الإلكترونية</h1>
-            <p>عدّ أذكارك بسهولة مع المسبحة الرقمية</p>
-            <div class="progress-container">
-                <div class="progress-bar" style="width: 70%"></div>
-            </div>
-        </div>
-        
-        <div class="dhikr-container">
-            <div class="dhikr-header">
-                <button class="back-btn" onclick="showPage('welcomePage')"><i class="fas fa-arrow-right"></i></button>
-                <h2>المسبحة الإلكترونية</h2>
-                <div></div>
-            </div>
-            
-            <div class="dhikr-content">
-                <div class="dhikr-counter-display" id="dhikrCounter">0</div>
-                
-                <div class="counter-container">
-                    <button class="counter-btn" onclick="changeDhikrCount(-1)">-</button>
-                    <button class="counter-btn" style="width: 70px; height: 70px; font-size: 2rem;" onclick="changeDhikrCount(1)">
-                        <i class="fas fa-hand-pointer"></i>
-                    </button>
-                    <button class="counter-btn" onclick="changeDhikrCount(-1)">-</button>
-                </div>
-                <button class="reset-btn" onclick="resetDhikrCount()">إعادة العداد</button>
-                
-                <div class="dhikr-select-container">
-                    <p style="font-size: 1.2rem; margin-bottom: 10px;">اختر ذكراً:</p>
-                    <select id="dhikrSelect" class="dhikr-select">
-                        <option>سبحان الله</option>
-                        <option>الحمد لله</option>
-                        <option>الله أكبر</option>
-                        <option>لا إله إلا الله</option>
-                        <option>أستغفر الله</option>
-                        <option>لا حول ولا قوة إلا بالله</option>
-                        <option>سبحان الله وبحمده</option>
-                    </select>
+    <!-- تذييل الصفحة -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>عن الموسوعة</h3>
+                    <p>موسوعة الأذكار هي منصة إلكترونية تهدف إلى نشر الأذكار والأدعية الثابتة من الكتاب والسنة الصحيحة، مع ذكر المصادر الموثوقة وشرح معانيها.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                    </div>
                 </div>
                 
-                <div class="selected-dhikr" id="selectedDhikr">سبحان الله</div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- صفحة عن التطبيق -->
-    <div id="aboutPage" class="page">
-        <div class="header">
-            <h1>عن التطبيق</h1>
-            <p>معلومات عن تطبيق أذكار المسلم</p>
-            <div class="progress-container">
-                <div class="progress-bar" style="width: 100%"></div>
-            </div>
-        </div>
-        
-        <div class="dhikr-container">
-            <div class="dhikr-header">
-                <button class="back-btn" onclick="showPage('welcomePage')"><i class="fas fa-arrow-right"></i></button>
-                <h2>عن التطبيق</h2>
-                <div></div>
-            </div>
-            
-            <div class="dhikr-content">
-                <div class="dhikr-text" style="text-align: right; max-width: 800px;">
-                    <p>تطبيق "أذكار المسلم" هو تطبيق مجاني يهدف إلى تسهيل الوصول إلى الأذكار اليومية الثابتة من القرآن الكريم والسنة النبوية الصحيحة. تم تطويره بحيث يكون سهل الاستخدام ويحافظ على التراث الإسلامي الأصيل.</p>
-                    
-                    <h3 style="margin: 25px 0 15px; color: var(--primary);">مميزات التطبيق:</h3>
-                    <ul class="feature-list">
-                        <li><i class="fas fa-check-circle"></i>أذكار الصباح والمساء (6 أذكار لكل منها)</li>
-                        <li><i class="fas fa-check-circle"></i>أذكار النوم (7 أذكار كاملة)</li>
-                        <li><i class="fas fa-check-circle"></i>أذكار ما بعد الصلاة (7 أذكار كاملة)</li>
-                        <li><i class="fas fa-check-circle"></i>مسبحة إلكترونية لعد الأذكار</li>
-                        <li><i class="fas fa-check-circle"></i>واجهة مستخدم بسيطة وسهلة</li>
-                        <li><i class="fas fa-check-circle"></i>مصادر موثوقة من القرآن والسنة</li>
-                        <li><i class="fas fa-check-circle"></i>تتبع التقدم اليومي</li>
+                <div class="footer-section">
+                    <h3>روابط مهمة</h3>
+                    <ul class="footer-links">
+                        <li><a href="#azkar"><i class="fas fa-arrow-left"></i> الأذكار اليومية</a></li>
+                        <li><a href="#azkar"><i class="fas fa-arrow-left"></i> أذكار الصلاة</a></li>
+                        <li><a href="#azkar"><i class="fas fa-arrow-left"></i> أدعية الأنبياء</a></li>
+                        <li><a href="#azkar"><i class="fas fa-arrow-left"></i> أذكار السفر</a></li>
+                        <li><a href="#azkar"><i class="fas fa-arrow-left"></i> أذكار المرض والشفاء</a></li>
                     </ul>
-                    
-                    <h3 style="margin: 25px 0 15px; color: var(--primary);">كيفية نشر الموقع:</h3>
-                    <ol class="how-to-list">
-                        <li>أنشئ مستودعاً جديداً على GitHub</li>
-                        <li>انسخ ملفات التطبيق إلى المستودع</li>
-                        <li>اذهب إلى إعدادات المستودع > Pages</li>
-                        <li>اختر الفرع الرئيسي ومجلد الجذر</li>
-                        <li>احفظ التغييرات وسيكون الموقع متاحاً خلال دقائق</li>
-                    </ol>
-                    
-                    <h3 style="margin: 25px 0 15px; color: var(--primary);">كلمات مفتاحية لنشر الموقع:</h3>
-                    <p style="background: rgba(67, 97, 238, 0.1); padding: 15px; border-radius: 10px;">
-                        أذكار, أذكار المسلم, أذكار الصباح, أذكار المساء, أذكار النوم, أذكار بعد الصلاة, 
-                        مسبحة إلكترونية, تطبيق أذكار, أدعية إسلامية, أذكار يومية, ذكر الله, تطبيق إسلامي
-                    </p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>المصادر الموثوقة</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-arrow-left"></i> صحيح البخاري</a></li>
+                        <li><a href="#"><i class="fas fa-arrow-left"></i> صحيح مسلم</a></li>
+                        <li><a href="#"><i class="fas fa-arrow-left"></i> سنن الترمذي</a></li>
+                        <li><a href="#"><i class="fas fa-arrow-left"></i> سنن أبي داود</a></li>
+                        <li><a href="#"><i class="fas fa-arrow-left"></i> حصن المسلم</a></li>
+                    </ul>
                 </div>
             </div>
+            
+            <div class="copyright">
+                <p>جميع الحقوق محفوظة &copy; 2023 موسوعة الأذكار | تم تطويره بدقة وحرص</p>
+            </div>
         </div>
-    </div>
+    </footer>
 
     <script>
-        // إنشاء النجوم في الخلفية
-        function createStars() {
-            const starsContainer = document.getElementById('starsContainer');
-            const starCount = 150;
-            
-            for (let i = 0; i < starCount; i++) {
-                const star = document.createElement('div');
-                star.classList.add('star');
+        // دالة لزيادة أو تقليل العداد
+        document.querySelectorAll('.counter button').forEach(button => {
+            button.addEventListener('click', function() {
+                const counter = this.parentElement.querySelector('span');
+                let count = parseInt(counter.textContent);
                 
-                // حجم عشوائي للنجمة
-                const size = Math.random() * 3;
-                star.style.width = `${size}px`;
-                star.style.height = `${size}px`;
+                if(this.textContent === '+') {
+                    count++;
+                } else if(count > 0) {
+                    count--;
+                }
                 
-                // موقع عشوائي
-                star.style.left = `${Math.random() * 100}%`;
-                star.style.top = `${Math.random() * 100}%`;
+                counter.textContent = count;
                 
-                // مدة وميض عشوائية
-                star.style.setProperty('--duration', `${Math.random() * 5 + 3}s`);
-                
-                starsContainer.appendChild(star);
-            }
-        }
-        
-        // دالة للتبديل بين الصفحات
-        function showPage(pageId) {
-            // إخفاء جميع الصفحات
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
+                // إضافة تأثير للزر
+                this.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
             });
-            
-            // إظهار الصفحة المطلوبة
-            document.getElementById(pageId).classList.add('active');
-            
-            // التمرير لأعلى الصفحة
-            window.scrollTo(0, 0);
-        }
-        
-        // بيانات الأذكار
-        const athkarData = {
-            morning: [
-                {
-                    text: "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، رَبِّ أَسْأَلُكَ خَيْرَ مَا فِي هَذَا الْيَوْمِ وَخَيْرَ مَا بَعْدَهُ، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا فِي هَذَا الْيَوْمِ وَشَرِّ مَا بَعْدَهُ، رَبِّ أَعُوذُ بِكَ مِنَ الْكَسَلِ وَسُوءِ الْكِبَرِ، رَبِّ أَعُوذُ بِكَ مِنْ عَذَابٍ فِي النَّارِ وَعَذَابٍ فِي الْقَبْرِ.",
-                    reference: "[مسلم 4/2088]"
-                },
-                {
-                    text: "اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ النُّشُورُ.",
-                    reference: "[الترمذي 3391]"
-                },
-                {
-                    text: "اللَّهُمَّ إِنِّي أَصْبَحْتُ أُشْهِدُكَ وَأُشْهِدُ حَمَلَةَ عَرْشِكَ، وَمَلَائِكَتَكَ، وَجَمِيعَ خَلْقِكَ، أَنَّكَ أَنْتَ اللهُ لَا إِلَهَ إِلَّا أَنْتَ وَحْدَكَ لَا شَرِيكَ لَكَ، وَأَنَّ مُحَمَّدًا عَبْدُكَ وَرَسُولُكَ.",
-                    reference: "[أبو داود 5068]"
-                },
-                {
-                    text: "سُبْحَانَ اللهِ وَبِحَمْدِهِ، عَدَدَ خَلْقِهِ، وَرِضَا نَفْسِهِ، وَزِنَةَ عَرْشِهِ، وَمِدَادَ كَلِمَاتِهِ.",
-                    reference: "[مسلم 2726]"
-                },
-                {
-                    text: "اللَّهُمَّ عَافِنِي فِي بَدَنِي، اللَّهُمَّ عَافِنِي فِي سَمْعِي، اللَّهُمَّ عَافِنِي فِي بَصَرِي، لَا إِلَهَ إِلَّا أَنْتَ.",
-                    reference: "[أبو داود 5090]"
-                },
-                {
-                    text: "حَسْبِيَ اللهُ لَا إِلَهَ إِلَّا هُوَ، عَلَيْهِ تَوَكَّلْتُ، وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ.",
-                    reference: "[أبو داود 5081]"
-                }
-            ],
-            evening: [
-                {
-                    text: "أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، رَبِّ أَسْأَلُكَ خَيْرَ مَا فِي هَذِهِ اللَّيْلَةِ وَخَيْرَ مَا بَعْدَهَا، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا فِي هَذِهِ اللَّيْلَةِ وَشَرِّ مَا بَعْدَهَا، رَبِّ أَعُوذُ بِكَ مِنَ الْكَسَلِ وَسُوءِ الْكِبَرِ، رَبِّ أَعُوذُ بِكَ مِنْ عَذَابٍ فِي النَّارِ وَعَذَابٍ فِي الْقَبْرِ.",
-                    reference: "[مسلم 4/2088]"
-                },
-                {
-                    text: "اللَّهُمَّ بِكَ أَمْسَيْنَا، وَبِكَ أَصْبَحْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ النُّشُورُ.",
-                    reference: "[الترمذي 3391]"
-                },
-                {
-                    text: "اللَّهُمَّ إِنِّي أَمْسَيْتُ أُشْهِدُكَ وَأُشْهِدُ حَمَلَةَ عَرْشِكَ، وَمَلَائِكَتَكَ، وَجَمِيعَ خَلْقِكَ، أَنَّكَ أَنْتَ اللهُ لَا إِلَهَ إِلَّا أَنْتَ وَحْدَكَ لَا شَرِيكَ لَكَ، وَأَنَّ مُحَمَّدًا عَبْدُكَ وَرَسُولُكَ.",
-                    reference: "[أبو داود 5068]"
-                },
-                {
-                    text: "أَمْسَيْنَا عَلَى فِطْرَةِ الإِسْلَامِ، وَعَلَى كَلِمَةِ الإِخْلَاصِ، وَعَلَى دِينِ نَبِيِّنَا مُحَمَّدٍ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ، وَعَلَى مِلَّةِ أَبِينَا إِبْرَاهِيمَ حَنِيفًا مُسْلِمًا وَمَا كَانَ مِنَ الْمُشْرِكِينَ.",
-                    reference: "[أحمد 3/406]"
-                },
-                {
-                    text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا، وَرِزْقًا طَيِّبًا، وَعَمَلًا مُتَقَبَّلًا.",
-                    reference: "[ابن ماجه 925]"
-                },
-                {
-                    text: "سُبْحَانَ اللهِ وَبِحَمْدِهِ: عَدَدَ خَلْقِهِ، وَرِضَا نَفْسِهِ، وَزِنَةَ عَرْشِهِ، وَمِدَادَ كَلِمَاتِهِ.",
-                    reference: "[مسلم 2726]"
-                }
-            ],
-            sleep: [
-                {
-                    text: "بِاسْمِكَ رَبِّ وَضَعْتُ جَنْبِي، وَبِكَ أَرْفَعُهُ، إِنْ أَمْسَكْتَ نَفْسِي فَارْحَمْهَا، وَإِنْ أَرْسَلْتَهَا فَاحْفَظْهَا، بِمَا تَحْفَظُ بِهِ عِبَادَكَ الصَّالِحِينَ.",
-                    reference: "[البخاري 6320]"
-                },
-                {
-                    text: "اللَّهُمَّ قِنِي عَذَابَكَ يَوْمَ تَبْعَثُ عِبَادَكَ.",
-                    reference: "[الترمذي 3398]"
-                },
-                {
-                    text: "اللَّهُمَّ أَسْلَمْتُ نَفْسِي إِلَيْكَ، وَوَجَّهْتُ وَجْهِي إِلَيْكَ، وَفَوَّضْتُ أَمْرِي إِلَيْكَ، وَأَلْجَأْتُ ظَهْرِي إِلَيْكَ، رَغْبَةً وَرَهْبَةً إِلَيْكَ، لَا مَلْجَأَ وَلَا مَنْجَا مِنْكَ إِلَّا إِلَيْكَ، آمَنْتُ بِكِتَابِكَ الَّذِي أَنْزَلْتَ، وَبِنَبِيِّكَ الَّذِي أَرْسَلْتَ.",
-                    reference: "[البخاري 6315]"
-                },
-                {
-                    text: "سُبْحَانَ اللهِ (33 مرة) ، الْحَمْدُ لِلَّهِ (33 مرة) ، اللهُ أَكْبَرُ (34 مرة)",
-                    reference: "[مسلم 2727]"
-                },
-                {
-                    text: "آمَنَ الرَّسُولُ بِمَا أُنْزِلَ إِلَيْهِ مِنْ رَبِّهِ وَالْمُؤْمِنُونَ ۚ كُلٌّ آمَنَ بِاللَّهِ وَمَلَائِكَتِهِ وَكُتُبِهِ وَرُسُلِهِ لَا نُفَرِّقُ بَيْنَ أَحَدٍ مِنْ رُسُلِهِ ۚ وَقَالُوا سَمِعْنَا وَأَطَعْنَا ۖ غُفْرَانَكَ رَبَّنَا وَإِلَيْكَ الْمَصِيرُ.",
-                    reference: "[البقرة: 285]"
-                },
-                {
-                    text: "اللَّهُمَّ رَبَّ السَّمَاوَاتِ وَرَبَّ الْأَرْضِ وَرَبَّ الْعَرْشِ الْعَظِيمِ، رَبَّنَا وَرَبَّ كُلِّ شَيْءٍ، فَالِقَ الْحَبِّ وَالنَّوَى، وَمُنْزِلَ التَّوْرَاةِ وَالْإِنْجِيلِ وَالْفُرْقَانِ، أَعُوذُ بِكَ مِنْ شَرِّ كُلِّ شَيْءٍ أَنْتَ آخِذٌ بِنَاصِيَتِهِ، اللَّهُمَّ أَنْتَ الْأَوَّلُ فَلَيْسَ قَبْلَكَ شَيْءٌ، وَأَنْتَ الْآخِرُ فَلَيْسَ بَعْدَكَ شَيْءٌ، وَأَنْتَ الظَّاهِرُ فَلَيْسَ فَوْقَكَ شَيْءٌ، وَأَنْتَ الْبَاطِنُ فَلَيْسَ دُونَكَ شَيْءٌ، اقْضِ عَنَّا الدَّيْنَ، وَأَغْنِنَا مِنَ الْفَقْرِ.",
-                    reference: "[مسلم 2713]"
-                },
-                {
-                    text: "بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا.",
-                    reference: "[البخاري 6324]"
-                }
-            ],
-            prayer: [
-                {
-                    text: "أَسْتَغْفِرُ اللهَ (ثلاثاً) اللَّهُمَّ أَنْتَ السَّلَامُ وَمِنْكَ السَّلَامُ تَبَارَكْتَ يَا ذَا الْجَلَالِ وَالْإِكْرَامِ.",
-                    reference: "[مسلم 591]"
-                },
-                {
-                    text: "لَا إِلَهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، اللَّهُمَّ لَا مَانِعَ لِمَا أَعْطَيْتَ، وَلَا مُعْطِيَ لِمَا مَنَعْتَ، وَلَا يَنْفَعُ ذَا الْجَدِّ مِنْكَ الْجَدُّ.",
-                    reference: "[البخاري 844]"
-                },
-                {
-                    text: "لَا إِلَهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللهِ، لَا إِلَهَ إِلَّا اللهُ، وَلَا نَعْبُدُ إِلَّا إِيَّاهُ، لَهُ النِّعْمَةُ وَلَهُ الْفَضْلُ وَلَهُ الثَّنَاءُ الْحَسَنُ، لَا إِلَهَ إِلَّا اللهُ مُخْلِصِينَ لَهُ الدِّينَ وَلَوْ كَرِهَ الْكَافِرُونَ.",
-                    reference: "[مسلم 594]"
-                },
-                {
-                    text: "سُبْحَانَ اللهِ (33 مرة) ، الْحَمْدُ لِلَّهِ (33 مرة) ، اللهُ أَكْبَرُ (33 مرة)",
-                    reference: "[مسلم 597]"
-                },
-                {
-                    text: "اللَّهُمَّ أَعِنِّي عَلَى ذِكْرِكَ وَشُكْرِكَ وَحُسْنِ عِبَادَتِكَ.",
-                    reference: "[أبو داود 1522]"
-                },
-                {
-                    text: "لَا إِلَهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ يُحْيِي وَيُمِيتُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ (10 مرات)",
-                    reference: "[الترمذي 3474]"
-                },
-                {
-                    text: "رَبِّ اغْفِرْ لِي، وَتُبْ عَلَيَّ، إِنَّكَ أَنْتَ التَّوَّابُ الرَّحِيمُ.",
-                    reference: "[الترمذي 3434]"
-                }
-            ]
-        };
-
-        // حالات الأذكار
-        const athkarState = {
-            morning: { currentIndex: 0, count: 0 },
-            evening: { currentIndex: 0, count: 0 },
-            sleep: { currentIndex: 0, count: 0 },
-            prayer: { currentIndex: 0, count: 0 }
-        };
-
-        // عرض الذكر الحالي
-        function showCurrentDhikr(category) {
-            const dhikr = athkarData[category][athkarState[category].currentIndex];
-            const counterElement = document.getElementById(`${category}Counter`);
-            
-            document.getElementById(`${category}DhikrText`).textContent = dhikr.text;
-            document.getElementById(`${category}DhikrRef`).textContent = dhikr.reference;
-            counterElement.textContent = `${athkarState[category].currentIndex + 1}/${athkarData[category].length}`;
-            
-            // تحديث حالة أزرار التنقل
-            const navButtons = document.querySelectorAll(`#${category}Page .nav-btn`);
-            navButtons[0].disabled = athkarState[category].currentIndex === 0;
-            navButtons[1].disabled = athkarState[category].currentIndex === athkarData[category].length - 1;
-        }
-
-        // الذكر التالي
-        function nextDhikr(category) {
-            if (athkarState[category].currentIndex < athkarData[category].length - 1) {
-                athkarState[category].currentIndex++;
-                showCurrentDhikr(category);
-            }
-        }
-
-        // الذكر السابق
-        function prevDhikr(category) {
-            if (athkarState[category].currentIndex > 0) {
-                athkarState[category].currentIndex--;
-                showCurrentDhikr(category);
-            }
-        }
-
-        // متغيرات العداد
-        let currentCount = 0;
-        
-        // دالة تغيير العداد
-        function changeCount(amount) {
-            currentCount += amount;
-            if (currentCount < 0) currentCount = 0;
-            document.querySelectorAll('.counter-display').forEach(display => {
-                display.textContent = currentCount;
-            });
-        }
-        
-        // دالة إعادة العداد
-        function resetCount() {
-            currentCount = 0;
-            document.querySelectorAll('.counter-display').forEach(display => {
-                display.textContent = currentCount;
-            });
-        }
-        
-        // متغيرات المسبحة الإلكترونية
-        let dhikrCount = 0;
-        const dhikrCounter = document.getElementById('dhikrCounter');
-        
-        function changeDhikrCount(amount) {
-            dhikrCount += amount;
-            if (dhikrCount < 0) dhikrCount = 0;
-            dhikrCounter.textContent = dhikrCount;
-            
-            // إضافة تأثير عند النقر
-            dhikrCounter.classList.add('active');
-            setTimeout(() => {
-                dhikrCounter.classList.remove('active');
-            }, 200);
-        }
-        
-        function resetDhikrCount() {
-            dhikrCount = 0;
-            dhikrCounter.textContent = dhikrCount;
-        }
-        
-        // تحديث الذكر المختار في المسبحة
-        const dhikrSelect = document.getElementById('dhikrSelect');
-        const selectedDhikr = document.getElementById('selectedDhikr');
-        
-        dhikrSelect.addEventListener('change', function() {
-            selectedDhikr.textContent = this.value;
         });
         
-        // تهيئة القيمة الأولى
-        selectedDhikr.textContent = dhikrSelect.value;
+        // تأثيرات للبطاقات عند التمرير
+        const observerOptions = {
+            threshold: 0.1
+        };
         
-        // جعل شاشة المسبحة قابلة للنقر في أي مكان لزيادة العداد
-        document.getElementById('counterPage').addEventListener('click', function(e) {
-            if (e.target.closest('.counter-btn') || e.target.closest('select')) return;
-            changeDhikrCount(1);
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // تطبيق التأثير على العناصر
+        document.querySelectorAll('.category-card, .feature-card, .zekr-card').forEach(card => {
+            card.style.opacity = 0;
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(card);
         });
         
-        // تحديث شريط التقدم بشكل عشوائي (في تطبيق حقيقي سيكون مرتبط بقاعدة بيانات)
-        setInterval(() => {
-            const progress = document.getElementById('dailyProgress');
-            const randomProgress = 30 + Math.floor(Math.random() * 20);
-            progress.style.width = randomProgress + '%';
-            progress.nextElementSibling.textContent = `أكملت ${randomProgress}% من أذكارك اليومية`;
-        }, 5000);
-        
-        // تهيئة التطبيق
-        createStars();
-        
-        // تهيئة الأذكار
-        document.addEventListener('DOMContentLoaded', function() {
-            // تهيئة أذكار الصباح
-            showCurrentDhikr('morning');
-            
-            // تهيئة أذكار المساء
-            showCurrentDhikr('evening');
-            
-            // تهيئة أذكار النوم
-            showCurrentDhikr('sleep');
-            
-            // تهيئة أذكار بعد الصلاة
-            showCurrentDhikr('prayer');
+        // التأثير على القسم الرئيسي
+        document.querySelectorAll('.section-title').forEach(title => {
+            title.style.opacity = 0;
+            title.style.transform = 'translateY(-20px)';
+            title.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(title);
         });
     </script>
 </body>

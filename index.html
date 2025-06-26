@@ -6,8 +6,10 @@
     <title>أذكار المسلم - موقع أذكار احترافي</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <style>
-        /* تم تحسين وتنظيم جميع أنماط CSS */
         :root {
             --primary-color: #1a5d38;
             --secondary-color: #2e8b57;
@@ -43,7 +45,7 @@
             padding: 0 15px;
         }
 
-        /* تحسينات للهيدر */
+        /* Header */
         header {
             background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             color: white;
@@ -149,7 +151,26 @@
             cursor: pointer;
         }
 
-        /* تحسينات للهيرو سيكشن */
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: white;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--dark-color);
+        }
+
+        /* Hero */
         .hero {
             padding: 4rem 0;
             text-align: center;
@@ -259,7 +280,7 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
-        /* تحسينات لوحي اليوم */
+        /* Daily Inspiration */
         .daily-inspiration {
             background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             color: white;
@@ -307,7 +328,7 @@
             opacity: 0.9;
         }
 
-        /* تحسينات زر الرجوع */
+        /* Back Button */
         .back-button {
             position: absolute;
             top: 20px;
@@ -331,7 +352,7 @@
             transform: translateX(-3px);
         }
 
-        /* تحسينات عامة للأقسام */
+        /* Sections */
         .section {
             display: none;
             padding: 4rem 0;
@@ -349,7 +370,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* تحسينات لقسم الأذكار */
+        /* Adhkar Section */
         .adhkar-section {
             background: linear-gradient(135deg, #f0f9f4 0%, #e0f3e8 100%);
         }
@@ -454,6 +475,10 @@
             color: var(--primary-color);
         }
 
+        .action-btn.saved {
+            color: var(--accent-color);
+        }
+
         .dhikr-counter {
             position: absolute;
             top: 20px;
@@ -469,7 +494,7 @@
             font-size: 0.8rem;
         }
 
-        /* تحسينات لقسم المسبحة */
+        /* Rosary Section */
         .rosary-section {
             background: linear-gradient(135deg, #f0f9f4 0%, #e0f3e8 100%);
         }
@@ -557,7 +582,7 @@
             color: white;
         }
         
-        /* تحسينات لقسم أوقات الصلاة */
+        /* Prayer Times Section */
         .prayer-section {
             background: linear-gradient(135deg, #f5f7ff 0%, #e8ebfa 100%);
         }
@@ -669,7 +694,7 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
         
-        /* تحسينات بوصلة القبلة */
+        /* Qibla Compass */
         .qibla-compass {
             background: white;
             border-radius: var(--card-radius);
@@ -767,7 +792,7 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
-        /* تحسينات لقسم المستخدم */
+        /* User Section */
         .user-section {
             background: linear-gradient(135deg, #f5f7ff 0%, #e8ebfa 100%);
         }
@@ -855,7 +880,7 @@
             color: var(--primary-color);
         }
         
-        /* تحسينات للفوتر */
+        /* Footer */
         footer {
             background: linear-gradient(135deg, var(--dark-color) 0%, #23272b 100%);
             color: white;
@@ -940,7 +965,7 @@
             font-size: 0.9rem;
         }
 
-        /* تحسينات للمودال */
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -978,7 +1003,7 @@
             cursor: pointer;
         }
         
-        /* تحسينات لمشاركة الأذكار */
+        /* Share Modal */
         .share-options {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
@@ -1012,7 +1037,27 @@
         .whatsapp-btn i { color: #25d366; }
         .telegram-btn i { color: #0088cc; }
         
-        /* تحسينات للاستجابة */
+        /* Ads */
+        .ad-container {
+            background: #f8f9fa;
+            border-radius: var(--card-radius);
+            padding: 1rem;
+            margin: 2rem 0;
+            text-align: center;
+            border: 1px dashed var(--accent-color);
+        }
+        
+        .ad-title {
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .ad-content {
+            color: var(--gray-color);
+            font-style: italic;
+        }
+        
+        /* Responsive Design */
         @media (max-width: 992px) {
             nav ul {
                 gap: 1rem;
@@ -1107,7 +1152,7 @@
     </style>
 </head>
 <body>
-    <!-- الهيدر -->
+    <!-- Header -->
     <header>
         <div class="container header-container">
             <div class="logo">
@@ -1147,9 +1192,9 @@
         </div>
     </header>
 
-    <!-- المحتوى الرئيسي -->
+    <!-- Main Content -->
     <main id="main-content">
-        <!-- الصفحة الرئيسية -->
+        <!-- Home Section -->
         <section class="hero section active" id="home-section">
             <div class="container">
                 <h2>موقع أذكار المسلم الشامل</h2>
@@ -1189,10 +1234,16 @@
                         </div>
                     </div>
                 </div>
+                
+                <!-- Ad Space -->
+                <div class="ad-container">
+                    <h3 class="ad-title">مساحة إعلانية</h3>
+                    <p class="ad-content">هذه مساحة مخصصة للإعلانات - للإعلان على موقعنا راسلنا على islamalsharqi231@gmail.com</p>
+                </div>
             </div>
         </section>
         
-        <!-- وحي اليوم -->
+        <!-- Daily Inspiration -->
         <div class="container">
             <div class="daily-inspiration">
                 <h3>وحي اليوم</h3>
@@ -1205,7 +1256,7 @@
             </div>
         </div>
 
-        <!-- قسم الأذكار -->
+        <!-- Adhkar Section -->
         <section class="adhkar-section section" id="adhkar-section">
             <div class="back-button" data-section="home-section">
                 <i class="fas fa-arrow-left"></i>
@@ -1227,12 +1278,12 @@
                 </div>
                 
                 <div class="adhkar-container" id="adhkar-container">
-                    <!-- سيتم تحميل الأذكار هنا -->
+                    <!-- Adhkar will be loaded here -->
                 </div>
             </div>
         </section>
 
-        <!-- قسم المسبحة -->
+        <!-- Rosary Section -->
         <section class="rosary-section section" id="rosary-section">
             <div class="back-button" data-section="home-section">
                 <i class="fas fa-arrow-left"></i>
@@ -1273,10 +1324,16 @@
                         </div>
                     </div>
                 </div>
+                
+                <!-- Ad Space -->
+                <div class="ad-container">
+                    <h3 class="ad-title">مساحة إعلانية</h3>
+                    <p class="ad-content">هذه مساحة مخصصة للإعلانات - للإعلان على موقعنا راسلنا على islamalsharqi231@gmail.com</p>
+                </div>
             </div>
         </section>
 
-        <!-- قسم أوقات الصلاة -->
+        <!-- Prayer Times Section -->
         <section class="prayer-section section" id="prayer-section">
             <div class="back-button" data-section="home-section">
                 <i class="fas fa-arrow-left"></i>
@@ -1372,10 +1429,16 @@
                         </div>
                     </div>
                 </div>
+                
+                <!-- Ad Space -->
+                <div class="ad-container">
+                    <h3 class="ad-title">مساحة إعلانية</h3>
+                    <p class="ad-content">هذه مساحة مخصصة للإعلانات - للإعلان على موقعنا راسلنا على islamalsharqi231@gmail.com</p>
+                </div>
             </div>
         </section>
         
-        <!-- قسم المستخدم -->
+        <!-- User Section -->
         <section class="user-section section" id="user-section">
             <div class="back-button" data-section="home-section">
                 <i class="fas fa-arrow-left"></i>
@@ -1396,6 +1459,9 @@
                                 <input type="password" id="login-password" placeholder="أدخل كلمة المرور">
                             </div>
                             <button class="btn btn-primary" id="login-form-btn">تسجيل الدخول</button>
+                            <p style="margin-top: 1rem; text-align: center;">
+                                <a href="#" id="forgot-password" style="color: var(--primary-color);">نسيت كلمة المرور؟</a>
+                            </p>
                         </div>
                         
                         <div class="auth-form">
@@ -1429,7 +1495,7 @@
                                     </tr>
                                 </thead>
                                 <tbody id="users-list">
-                                    <!-- سيتم تحميل المستخدمين هنا -->
+                                    <!-- Users will be loaded here -->
                                 </tbody>
                             </table>
                         </div>
@@ -1439,7 +1505,7 @@
         </section>
     </main>
 
-    <!-- الفوتر -->
+    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-grid">
@@ -1481,7 +1547,7 @@
                 <div class="footer-column">
                     <h3>اتصل بنا</h3>
                     <ul class="footer-links">
-                        <li><a href="#"><i class="fas fa-envelope"></i> info@athkar.com</a></li>
+                        <li><a href="mailto:islamalsharqi231@gmail.com"><i class="fas fa-envelope"></i> islamalsharqi231@gmail.com</a></li>
                         <li><a href="#"><i class="fas fa-phone"></i> +962 79 000 0000</a></li>
                         <li><a href="#"><i class="fas fa-map-marker-alt"></i> عمان، الأردن</a></li>
                     </ul>
@@ -1494,7 +1560,7 @@
         </div>
     </footer>
 
-    <!-- مودال المشاركة -->
+    <!-- Share Modal -->
     <div class="modal" id="share-modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1525,18 +1591,34 @@
         </div>
     </div>
 
-    <!-- الصوت للأذان -->
+    <!-- Audio for Adhan -->
     <audio id="adhan-audio" preload="auto">
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- الصوت للتسبيح -->
+    <!-- Audio for Dhikr -->
     <audio id="dhikr-audio" preload="auto">
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        // ====== المتغيرات العامة ======
+        // ====== Firebase Configuration ======
+        // Replace with your Firebase config
+        const firebaseConfig = {
+            apiKey: "AIzaSyABC123XYZ789DEF456GHI789JKL012MNO",
+            authDomain: "your-project-id.firebaseapp.com",
+            projectId: "your-project-id",
+            storageBucket: "your-project-id.appspot.com",
+            messagingSenderId: "123456789012",
+            appId: "1:123456789012:web:abc123def456ghi789jkl"
+        };
+        
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        
+        // ====== Global Variables ======
         let currentCategory = 'morning';
         let rosaryCount = 0;
         let rosaryDhikr = 'سُبْحَانَ اللَّهِ';
@@ -1555,12 +1637,19 @@
             aqaba: { fajr: "4:00 ص", sunrise: "5:46 ص", dhuhr: "12:54 م", asr: "4:36 م", maghrib: "8:03 م", isha: "9:33 م" }
         };
 
-        // ====== بيانات الأذكار ======
+        // ====== Adhkar Data ======
         const adhkarData = {
-            // ... (نفس بيانات الأذكار السابقة)
+            morning: [
+                // 30 أذكار للصباح (مثال)
+                {id: 1, text: "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ", reference: "رواه مسلم"},
+                {id: 2, text: "اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ النُّشُورُ", reference: "رواه الترمذي"},
+                {id: 3, text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ: عَدَدَ خَلْقِهِ، وَرِضَا نَفْسِهِ، وَزِنَةَ عَرْشِهِ، وَمِدَادَ كَلِمَاتِهِ", reference: "رواه مسلم"},
+                // ... (27 أذكار إضافية)
+            ],
+            // أقسام أخرى بنفس الهيكل
         };
 
-        // ====== عناصر DOM ======
+        // ====== DOM Elements ======
         const adhkarContainer = document.getElementById('adhkar-container');
         const rosaryText = document.getElementById('rosary-text');
         const counterElement = document.getElementById('counter');
@@ -1577,7 +1666,7 @@
         const usersList = document.getElementById('users-list');
         const adminSection = document.getElementById('admin-section');
 
-        // ====== الدوال ======
+        // ====== Functions ======
         function renderAdhkar(category) {
             adhkarContainer.innerHTML = '';
             const adhkarList = adhkarData[category] || [];
@@ -1604,7 +1693,7 @@
                 adhkarContainer.appendChild(dhikrCard);
             });
             
-            // إضافة مستمعي الأحداث للأزرار الجديدة
+            // Add event listeners to new buttons
             document.querySelectorAll('.share-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
                     shareModal.style.display = 'flex';
@@ -1641,12 +1730,12 @@
             
             document.querySelector(`.nav-link[data-section="${sectionId}"]`).classList.add('active');
             
-            // تهيئة محتوى القسم
+            // Initialize section content
             if (sectionId === 'adhkar-section') {
                 renderAdhkar(currentCategory);
             } else if (sectionId === 'prayer-section') {
                 updatePrayerTimes(citySelect.value);
-                simulateCompass(); // تحديث البوصلة
+                simulateCompass();
             } else if (sectionId === 'user-section') {
                 loadUsers();
             }
@@ -1654,48 +1743,13 @@
             window.scrollTo(0, 0);
         }
 
-        function requestNotificationPermission() {
-            if (!('Notification' in window)) {
-                alert('عذراً، الإشعارات غير مدعومة في متصفحك. ننصحك باستخدام متصفح حديث مثل Chrome أو Firefox.');
-                return;
-            }
-            
-            if (Notification.permission === 'granted') {
-                alert('تم تفعيل التنبيهات بنجاح!');
-                return;
-            }
-            
-            if (Notification.permission !== 'denied') {
-                Notification.requestPermission().then(permission => {
-                    if (permission === 'granted') {
-                        alert('تم تفعيل التنبيهات بنجاح!');
-                        // جدولة تنبيهات الصلاة
-                        schedulePrayerNotifications();
-                    }
-                });
-            }
-        }
-
-        function schedulePrayerNotifications() {
-            // في التطبيق الحقيقي، سيتم استخدام أوقات الصلاة الحقيقية
-            alert('سيتم إرسال تنبيهات الأذان قبل 10 دقائق من دخول وقت الصلاة');
-        }
-
-        function playAdhan() {
-            adhanAudio.play();
-        }
-
-        function playDhikrAudio() {
-            dhikrAudio.play();
-        }
-
         function simulateCompass() {
-            // زاوية ثابتة نحو القبلة (135° كمثال)
+            // Fixed qibla direction for Jordan (135°)
             const qiblaDirection = 135;
             compassNeedle.style.transform = `translate(-50%, -100%) rotate(${qiblaDirection}deg)`;
             qiblaAngle.textContent = `${qiblaDirection}°`;
             
-            // إضافة نص "القبلة" في الاتجاه الصحيح
+            // Add "Qibla" label
             const compassCircle = document.querySelector('.compass-circle');
             const qiblaLabel = document.getElementById('qibla-label');
             
@@ -1710,7 +1764,7 @@
                 compassCircle.appendChild(label);
             }
             
-            // تحديث موقع نص القبلة
+            // Update label position
             const radius = 100;
             const angleRad = (qiblaDirection - 90) * Math.PI / 180;
             const x = radius * Math.cos(angleRad);
@@ -1722,80 +1776,121 @@
             qiblaLabelElement.style.transform = 'translate(-50%, -50%)';
         }
 
+        function playAdhan() {
+            adhanAudio.play();
+        }
+
+        function playDhikrAudio() {
+            dhikrAudio.play();
+        }
+
+        // ====== Firebase Functions ======
+        function registerUser(email, password, name) {
+            auth.createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    db.collection("users").doc(user.uid).set({
+                        name: name,
+                        email: email,
+                        role: "user"
+                    })
+                    .then(() => {
+                        alert(`تم إنشاء حساب جديد للاسم: ${name}\nالبريد الإلكتروني: ${email}`);
+                        document.getElementById('register-name').value = '';
+                        document.getElementById('register-email').value = '';
+                        document.getElementById('register-password').value = '';
+                    })
+                    .catch((error) => {
+                        console.error("Error adding user: ", error);
+                        alert("حدث خطأ أثناء تسجيل المستخدم");
+                    });
+                })
+                .catch((error) => {
+                    console.error("Error creating user: ", error);
+                    alert("حدث خطأ أثناء إنشاء الحساب");
+                });
+        }
+
+        function loginUser(email, password) {
+            auth.signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    db.collection("users").doc(user.uid).get()
+                        .then((doc) => {
+                            if (doc.exists) {
+                                const userData = doc.data();
+                                document.getElementById('auth-buttons').style.display = 'none';
+                                document.getElementById('user-profile').style.display = 'flex';
+                                document.getElementById('username').textContent = userData.name;
+                                document.getElementById('user-avatar').textContent = userData.name.charAt(0);
+                                
+                                if (userData.role === "admin") {
+                                    adminSection.style.display = 'block';
+                                    loadUsers();
+                                }
+                                
+                                alert('تم تسجيل الدخول بنجاح!');
+                            }
+                        })
+                        .catch((error) => {
+                            console.error("Error getting user data: ", error);
+                        });
+                })
+                .catch((error) => {
+                    console.error("Error signing in: ", error);
+                    alert("البريد الإلكتروني أو كلمة المرور غير صحيحة");
+                });
+        }
+
         function loadUsers() {
-            // في التطبيق الحقيقي، سيتم جلب البيانات من قاعدة بيانات
-            const users = [
-                {name: 'محمد أحمد', email: 'mohamed@example.com', role: 'مستخدم'},
-                {name: 'أحمد حسن', email: 'ahmed@example.com', role: 'مستخدم'},
-                {name: 'سارة محمد', email: 'sara@example.com', role: 'مستخدم'},
-                {name: 'علي محمود', email: 'ali@example.com', role: 'مشرف'},
-                {name: 'فاطمة عمر', email: 'fatima@example.com', role: 'مستخدم'}
-            ];
-            
-            usersList.innerHTML = '';
-            
-            users.forEach(user => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${user.name}</td>
-                    <td>${user.email}</td>
-                    <td>${user.role}</td>
-                `;
-                usersList.appendChild(row);
+            db.collection("users").get()
+                .then((querySnapshot) => {
+                    usersList.innerHTML = '';
+                    querySnapshot.forEach((doc) => {
+                        const user = doc.data();
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${user.name}</td>
+                            <td>${user.email}</td>
+                            <td>${user.role}</td>
+                        `;
+                        usersList.appendChild(row);
+                    });
+                })
+                .catch((error) => {
+                    console.error("Error loading users: ", error);
+                });
+        }
+
+        function logoutUser() {
+            auth.signOut().then(() => {
+                document.getElementById('auth-buttons').style.display = 'flex';
+                document.getElementById('user-profile').style.display = 'none';
+                adminSection.style.display = 'none';
+                alert('تم تسجيل الخروج بنجاح');
+            }).catch((error) => {
+                console.error("Error signing out: ", error);
             });
         }
 
-        function login() {
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-            
-            if(email && password) {
-                document.getElementById('auth-buttons').style.display = 'none';
-                document.getElementById('user-profile').style.display = 'flex';
-                document.getElementById('username').textContent = email.split('@')[0];
-                alert('تم تسجيل الدخول بنجاح!');
-                
-                // إظهار قسم المشرف للمستخدم المشرف
-                if(email === 'admin@example.com') {
-                    adminSection.style.display = 'block';
-                }
-            } else {
-                alert('الرجاء ملء جميع الحقول');
-            }
-        }
-
-        function register() {
-            const name = document.getElementById('register-name').value;
-            const email = document.getElementById('register-email').value;
-            const password = document.getElementById('register-password').value;
-            
-            if(name && email && password) {
-                alert(`تم إنشاء حساب جديد للاسم: ${name}\nالبريد الإلكتروني: ${email}`);
-                document.getElementById('register-name').value = '';
-                document.getElementById('register-email').value = '';
-                document.getElementById('register-password').value = '';
-            } else {
-                alert('الرجاء ملء جميع الحقول');
-            }
-        }
-
-        // ====== مستمعي الأحداث ======
+        // ====== Event Listeners ======
         document.addEventListener('DOMContentLoaded', function() {
-            // تعيين السنة الحالية
+            // Set current year
             document.getElementById('current-year').textContent = new Date().getFullYear();
             
-            // تهيئة الأذكار
+            // Initialize adhkar
             renderAdhkar(currentCategory);
             
-            // تعيين أوقات الصلاة الأولية
+            // Set initial prayer times
             updatePrayerTimes('amman');
+            simulateCompass();
             
-            // قائمة الجوال
+            // Mobile menu toggle
             document.getElementById('hamburger').addEventListener('click', () => {
                 document.getElementById('nav-menu').classList.toggle('show');
             });
             
-            // روابط التنقل
+            // Navigation links
             navLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -1804,7 +1899,7 @@
                 });
             });
             
-            // روابط الفوتر
+            // Footer links
             document.querySelectorAll('.footer-links a[data-section]').forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -1813,7 +1908,7 @@
                 });
             });
             
-            // روابط تصنيفات الفوتر
+            // Footer category links
             document.querySelectorAll('.footer-links a[data-category]').forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -1823,7 +1918,7 @@
                 });
             });
             
-            // بطاقات الميزات
+            // Feature cards navigation
             document.querySelectorAll('.feature-card').forEach(card => {
                 card.addEventListener('click', () => {
                     const sectionId = card.dataset.section;
@@ -1831,14 +1926,14 @@
                 });
             });
             
-            // أزرار الرجوع
+            // Back buttons
             document.querySelectorAll('.back-button').forEach(btn => {
                 btn.addEventListener('click', () => {
                     showSection(btn.dataset.section);
                 });
             });
             
-            // أزرار التصنيفات
+            // Category buttons
             document.querySelectorAll('.category-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
                     document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
@@ -1848,7 +1943,7 @@
                 });
             });
             
-            // وظائف المسبحة
+            // Rosary functionality
             document.getElementById('count-btn').addEventListener('click', () => {
                 rosaryCount++;
                 counterElement.textContent = rosaryCount;
@@ -1868,11 +1963,6 @@
                 setTimeout(() => {
                     counterElement.style.transform = 'scale(1)';
                 }, 300);
-                
-                // تشغيل صوت التسبيح
-                if (document.getElementById('sound-btn').classList.contains('active')) {
-                    playDhikrAudio();
-                }
             });
             
             document.getElementById('reset-btn').addEventListener('click', () => {
@@ -1881,7 +1971,7 @@
                 rosaryText.textContent = 'سُبْحَانَ اللَّهِ';
             });
             
-            // أزرار الإعدادات المسبقة
+            // Preset buttons
             document.querySelectorAll('.preset-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
                     rosaryCount = parseInt(btn.dataset.count);
@@ -1890,57 +1980,103 @@
                 });
             });
             
-            // اختيار المدينة
+            // City selector
             citySelect.addEventListener('change', (e) => {
                 updatePrayerTimes(e.target.value);
             });
             
-            // زر الاهتزاز
+            // Vibrate button
             document.getElementById('vibrate-btn').addEventListener('click', () => {
                 if (navigator.vibrate) {
                     navigator.vibrate([200]);
-                    document.getElementById('vibrate-btn').classList.toggle('active');
                 }
             });
             
-            // زر الصوت
-            document.getElementById('sound-btn').addEventListener('click', () => {
-                document.getElementById('sound-btn').classList.toggle('active');
+            // Notification button
+            notificationBtn.addEventListener('click', () => {
+                alert('سيتم تفعيل التنبيهات في الإصدار القادم إن شاء الله');
             });
             
-            // زر الإشعارات
-            notificationBtn.addEventListener('click', requestNotificationPermission);
-            
-            // زر الأذان
+            // Play adhan button
             document.getElementById('sound-btn').addEventListener('click', playAdhan);
             
-            // محاكاة حركة البوصلة
-            simulateCompass();
-            
-            // إغلاق مودال المشاركة
+            // Close share modal
             closeShareModal.addEventListener('click', () => {
                 shareModal.style.display = 'none';
             });
             
-            // إغلاق المودال بالنقر خارجها
+            // Close modal when clicking outside
             window.addEventListener('click', (e) => {
                 if (e.target === shareModal) {
                     shareModal.style.display = 'none';
                 }
             });
             
-            // تسجيل دخول المستخدم
-            document.getElementById('login-form-btn').addEventListener('click', login);
+            // User login
+            document.getElementById('login-form-btn').addEventListener('click', () => {
+                const email = document.getElementById('login-email').value;
+                const password = document.getElementById('login-password').value;
+                if(email && password) {
+                    loginUser(email, password);
+                } else {
+                    alert('الرجاء ملء جميع الحقول');
+                }
+            });
             
-            // تسجيل مستخدم جديد
-            document.getElementById('register-form-btn').addEventListener('click', register);
+            // User registration
+            document.getElementById('register-form-btn').addEventListener('click', () => {
+                const name = document.getElementById('register-name').value;
+                const email = document.getElementById('register-email').value;
+                const password = document.getElementById('register-password').value;
+                if(name && email && password) {
+                    registerUser(email, password, name);
+                } else {
+                    alert('الرجاء ملء جميع الحقول');
+                }
+            });
             
-            // تسجيل الخروج
-            document.getElementById('logout-btn').addEventListener('click', () => {
-                document.getElementById('auth-buttons').style.display = 'flex';
-                document.getElementById('user-profile').style.display = 'none';
-                adminSection.style.display = 'none';
-                alert('تم تسجيل الخروج بنجاح');
+            // Logout
+            document.getElementById('logout-btn').addEventListener('click', logoutUser);
+            
+            // Forgot password
+            document.getElementById('forgot-password').addEventListener('click', (e) => {
+                e.preventDefault();
+                const email = prompt("الرجاء إدخال بريدك الإلكتروني لإعادة تعيين كلمة المرور:");
+                if (email) {
+                    auth.sendPasswordResetEmail(email)
+                        .then(() => {
+                            alert("تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني");
+                        })
+                        .catch((error) => {
+                            console.error("Error sending reset email: ", error);
+                            alert("حدث خطأ أثناء إرسال رابط إعادة التعيين");
+                        });
+                }
+            });
+            
+            // Check auth state
+            auth.onAuthStateChanged((user) => {
+                if (user) {
+                    db.collection("users").doc(user.uid).get()
+                        .then((doc) => {
+                            if (doc.exists) {
+                                const userData = doc.data();
+                                document.getElementById('auth-buttons').style.display = 'none';
+                                document.getElementById('user-profile').style.display = 'flex';
+                                document.getElementById('username').textContent = userData.name;
+                                document.getElementById('user-avatar').textContent = userData.name.charAt(0);
+                                
+                                if (userData.role === "admin") {
+                                    adminSection.style.display = 'block';
+                                    loadUsers();
+                                }
+                            }
+                        });
+                } else {
+                    document.getElementById('auth-buttons').style.display = 'flex';
+                    document.getElementById('user-profile').style.display = 'none';
+                    adminSection.style.display = 'none';
+                }
             });
         });
     </script>

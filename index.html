@@ -3,1097 +3,1238 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>موقع الأذكار والقرآن الكريم المتكامل</title>
+    <title>أذكار المسلم - موقع أذكار احترافي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap">
     <style>
-        /* التصميم العام */
+        :root {
+            --primary-color: #2c7744;
+            --secondary-color: #3a9d5d;
+            --accent-color: #f1c40f;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --gray-color: #6c757d;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Cairo', sans-serif;
         }
-        
-        :root {
-            --primary: #2c786c;
-            --secondary: #ff9800;
-            --accent: #004445;
-            --light: #f8f1f1;
-            --dark: #1a1a2e;
-            --text: #333;
-            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            --quran-bg: #f0f8ff;
-            --quran-text: #1a3c6c;
-        }
-        
+
         body {
-            background: linear-gradient(135deg, #e0f7fa, #f8f1f1);
-            color: var(--text);
+            background: linear-gradient(135deg, #f8fff8 0%, #e6f7ec 100%);
+            color: var(--dark-color);
+            line-height: 1.6;
             min-height: 100vh;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: background 0.5s ease;
-        }
-        
-        body.quran-mode {
-            background: linear-gradient(135deg, #e0f0ff, #f0f8ff);
-        }
-        
-        .container {
-            max-width: 1200px;
-            width: 100%;
-            margin: 0 auto;
-        }
-        
-        /* الهيدر */
-        header {
-            background: linear-gradient(to right, var(--primary), var(--accent));
-            color: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: var(--shadow);
-            margin-bottom: 25px;
-            width: 100%;
-            text-align: center;
             position: relative;
-            overflow: hidden;
-            transition: all 0.4s ease;
         }
-        
-        header.quran-header {
-            background: linear-gradient(to right, #004a7c, #006d9e);
-        }
-        
-        header::before {
+
+        body::before {
             content: "";
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
-            background-size: cover;
-            z-index: 0;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(42, 157, 93, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 80% 80%, rgba(241, 196, 15, 0.05) 0%, transparent 20%);
+            z-index: -1;
         }
-        
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        header p {
-            font-size: 1.1rem;
-            max-width: 700px;
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
             margin: 0 auto;
-            position: relative;
-            z-index: 1;
-            opacity: 0.9;
+            padding: 0 15px;
         }
-        
-        /* إحصائيات الزوار */
-        .stats-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 15px 0;
-            flex-wrap: wrap;
-        }
-        
-        .stat-box {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            padding: 12px 20px;
-            min-width: 150px;
-            text-align: center;
-            backdrop-filter: blur(5px);
-        }
-        
-        .stat-box .number {
-            font-size: 1.8rem;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        
-        .stat-box .label {
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-        
-        /* التنقل بين الأقسام */
-        .tabs {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-        }
-        
-        .tab-btn {
-            background: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .tab-btn.active {
-            background: var(--primary);
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             color: white;
-            transform: translateY(-3px);
-        }
-        
-        .tab-btn:hover {
-            background: var(--secondary);
-            color: white;
-        }
-        
-        /* قسم الإعلانات */
-        .ad-banner {
-            background: white;
-            border-radius: 12px;
-            padding: 15px;
-            text-align: center;
-            margin: 20px 0;
+            padding: 1rem 0;
             box-shadow: var(--shadow);
-            width: 100%;
-            border: 1px dashed var(--secondary);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
-        
-        .ad-banner h3 {
-            color: var(--accent);
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        
-        .ad-placeholder {
-            background: linear-gradient(45deg, #f5f5f5, #e0e0e0);
-            height: 100px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #777;
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-        
-        /* محتوى الأذكار */
-        .content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            width: 100%;
-            margin-bottom: 30px;
-        }
-        
-        .category {
-            background: white;
-            border-radius: 15px;
-            box-shadow: var(--shadow);
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .category:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-        }
-        
-        .category-header {
-            background: linear-gradient(to right, var(--primary), var(--accent));
-            color: white;
-            padding: 15px 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .category-header i {
-            font-size: 1.5rem;
-        }
-        
-        .category-header h2 {
-            font-size: 1.4rem;
-        }
-        
-        .athkar-list {
-            padding: 20px;
-            max-height: 500px;
-            overflow-y: auto;
-        }
-        
-        .thikr {
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 10px;
-            background-color: #f9f9f9;
-            border-left: 4px solid var(--secondary);
-            transition: all 0.3s ease;
-        }
-        
-        .thikr:hover {
-            background-color: #f0f8ff;
-            transform: translateX(5px);
-        }
-        
-        .thikr-text {
-            font-size: 1.2rem;
-            line-height: 1.6;
-            margin-bottom: 10px;
-            color: var(--dark);
-        }
-        
-        .thikr-count {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        
-        .count-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            font-size: 1.1rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-        }
-        
-        .count-btn:hover {
-            background: var(--accent);
-            transform: scale(1.1);
-        }
-        
-        .count-display {
-            min-width: 40px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 1.2rem;
-            color: var(--accent);
-        }
-        
-        .progress-container {
-            width: 100%;
-            height: 8px;
-            background: #e0e0e0;
-            border-radius: 4px;
-            margin-top: 10px;
-            overflow: hidden;
-        }
-        
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(to right, var(--secondary), #ff5722);
-            border-radius: 4px;
-            width: 0;
-            transition: width 0.5s ease;
-        }
-        
-        /* قسم القرآن الكريم */
-        .quran-container {
-            background: var(--quran-bg);
-            border-radius: 15px;
-            box-shadow: var(--shadow);
-            padding: 25px;
-            margin-bottom: 30px;
-            display: none;
-        }
-        
-        .quran-container.active {
-            display: block;
-        }
-        
-        .quran-header {
-            text-align: center;
-            margin-bottom: 25px;
-            color: var(--quran-text);
-        }
-        
-        .quran-header h2 {
-            font-size: 2rem;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-        }
-        
-        .surahs-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-            max-height: 500px;
-            overflow-y: auto;
-            padding: 10px;
-        }
-        
-        .surah-card {
-            background: white;
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-            border: 2px solid transparent;
-        }
-        
-        .surah-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-            border-color: var(--primary);
-        }
-        
-        .surah-number {
-            background: var(--primary);
-            color: white;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 10px;
-            font-weight: bold;
-        }
-        
-        .surah-name {
-            font-size: 1.3rem;
-            color: var(--quran-text);
-            font-weight: bold;
-            margin-bottom: 5px;
-            font-family: 'Amiri', serif;
-        }
-        
-        .surah-details {
-            font-size: 0.9rem;
-            color: #666;
-        }
-        
-        .verses-container {
-            display: none;
-            margin-top: 25px;
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: var(--shadow);
-        }
-        
-        .verses-container.active {
-            display: block;
-        }
-        
-        .verses-header {
+
+        .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #eee;
         }
-        
-        .verses-header h3 {
-            font-size: 1.8rem;
-            color: var(--quran-text);
-            font-family: 'Amiri', serif;
-        }
-        
-        .back-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 30px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-        }
-        
-        .back-btn:hover {
-            background: var(--accent);
-            transform: translateX(-5px);
-        }
-        
-        .verses-list {
-            font-family: 'Amiri', serif;
-            font-size: 1.8rem;
-            line-height: 2.5;
-            text-align: justify;
-            color: var(--quran-text);
-            max-height: 500px;
-            overflow-y: auto;
-            padding: 15px;
-            border: 1px solid #eee;
-            border-radius: 10px;
-            background: #f9f9f9;
-        }
-        
-        .verse {
-            margin-bottom: 15px;
-            position: relative;
-            padding-right: 40px;
-        }
-        
-        .verse-number {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 30px;
-            height: 30px;
-            background: var(--primary);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            font-family: sans-serif;
-        }
-        
-        /* فوتر الموقع */
-        footer {
-            background: linear-gradient(to right, var(--accent), var(--dark));
-            color: white;
-            text-align: center;
-            padding: 25px;
-            border-radius: 15px;
-            width: 100%;
-            margin-top: auto;
-        }
-        
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 15px 0;
-        }
-        
-        .social-links a {
-            color: white;
-            font-size: 1.8rem;
-            transition: transform 0.3s ease;
-        }
-        
-        .social-links a:hover {
-            transform: translateY(-5px);
-            color: var(--secondary);
-        }
-        
-        .copyright {
-            margin-top: 15px;
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-        
-        /* زر الصوت */
-        .audio-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: var(--primary);
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            z-index: 100;
-            transition: all 0.3s ease;
-        }
-        
-        .audio-btn:hover {
-            background: var(--accent);
-            transform: scale(1.1);
-        }
-        
-        /* رسالة التنبيه */
-        .alert {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: white;
-            color: var(--accent);
-            padding: 15px 25px;
-            border-radius: 10px;
-            box-shadow: var(--shadow);
+
+        .logo {
             display: flex;
             align-items: center;
             gap: 10px;
-            z-index: 200;
-            transform: translateX(150%);
-            transition: transform 0.5s ease;
-            border-left: 4px solid var(--secondary);
         }
-        
-        .alert.show {
-            transform: translateX(0);
+
+        .logo i {
+            font-size: 2rem;
+            color: var(--accent-color);
         }
-        
-        /* التكيف مع الشاشات الصغيرة */
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: var(--dark-color);
+        }
+
+        .btn-primary:hover {
+            background-color: #e6b20a;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 4rem 0;
+            text-align: center;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%232c7744" opacity="0.1"/></svg>');
+            background-size: cover;
+        }
+
+        .hero h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            color: var(--gray-color);
+        }
+
+        .counter-container {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .counter {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .counter-label {
+            color: var(--gray-color);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 4rem 0;
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+        }
+
+        .feature-content {
+            padding: 1.5rem;
+        }
+
+        .feature-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Rosary Section */
+        .rosary-section {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #f0f9f4 0%, #e0f3e8 100%);
+        }
+
+        .rosary-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .rosary-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .rosary-body {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .rosary-display {
+            font-size: 5rem;
+            color: var(--primary-color);
+            margin: 1rem 0;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .rosary-counter {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            background: #f0f9f4;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 5px solid var(--primary-color);
+        }
+
+        .rosary-controls {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .rosary-presets {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .preset-btn {
+            padding: 0.5rem 1rem;
+            background-color: #e9ecef;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .preset-btn:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        /* Adhkar Section */
+        .adhkar-section {
+            padding: 4rem 0;
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+
+        .adhkar-categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .category-btn {
+            padding: 0.8rem 1.5rem;
+            background-color: white;
+            border: 2px solid var(--primary-color);
+            border-radius: 50px;
+            color: var(--primary-color);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .category-btn.active, .category-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .adhkar-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .dhikr-card {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+            transition: var(--transition);
+        }
+
+        .dhikr-card:last-child {
+            border-bottom: none;
+        }
+
+        .dhikr-card:hover {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .dhikr-text {
+            font-size: 1.4rem;
+            color: var(--dark-color);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .dhikr-reference {
+            color: var(--gray-color);
+            font-style: italic;
+            text-align: left;
+        }
+
+        .dhikr-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            color: var(--gray-color);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+        }
+
+        .action-btn:hover {
+            background-color: #f0f9f4;
+            color: var(--primary-color);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--dark-color) 0%, #23272b 100%);
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            position: relative;
+            padding-bottom: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-column h3::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--accent-color);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--accent-color);
+            color: var(--dark-color);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            nav ul {
+                gap: 1rem;
+            }
+            
+            .hero h2 {
+                font-size: 2.3rem;
+            }
+        }
+
         @media (max-width: 768px) {
-            header h1 {
+            .hamburger {
+                display: block;
+            }
+            
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--primary-color);
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: var(--shadow);
+            }
+            
+            nav ul.show {
+                display: flex;
+            }
+            
+            .header-container {
+                flex-wrap: wrap;
+            }
+            
+            .auth-buttons {
+                margin-left: auto;
+            }
+            
+            .hero h2 {
                 font-size: 2rem;
             }
             
-            .stats-container {
+            .feature-card {
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+            
+            .btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .counter-container {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .rosary-controls {
                 flex-direction: column;
                 align-items: center;
             }
             
-            .content {
-                grid-template-columns: 1fr;
+            .dhikr-text {
+                font-size: 1.2rem;
             }
-            
-            .surahs-container {
-                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        }
+
+        /* Login Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            animation: modalOpen 0.4s ease;
+        }
+
+        @keyframes modalOpen {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
             }
-            
-            .verses-list {
-                font-size: 1.5rem;
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
-            
-            .audio-btn {
-                bottom: 20px;
-                right: 20px;
-                width: 50px;
-                height: 50px;
-                font-size: 1.3rem;
-            }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(44, 119, 68, 0.1);
+        }
+
+        .forgot-password {
+            display: block;
+            text-align: right;
+            margin-top: 0.5rem;
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+
+        .modal-footer {
+            padding: 0 2rem 2rem;
+            text-align: center;
+        }
+
+        .switch-mode {
+            margin-top: 1rem;
+            color: var(--gray-color);
+        }
+
+        .switch-mode a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header id="main-header">
-            <h1><i class="fas fa-mosque"></i> موقع الأذكار والقرآن الكريم المتكامل</h1>
-            <p>ذكر الله نور للقلوب وطمأنينة للنفوس، اجعل ذكر الله وتلاوة القرآن جزءاً من يومك</p>
-            
-            <div class="stats-container">
-                <div class="stat-box">
-                    <div class="number" id="total-visitors">0</div>
-                    <div class="label">عدد الزوار</div>
-                </div>
-                <div class="stat-box">
-                    <div class="number" id="today-visitors">0</div>
-                    <div class="label">زوار اليوم</div>
-                </div>
-                <div class="stat-box">
-                    <div class="number" id="athkar-count">0</div>
-                    <div class="label">الأذكار المسجلة</div>
-                </div>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-pray"></i>
+                <h1>أذكار المسلم</h1>
             </div>
-        </header>
-        
-        <div class="tabs">
-            <button class="tab-btn active" data-tab="athkar">
-                <i class="fas fa-praying-hands"></i> الأذكار
-            </button>
-            <button class="tab-btn" data-tab="quran">
-                <i class="fas fa-book-quran"></i> القرآن الكريم
-            </button>
-        </div>
-        
-        <div class="ad-banner">
-            <h3><i class="fas fa-ad"></i> مساحة إعلانية</h3>
-            <div class="ad-placeholder">
-                مساحة مخصصة للإعلانات - 728x90
+            
+            <nav>
+                <button class="hamburger" id="hamburger">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul id="nav-menu">
+                    <li><a href="#" class="active">الرئيسية</a></li>
+                    <li><a href="#">الأذكار</a></li>
+                    <li><a href="#">المسبحة</a></li>
+                    <li><a href="#">المكتبة</a></li>
+                    <li><a href="#">التطبيق</a></li>
+                    <li><a href="#">اتصل بنا</a></li>
+                </ul>
+            </nav>
+            
+            <div class="auth-buttons">
+                <button class="btn btn-outline" id="login-btn">
+                    <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
+                </button>
+                <button class="btn btn-primary" id="register-btn">
+                    <i class="fas fa-user-plus"></i> إنشاء حساب
+                </button>
             </div>
         </div>
-        
-        <div id="athkar-content" class="content">
-            <!-- أذكار الصباح -->
-            <div class="category">
-                <div class="category-header">
-                    <i class="fas fa-sun"></i>
-                    <h2>أذكار الصباح</h2>
-                </div>
-                <div class="athkar-list" id="morning-athkar">
-                    <!-- سيتم إضافة الأذكار هنا -->
-                </div>
-            </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>موقع أذكار المسلم الشامل</h2>
+            <p>استذكر ربك في كل وقت وحين مع أكبر مجموعة من الأذكار والأدعية المأثورة مصنفة ومرتبة لسهولة الوصول إليها</p>
             
-            <!-- أذكار المساء -->
-            <div class="category">
-                <div class="category-header">
-                    <i class="fas fa-moon"></i>
-                    <h2>أذكار المساء</h2>
+            <div class="counter-container">
+                <div>
+                    <div class="counter">5,842</div>
+                    <div class="counter-label">زائر حالياً</div>
                 </div>
-                <div class="athkar-list" id="evening-athkar">
-                    <!-- سيتم إضافة الأذكار هنا -->
-                </div>
-            </div>
-            
-            <!-- أذكار النوم -->
-            <div class="category">
-                <div class="category-header">
-                    <i class="fas fa-bed"></i>
-                    <h2>أذكار النوم</h2>
-                </div>
-                <div class="athkar-list" id="sleep-athkar">
-                    <!-- سيتم إضافة الأذكار هنا -->
+                <div>
+                    <div class="counter">1,243,976</div>
+                    <div class="counter-label">إجمالي الزيارات</div>
                 </div>
             </div>
         </div>
-        
-        <div id="quran-content" class="quran-container">
-            <div class="quran-header">
-                <h2><i class="fas fa-book-open"></i> القرآن الكريم كاملاً</h2>
-                <p>تلاوة القرآن تشرح الصدور وتنير القلوب، اختر سورة للقراءة</p>
-            </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">مميزات موقعنا</h2>
             
-            <div class="surahs-container" id="surahs-list">
-                <!-- سيتم إضافة السور هنا -->
-            </div>
-            
-            <div class="verses-container" id="verses-container">
-                <div class="verses-header">
-                    <h3 id="surah-name"></h3>
-                    <button class="back-btn" id="back-to-surahs">
-                        <i class="fas fa-arrow-left"></i> العودة للسور
-                    </button>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-book-quran"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>أكثر من 2500 ذكر ودعاء</h3>
+                        <p>مجموعة ضخمة من الأذكار والأدعية المأثورة مصنفة حسب الأوقات والمناسبات مع شرح وتوضيح لكل ذكر</p>
+                    </div>
                 </div>
-                <div class="verses-list" id="verses-list">
-                    <!-- سيتم عرض الآيات هنا -->
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>مسبحة رقمية متطورة</h3>
+                        <p>مسبحة إلكترونية بتصميم جميل مع إمكانية تحديد العدد وعدة أصوات للسبحة وحفظ التقدم</p>
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>تذكير بالأذكار</h3>
+                        <p>نظام تذكيرات ذكي يذكرك بالأذكار في أوقاتها المناسبة حسب اختيارك</p>
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>تتبع التقدم</h3>
+                        <p>إحصائيات وتقارير عن تقدمك في حفظ الأذكار والمسبحة مع جوائز تحفيزية</p>
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>مجتمع متكامل</h3>
+                        <p>انضم لمجتمع المؤمنين وتنافس مع الأصدقاء في حفظ الأذكار والأدعية</p>
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>أوقات الصلاة</h3>
+                        <p>مواقيت الصلاة الدقيقة حسب موقعك مع تنبيهات قبل الأذان</p>
+                    </div>
                 </div>
             </div>
         </div>
-        
-        <div class="ad-banner">
-            <h3><i class="fas fa-ad"></i> مساحة إعلانية</h3>
-            <div class="ad-placeholder">
-                مساحة مخصصة للإعلانات - 300x250
+    </section>
+
+    <!-- Rosary Section -->
+    <section class="rosary-section">
+        <div class="container">
+            <h2 class="section-title">المسبحة الإلكترونية</h2>
+            
+            <div class="rosary-container">
+                <div class="rosary-header">
+                    <h3>سبح معنا واستغفر ربك</h3>
+                </div>
+                <div class="rosary-body">
+                    <div class="rosary-display">
+                        <div>سُبْحَانَ اللَّهِ</div>
+                    </div>
+                    
+                    <div class="rosary-counter" id="counter">0</div>
+                    
+                    <div class="rosary-controls">
+                        <button class="btn btn-primary" id="count-btn">
+                            <i class="fas fa-plus"></i> زيادة
+                        </button>
+                        <button class="btn btn-outline" id="reset-btn">
+                            <i class="fas fa-redo"></i> إعادة
+                        </button>
+                        <button class="btn btn-outline" id="vibrate-btn">
+                            <i class="fas fa-vibrate"></i> اهتزاز
+                        </button>
+                        <button class="btn btn-outline" id="sound-btn">
+                            <i class="fas fa-volume-up"></i> صوت
+                        </button>
+                    </div>
+                    
+                    <div class="rosary-presets">
+                        <button class="preset-btn" data-count="33">33 تسبيحة</button>
+                        <button class="preset-btn" data-count="99">99 تسبيحة</button>
+                        <button class="preset-btn" data-count="100">100 تسبيحة</button>
+                    </div>
+                </div>
             </div>
         </div>
-        
-        <footer>
-            <p>شارك الموقع مع أحبابك لتنتشر الأذكار وتلاوة القرآن</p>
-            <div class="social-links">
-                <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-whatsapp"></i></a>
-                <a href="#"><i class="fab fa-telegram"></i></a>
+    </section>
+
+    <!-- Adhkar Section -->
+    <section class="adhkar-section">
+        <div class="container">
+            <h2 class="section-title">أذكار الصباح والمساء</h2>
+            
+            <div class="adhkar-categories">
+                <button class="category-btn active">أذكار الصباح</button>
+                <button class="category-btn">أذكار المساء</button>
+                <button class="category-btn">أذكار النوم</button>
+                <button class="category-btn">أذكار الاستيقاظ</button>
+                <button class="category-btn">أذكار الصلاة</button>
+                <button class="category-btn">أذكار متنوعة</button>
             </div>
+            
+            <div class="adhkar-container">
+                <div class="dhikr-card">
+                    <div class="dhikr-text">
+                        أَعُوذُ بِاللهِ مِنْ الشَّيْطَانِ الرَّجِيمِ
+                    </div>
+                    <div class="dhikr-reference">
+                        [سورة الفاتحة: 1]
+                    </div>
+                    <div class="dhikr-actions">
+                        <button class="action-btn">
+                            <i class="fas fa-heart"></i> حفظ
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-share-alt"></i> مشاركة
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-volume-up"></i> استماع
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="dhikr-card">
+                    <div class="dhikr-text">
+                        اللّهُ لاَ إِلَهَ إِلاَّ هُوَ الْحَيُّ الْقَيُّومُ لاَ تَأْخُذُهُ سِنَةٌ وَلاَ نَوْمٌ لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الأَرْضِ مَن ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلاَّ بِإِذْنِهِ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلاَ يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلاَّ بِمَا شَاء وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالأَرْضَ وَلاَ يَؤُودُهُ حِفْظُهُمَا وَهُوَ الْعَلِيُّ الْعَظِيمُ
+                    </div>
+                    <div class="dhikr-reference">
+                        [آية الكرسي - البقرة 255]
+                    </div>
+                    <div class="dhikr-actions">
+                        <button class="action-btn">
+                            <i class="fas fa-heart"></i> حفظ
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-share-alt"></i> مشاركة
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-volume-up"></i> استماع
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="dhikr-card">
+                    <div class="dhikr-text">
+                        بِسْمِ اللهِ الرَّحْمنِ الرَّحِيم
+                    </div>
+                    <div class="dhikr-reference">
+                        [سورة الفاتحة: 1]
+                    </div>
+                    <div class="dhikr-actions">
+                        <button class="action-btn">
+                            <i class="fas fa-heart"></i> حفظ
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-share-alt"></i> مشاركة
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-volume-up"></i> استماع
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="dhikr-card">
+                    <div class="dhikr-text">
+                        قُلْ هُوَ اللَّهُ أَحَدٌ، اللَّهُ الصَّمَدُ، لَمْ يَلِدْ وَلَمْ يُولَدْ، وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ
+                    </div>
+                    <div class="dhikr-reference">
+                        [سورة الإخلاص]
+                    </div>
+                    <div class="dhikr-actions">
+                        <button class="action-btn">
+                            <i class="fas fa-heart"></i> حفظ
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-share-alt"></i> مشاركة
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-volume-up"></i> استماع
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="dhikr-card">
+                    <div class="dhikr-text">
+                        قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ، مِن شَرِّ مَا خَلَقَ، وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ، وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ، وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ
+                    </div>
+                    <div class="dhikr-reference">
+                        [سورة الفلق]
+                    </div>
+                    <div class="dhikr-actions">
+                        <button class="action-btn">
+                            <i class="fas fa-heart"></i> حفظ
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-share-alt"></i> مشاركة
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-volume-up"></i> استماع
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>عن الموقع</h3>
+                    <p>موقع أذكار المسلم هو موقع متخصص في الأذكار والأدعية الإسلامية الصحيحة، نسعى لنشر السنة الصحيحة وتيسير الوصول إلى الأذكار النبوية.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>روابط سريعة</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-angle-left"></i> الرئيسية</a></li>
+                        <li><a href="#"><i class="fas fa-angle-left"></i> الأذكار</a></li>
+                        <li><a href="#"><i class="fas fa-angle-left"></i> المسبحة</a></li>
+                        <li><a href="#"><i class="fas fa-angle-left"></i> المكتبة</a></li>
+                        <li><a href="#"><i class="fas fa-angle-left"></i> التطبيق</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>أقسام الموقع</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-angle-left"></i> أذكار الصباح</a></li>
+                        <li><a href="#"><i class="fas fa-angle-left"></i> أذكار المساء</a></li>
+                        <li><a href="#"><i class="fas fa-angle-left"></i> أذكار النوم</a></li>
+                        <li><a href="#"><i class="fas fa-angle-left"></i> أذكار الصلاة</a></li>
+                        <li><a href="#"><i class="fas fa-angle-left"></i> أدعية قرآنية</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>اتصل بنا</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-envelope"></i> info@athkar.com</a></li>
+                        <li><a href="#"><i class="fas fa-phone"></i> +966 123 456 789</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> الرياض، المملكة العربية السعودية</a></li>
+                    </ul>
+                </div>
+            </div>
+            
             <div class="copyright">
-                © 2023 موقع الأذكار المتكامل - جميع الحقوق محفوظة
+                <p>جميع الحقوق محفوظة &copy; موقع أذكار المسلم 2023</p>
             </div>
-        </footer>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close-modal" id="close-login">&times;</button>
+                <h3>تسجيل الدخول إلى حسابك</h3>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="login-email">البريد الإلكتروني</label>
+                    <input type="email" id="login-email" class="form-control" placeholder="ادخل بريدك الإلكتروني">
+                </div>
+                
+                <div class="form-group">
+                    <label for="login-password">كلمة المرور</label>
+                    <input type="password" id="login-password" class="form-control" placeholder="ادخل كلمة المرور">
+                    <a href="#" class="forgot-password">نسيت كلمة المرور؟</a>
+                </div>
+                
+                <button class="btn btn-primary" style="width: 100%;">تسجيل الدخول</button>
+                
+                <div class="switch-mode">
+                    ليس لديك حساب؟ <a href="#" id="switch-to-register">إنشاء حساب جديد</a>
+                </div>
+            </div>
+        </div>
     </div>
-    
-    <div class="audio-btn" onclick="toggleAudio()">
-        <i class="fas fa-volume-up"></i>
+
+    <!-- Register Modal -->
+    <div class="modal" id="register-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close-modal" id="close-register">&times;</button>
+                <h3>إنشاء حساب جديد</h3>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="register-name">الاسم الكامل</label>
+                    <input type="text" id="register-name" class="form-control" placeholder="ادخل اسمك الكامل">
+                </div>
+                
+                <div class="form-group">
+                    <label for="register-email">البريد الإلكتروني</label>
+                    <input type="email" id="register-email" class="form-control" placeholder="ادخل بريدك الإلكتروني">
+                </div>
+                
+                <div class="form-group">
+                    <label for="register-password">كلمة المرور</label>
+                    <input type="password" id="register-password" class="form-control" placeholder="اختر كلمة مرور قوية">
+                </div>
+                
+                <div class="form-group">
+                    <label for="register-confirm">تأكيد كلمة المرور</label>
+                    <input type="password" id="register-confirm" class="form-control" placeholder="أعد كتابة كلمة المرور">
+                </div>
+                
+                <button class="btn btn-primary" style="width: 100%;">إنشاء حساب</button>
+                
+                <div class="switch-mode">
+                    لديك حساب بالفعل؟ <a href="#" id="switch-to-login">تسجيل الدخول</a>
+                </div>
+            </div>
+        </div>
     </div>
-    
-    <div class="alert" id="alert">
-        <i class="fas fa-check-circle"></i>
-        <div>تم تسجيل الذكر بنجاح!</div>
-    </div>
-    
+
     <script>
-        // بيانات الموقع
-        const athkarData = {
-            morning: [
-                {text: "أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ", count: 3},
-                {text: "اللَّهُ لاَ إِلَهَ إِلاَّ هُوَ الْحَيُّ الْقَيُّومُ، لاَ تَأْخُذُهُ سِنَةٌ وَلاَ نَوْمٌ", count: 3},
-                {text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ", count: 100},
-                {text: "اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ النُّشُورُ", count: 1},
-                {text: "اللَّهُمَّ إِنِّي أَصْبَحْتُ أُشْهِدُكَ، وَأُشْهِدُ حَمَلَةَ عَرْشِكَ، وَمَلَائِكَتَكَ، وَجَمِيعَ خَلْقِكَ، أَنَّكَ أَنْتَ اللَّهُ لَا إِلَهَ إِلَّا أَنْتَ، وَأَنَّ مُحَمَّدًا عَبْدُكَ وَرَسُولُكَ", count: 4},
-                {text: "اللَّهُمَّ عَافِنِي فِي بَدَنِي، اللَّهُمَّ عَافِنِي فِي سَمْعِي، اللَّهُمَّ عَافِنِي فِي بَصَرِي، لَا إِلَهَ إِلَّا أَنْتَ", count: 3},
-                {text: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْكُفْرِ، وَالْفَقْرِ، وَأَعُوذُ بِكَ مِنْ عَذَابِ الْقَبْرِ، لَا إِلَهَ إِلَّا أَنْتَ", count: 3},
-                {text: "حَسْبِيَ اللَّهُ لَا إِلَهَ إِلَّا هُوَ، عَلَيْهِ تَوَكَّلْتُ، وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ", count: 7}
-            ],
-            evening: [
-                {text: "أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ", count: 3},
-                {text: "آمَنَ الرَّسُولُ بِمَا أُنْزِلَ إِلَيْهِ مِنْ رَبِّهِ وَالْمُؤْمِنُونَ", count: 4},
-                {text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ", count: 100},
-                {text: "اللَّهُمَّ بِكَ أَمْسَيْنَا، وَبِكَ أَصْبَحْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ النُّشُورُ", count: 1},
-                {text: "اللَّهُمَّ إِنِّي أَمْسَيْتُ أُشْهِدُكَ، وَأُشْهِدُ حَمَلَةَ عَرْشِكَ، وَمَلَائِكَتَكَ، وَجَمِيعَ خَلْقِكَ، أَنَّكَ أَنْتَ اللَّهُ لَا إِلَهَ إِلَّا أَنْتَ، وَأَنَّ مُحَمَّدًا عَبْدُكَ وَرَسُولُكَ", count: 4},
-                {text: "اللَّهُمَّ عَافِنِي فِي بَدَنِي، اللَّهُمَّ عَافِنِي فِي سَمْعِي، اللَّهُمَّ عَافِنِي فِي بَصَرِي، لَا إِلَهَ إِلَّا أَنْتَ", count: 3},
-                {text: "أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ", count: 1},
-                {text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا، وَرِزْقًا طَيِّبًا، وَعَمَلًا مُتَقَبَّلًا", count: 1}
-            ],
-            sleep: [
-                {text: "بِاسْمِكَ رَبِّـي وَضَعْـتُ جَنْـبي ، وَبِكَ أَرْفَعُـه، فَإِن أَمْسَـكْتَ نَفْسـي فارْحَـمْها ، وَإِنْ أَرْسَلْتَـها فاحْفَظْـها بِمـا تَحْفَـظُ بِه عِبـادَكَ الصّـالِحـين", count: 1},
-                {text: "اللّهُـمَّ إِنَّـكَ خَلَـقْتَ نَفْسـي وَأَنْـتَ تَوَفّـاهـا لَكَ ممَـاتـها وَمَحْـياها ، إِنْ أَحْيَيْـتَها فاحْفَظْـها ، وَإِنْ أَمَتَّـها فَاغْفِـرْ لَـها . اللّهُـمَّ إِنَّـي أَسْـأَلُـكَ العـافِـيَة", count: 1},
-                {text: "اللّهُـمَّ قِنـي عَذابَـكَ يَـوْمَ تَبْـعَثُ عِبـادَك", count: 3},
-                {text: "بِاسْـمِكَ اللّهُـمَّ أَمـوتُ وَأَحْـيا", count: 1},
-                {text: "الـحَمْدُ للهِ الَّذي أَطْـعَمَنا وَسَقـانا، وَكَفـانا، وَآوانا، فَكَـمْ مِمَّـنْ لا كـافِيَ لَـهُ وَلا مُـؤْوي", count: 1},
-                {text: "اللّهُـمَّ عالِـمَ الغَـيبِ وَالشّـهادةِ فاطِـرَ السّماواتِ وَالأرْضِ رَبَّ كـلِّ شَـيءٍ وَمَليـكَه، أَشْهـدُ أَنْ لا إِلـهَ إِلاّ أَنْت، أَعـوذُ بِكَ مِن شَـرِّ نَفْسـي، وَمِن شَـرِّ الشَّيْـطانِ وَشِـرْكِه، وَأَنْ أَقْتَـرِفَ عَلـى نَفْسـي سوءاً أَوْ أَجُـرَّهُ إِلـى مُسْـلِم", count: 1},
-                {text: "اللّهُـمَّ أَسْـلَمْتُ نَفْـسي إِلَـيْكَ، وَفَوَّضْـتُ أَمْـري إِلَـيْكَ، وَوَجَّـهْتُ وَجْـهي إِلَـيْكَ، وَأَلْـجَـاْتُ ظَهـري إِلَـيْكَ، رَغْبَـةً وَرَهْـبَةً إِلَـيْكَ، لا مَلْجَـأَ وَلا مَنْـجـا مِنْـكَ إِلاّ إِلَـيْكَ، آمَنْـتُ بِكِتـابِكَ الّـذي أَنْزَلْـتَ وَبِنَبِـيِّـكَ الّـذي أَرْسَلْـت", count: 1},
-                {text: "سُبْحَانَ اللَّهِ 33 مرَّة، الْحَمْدُ لِلَّهِ 33 مرَّة، اللَّهُ أَكْبَرُ 34 مرَّة", count: 100}
-            ]
-        };
-
-        // بيانات القرآن الكريم
-        const quranData = [
-            {id: 1, name: "الفاتحة", verses: 7, type: "مكية"},
-            {id: 2, name: "البقرة", verses: 286, type: "مدنية"},
-            {id: 3, name: "آل عمران", verses: 200, type: "مدنية"},
-            {id: 4, name: "النساء", verses: 176, type: "مدنية"},
-            {id: 5, name: "المائدة", verses: 120, type: "مدنية"},
-            {id: 6, name: "الأنعام", verses: 165, type: "مكية"},
-            {id: 7, name: "الأعراف", verses: 206, type: "مكية"},
-            {id: 8, name: "الأنفال", verses: 75, type: "مدنية"},
-            {id: 9, name: "التوبة", verses: 129, type: "مدنية"},
-            {id: 10, name: "يونس", verses: 109, type: "مكية"},
-            {id: 11, name: "هود", verses: 123, type: "مكية"},
-            {id: 12, name: "يوسف", verses: 111, type: "مكية"},
-            {id: 13, name: "الرعد", verses: 43, type: "مدنية"},
-            {id: 14, name: "إبراهيم", verses: 52, type: "مكية"},
-            {id: 15, name: "الحجر", verses: 99, type: "مكية"},
-            {id: 16, name: "النحل", verses: 128, type: "مكية"},
-            {id: 17, name: "الإسراء", verses: 111, type: "مكية"},
-            {id: 18, name: "الكهف", verses: 110, type: "مكية"},
-            {id: 19, name: "مريم", verses: 98, type: "مكية"},
-            {id: 20, name: "طه", verses: 135, type: "مكية"},
-            {id: 21, name: "الأنبياء", verses: 112, type: "مكية"},
-            {id: 22, name: "الحج", verses: 78, type: "مدنية"},
-            {id: 23, name: "المؤمنون", verses: 118, type: "مكية"},
-            {id: 24, name: "النور", verses: 64, type: "مدنية"},
-            {id: 25, name: "الفرقان", verses: 77, type: "مكية"},
-            {id: 26, name: "الشعراء", verses: 227, type: "مكية"},
-            {id: 27, name: "النمل", verses: 93, type: "مكية"},
-            {id: 28, name: "القصص", verses: 88, type: "مكية"},
-            {id: 29, name: "العنكبوت", verses: 69, type: "مكية"},
-            {id: 30, name: "الروم", verses: 60, type: "مكية"},
-            {id: 31, name: "لقمان", verses: 34, type: "مكية"},
-            {id: 32, name: "السجدة", verses: 30, type: "مكية"},
-            {id: 33, name: "الأحزاب", verses: 73, type: "مدنية"},
-            {id: 34, name: "سبأ", verses: 54, type: "مكية"},
-            {id: 35, name: "فاطر", verses: 45, type: "مكية"},
-            {id: 36, name: "يس", verses: 83, type: "مكية"},
-            {id: 37, name: "الصافات", verses: 182, type: "مكية"},
-            {id: 38, name: "ص", verses: 88, type: "مكية"},
-            {id: 39, name: "الزمر", verses: 75, type: "مكية"},
-            {id: 40, name: "غافر", verses: 85, type: "مكية"},
-            {id: 41, name: "فصلت", verses: 54, type: "مكية"},
-            {id: 42, name: "الشورى", verses: 53, type: "مكية"},
-            {id: 43, name: "الزخرف", verses: 89, type: "مكية"},
-            {id: 44, name: "الدخان", verses: 59, type: "مكية"},
-            {id: 45, name: "الجاثية", verses: 37, type: "مكية"},
-            {id: 46, name: "الأحقاف", verses: 35, type: "مكية"},
-            {id: 47, name: "محمد", verses: 38, type: "مدنية"},
-            {id: 48, name: "الفتح", verses: 29, type: "مدنية"},
-            {id: 49, name: "الحجرات", verses: 18, type: "مدنية"},
-            {id: 50, name: "ق", verses: 45, type: "مكية"},
-            {id: 51, name: "الذاريات", verses: 60, type: "مكية"},
-            {id: 52, name: "الطور", verses: 49, type: "مكية"},
-            {id: 53, name: "النجم", verses: 62, type: "مكية"},
-            {id: 54, name: "القمر", verses: 55, type: "مكية"},
-            {id: 55, name: "الرحمن", verses: 78, type: "مدنية"},
-            {id: 56, name: "الواقعة", verses: 96, type: "مكية"},
-            {id: 57, name: "الحديد", verses: 29, type: "مدنية"},
-            {id: 58, name: "المجادلة", verses: 22, type: "مدنية"},
-            {id: 59, name: "الحشر", verses: 24, type: "مدنية"},
-            {id: 60, name: "الممتحنة", verses: 13, type: "مدنية"},
-            {id: 61, name: "الصف", verses: 14, type: "مدنية"},
-            {id: 62, name: "الجمعة", verses: 11, type: "مدنية"},
-            {id: 63, name: "المنافقون", verses: 11, type: "مدنية"},
-            {id: 64, name: "التغابن", verses: 18, type: "مدنية"},
-            {id: 65, name: "الطلاق", verses: 12, type: "مدنية"},
-            {id: 66, name: "التحريم", verses: 12, type: "مدنية"},
-            {id: 67, name: "الملك", verses: 30, type: "مكية"},
-            {id: 68, name: "القلم", verses: 52, type: "مكية"},
-            {id: 69, name: "الحاقة", verses: 52, type: "مكية"},
-            {id: 70, name: "المعارج", verses: 44, type: "مكية"},
-            {id: 71, name: "نوح", verses: 28, type: "مكية"},
-            {id: 72, name: "الجن", verses: 28, type: "مكية"},
-            {id: 73, name: "المزمل", verses: 20, type: "مكية"},
-            {id: 74, name: "المدثر", verses: 56, type: "مكية"},
-            {id: 75, name: "القيامة", verses: 40, type: "مكية"},
-            {id: 76, name: "الإنسان", verses: 31, type: "مدنية"},
-            {id: 77, name: "المرسلات", verses: 50, type: "مكية"},
-            {id: 78, name: "النبأ", verses: 40, type: "مكية"},
-            {id: 79, name: "النازعات", verses: 46, type: "مكية"},
-            {id: 80, name: "عبس", verses: 42, type: "مكية"},
-            {id: 81, name: "التكوير", verses: 29, type: "مكية"},
-            {id: 82, name: "الإنفطار", verses: 19, type: "مكية"},
-            {id: 83, name: "المطففين", verses: 36, type: "مكية"},
-            {id: 84, name: "الإنشقاق", verses: 25, type: "مكية"},
-            {id: 85, name: "البروج", verses: 22, type: "مكية"},
-            {id: 86, name: "الطارق", verses: 17, type: "مكية"},
-            {id: 87, name: "الأعلى", verses: 19, type: "مكية"},
-            {id: 88, name: "الغاشية", verses: 26, type: "مكية"},
-            {id: 89, name: "الفجر", verses: 30, type: "مكية"},
-            {id: 90, name: "البلد", verses: 20, type: "مكية"},
-            {id: 91, name: "الشمس", verses: 15, type: "مكية"},
-            {id: 92, name: "الليل", verses: 21, type: "مكية"},
-            {id: 93, name: "الضحى", verses: 11, type: "مكية"},
-            {id: 94, name: "الشرح", verses: 8, type: "مكية"},
-            {id: 95, name: "التين", verses: 8, type: "مكية"},
-            {id: 96, name: "العلق", verses: 19, type: "مكية"},
-            {id: 97, name: "القدر", verses: 5, type: "مدنية"},
-            {id: 98, name: "البينة", verses: 8, type: "مدنية"},
-            {id: 99, name: "الزلزلة", verses: 8, type: "مدنية"},
-            {id: 100, name: "العاديات", verses: 11, type: "مكية"},
-            {id: 101, name: "القارعة", verses: 11, type: "مكية"},
-            {id: 102, name: "التكاثر", verses: 8, type: "مكية"},
-            {id: 103, name: "العصر", verses: 3, type: "مكية"},
-            {id: 104, name: "الهمزة", verses: 9, type: "مكية"},
-            {id: 105, name: "الفيل", verses: 5, type: "مكية"},
-            {id: 106, name: "قريش", verses: 4, type: "مكية"},
-            {id: 107, name: "الماعون", verses: 7, type: "مكية"},
-            {id: 108, name: "الكوثر", verses: 3, type: "مكية"},
-            {id: 109, name: "الكافرون", verses: 6, type: "مكية"},
-            {id: 110, name: "النصر", verses: 3, type: "مدنية"},
-            {id: 111, name: "المسد", verses: 5, type: "مكية"},
-            {id: 112, name: "الإخلاص", verses: 4, type: "مكية"},
-            {id: 113, name: "الفلق", verses: 5, type: "مكية"},
-            {id: 114, name: "الناس", verses: 6, type: "مكية"}
-        ];
-
-        // بيانات آيات القرآن (نموذج لسورتين فقط لتقليل حجم الكود)
-        const versesData = {
-            1: [
-                "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
-                "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ",
-                "الرَّحْمَٰنِ الرَّحِيمِ",
-                "مَالِكِ يَوْمِ الدِّينِ",
-                "إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ",
-                "اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ",
-                "صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ"
-            ],
-            114: [
-                "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
-                "قُلْ أَعُوذُ بِرَبِّ النَّاسِ",
-                "مَلِكِ النَّاسِ",
-                "إِلَٰهِ النَّاسِ",
-                "مِنْ شَرِّ الْوَسْوَاسِ الْخَنَّاسِ",
-                "الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ",
-                "مِنَ الْجِنَّةِ وَالنَّاسِ"
-            ]
-        };
-
-        // عداد الزوار
-        function updateVisitorCounter() {
-            const now = new Date();
-            const today = now.toISOString().split('T')[0];
-            
-            let totalVisitors = localStorage.getItem('totalVisitors') || 0;
-            totalVisitors = parseInt(totalVisitors) + 1;
-            localStorage.setItem('totalVisitors', totalVisitors);
-            
-            let todayVisitors = JSON.parse(localStorage.getItem('todayVisitors')) || {date: today, count: 0};
-            if (todayVisitors.date !== today) {
-                todayVisitors = {date: today, count: 1};
-            } else {
-                todayVisitors.count++;
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('show');
+        });
+        
+        // Modal functionality
+        const loginBtn = document.getElementById('login-btn');
+        const registerBtn = document.getElementById('register-btn');
+        const loginModal = document.getElementById('login-modal');
+        const registerModal = document.getElementById('register-modal');
+        const closeLogin = document.getElementById('close-login');
+        const closeRegister = document.getElementById('close-register');
+        const switchToRegister = document.getElementById('switch-to-register');
+        const switchToLogin = document.getElementById('switch-to-login');
+        
+        loginBtn.addEventListener('click', () => {
+            loginModal.classList.add('show');
+        });
+        
+        registerBtn.addEventListener('click', () => {
+            registerModal.classList.add('show');
+        });
+        
+        closeLogin.addEventListener('click', () => {
+            loginModal.classList.remove('show');
+        });
+        
+        closeRegister.addEventListener('click', () => {
+            registerModal.classList.remove('show');
+        });
+        
+        switchToRegister.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginModal.classList.remove('show');
+            registerModal.classList.add('show');
+        });
+        
+        switchToLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            registerModal.classList.remove('show');
+            loginModal.classList.add('show');
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === loginModal) {
+                loginModal.classList.remove('show');
             }
-            localStorage.setItem('todayVisitors', JSON.stringify(todayVisitors));
-            
-            let athkarCount = localStorage.getItem('athkarCount') || 0;
-            
-            document.getElementById('total-visitors').textContent = totalVisitors.toLocaleString();
-            document.getElementById('today-visitors').textContent = todayVisitors.count.toLocaleString();
-            document.getElementById('athkar-count').textContent = athkarCount;
-        }
-
-        // تهيئة الأذكار
-        function initializeAthkar() {
-            const categories = {
-                morning: document.getElementById('morning-athkar'),
-                evening: document.getElementById('evening-athkar'),
-                sleep: document.getElementById('sleep-athkar')
-            };
-            
-            for (const category in categories) {
-                athkarData[category].forEach((thikr, index) => {
-                    const thikrId = `${category}_${index}`;
-                    const savedCount = localStorage.getItem(thikrId) || 0;
-                    const progress = (savedCount / thikr.count) * 100;
-                    
-                    const thikrElement = document.createElement('div');
-                    thikrElement.className = 'thikr';
-                    thikrElement.setAttribute('data-total', thikr.count);
-                    thikrElement.innerHTML = `
-                        <div class="thikr-text">${thikr.text}</div>
-                        <div class="thikr-count">
-                            <button class="count-btn" onclick="incrementCount(this, '${thikrId}')">+</button>
-                            <div class="count-display">${savedCount}</div>
-                            <div class="progress-container">
-                                <div class="progress-bar" style="width: ${progress}%"></div>
-                            </div>
-                        </div>
-                    `;
-                    categories[category].appendChild(thikrElement);
-                });
+            if (e.target === registerModal) {
+                registerModal.classList.remove('show');
             }
-        }
-
-        // تهيئة القرآن
-        function initializeQuran() {
-            const surahsList = document.getElementById('surahs-list');
-            
-            quranData.forEach(surah => {
-                const surahElement = document.createElement('div');
-                surahElement.className = 'surah-card';
-                surahElement.innerHTML = `
-                    <div class="surah-number">${surah.id}</div>
-                    <div class="surah-name">${surah.name}</div>
-                    <div class="surah-details">${surah.verses} آيات | ${surah.type}</div>
-                `;
-                surahElement.addEventListener('click', () => showSurahVerses(surah.id));
-                surahsList.appendChild(surahElement);
-            });
-        }
-
-        // عرض آيات السورة
-        function showSurahVerses(surahId) {
-            const surah = quranData.find(s => s.id === surahId);
-            if (!surah) return;
-            
-            document.getElementById('surah-name').textContent = `سورة ${surah.name}`;
-            
-            const versesList = document.getElementById('verses-list');
-            versesList.innerHTML = '';
-            
-            if (versesData[surahId]) {
-                versesData[surahId].forEach((verse, index) => {
-                    const verseElement = document.createElement('div');
-                    verseElement.className = 'verse';
-                    verseElement.innerHTML = `
-                        <div class="verse-number">${index + 1}</div>
-                        ${verse}
-                    `;
-                    versesList.appendChild(verseElement);
-                });
-            } else {
-                versesList.innerHTML = '<p class="no-verses">الآيات غير متوفرة حالياً</p>';
-            }
-            
-            document.getElementById('surahs-list').style.display = 'none';
-            document.getElementById('verses-container').classList.add('active');
-            
-            document.body.classList.add('quran-mode');
-            document.getElementById('main-header').classList.add('quran-header');
-        }
-
-        // العودة لقائمة السور
-        function backToSurahs() {
-            document.getElementById('surahs-list').style.display = 'grid';
-            document.getElementById('verses-container').classList.remove('active');
-            
-            document.body.classList.remove('quran-mode');
-            document.getElementById('main-header').classList.remove('quran-header');
-        }
-
-        // زيادة العداد
-        function incrementCount(btn, thikrId) {
-            const thikr = btn.closest('.thikr');
-            const countDisplay = thikr.querySelector('.count-display');
-            let count = parseInt(countDisplay.textContent);
-            
-            const total = parseInt(thikr.getAttribute('data-total'));
-            
-            if (count < total) {
+        });
+        
+        // Rosary Counter
+        const countBtn = document.getElementById('count-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const counter = document.getElementById('counter');
+        const presetBtns = document.querySelectorAll('.preset-btn');
+        
+        let count = 0;
+        let targetCount = 33;
+        
+        countBtn.addEventListener('click', () => {
+            if (count < 999) {
                 count++;
-                countDisplay.textContent = count;
+                counter.textContent = count;
                 
-                const progress = (count / total) * 100;
-                thikr.querySelector('.progress-bar').style.width = `${progress}%`;
+                // Change dhikr text based on count
+                const dhikrText = document.querySelector('.rosary-display div');
+                if (count % 33 === 0) {
+                    dhikrText.textContent = 'الْحَمْدُ لِلَّهِ';
+                } else if (count % 33 === 0) {
+                    dhikrText.textContent = 'اللَّهُ أَكْبَرُ';
+                } else {
+                    dhikrText.textContent = 'سُبْحَانَ اللَّهِ';
+                }
                 
-                localStorage.setItem(thikrId, count);
-                
-                let athkarCount = parseInt(localStorage.getItem('athkarCount') || 0);
-                athkarCount++;
-                localStorage.setItem('athkarCount', athkarCount);
-                document.getElementById('athkar-count').textContent = athkarCount;
-                
-                showAlert('تم تسجيل الذكر بنجاح!');
-            } else {
-                showAlert('لقد أكملت هذا الذكر!');
+                // Animation
+                counter.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    counter.style.transform = 'scale(1)';
+                }, 300);
             }
-        }
-
-        // عرض التنبيهات
-        function showAlert(message) {
-            const alert = document.getElementById('alert');
-            alert.querySelector('div').textContent = message;
-            alert.classList.add('show');
-            
-            setTimeout(() => {
-                alert.classList.remove('show');
-            }, 3000);
-        }
-
-        // التحكم بالصوت
-        function toggleAudio() {
-            const audioBtn = document.querySelector('.audio-btn');
-            const isActive = audioBtn.classList.toggle('active');
-            
-            if (isActive) {
-                audioBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
-                showAlert('تم إيقاف الأصوات');
-            } else {
-                audioBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
-                showAlert('تم تشغيل الأصوات');
-            }
-        }
-
-        // تغيير التبويبات
-        function setupTabs() {
-            const tabBtns = document.querySelectorAll('.tab-btn');
-            tabBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    tabBtns.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    
-                    const tabName = btn.getAttribute('data-tab');
-                    if (tabName === 'athkar') {
-                        document.getElementById('athkar-content').style.display = 'grid';
-                        document.getElementById('quran-content').classList.remove('active');
-                        document.body.classList.remove('quran-mode');
-                        document.getElementById('main-header').classList.remove('quran-header');
-                    } else {
-                        document.getElementById('athkar-content').style.display = 'none';
-                        document.getElementById('quran-content').classList.add('active');
-                    }
-                });
-            });
-        }
-
-        // تهيئة الموقع عند التحميل
-        document.addEventListener('DOMContentLoaded', function() {
-            updateVisitorCounter();
-            initializeAthkar();
-            initializeQuran();
-            setupTabs();
-            
-            document.getElementById('back-to-surahs').addEventListener('click', backToSurahs);
-            
-            document.querySelectorAll('.social-links a').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    showAlert('تم نسخ الرابط للمشاركة!');
-                });
+        });
+        
+        resetBtn.addEventListener('click', () => {
+            count = 0;
+            counter.textContent = count;
+            document.querySelector('.rosary-display div').textContent = 'سُبْحَانَ اللَّهِ';
+        });
+        
+        presetBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                targetCount = parseInt(btn.getAttribute('data-count'));
+                resetBtn.click();
             });
         });
+        
+        // Category buttons
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+        
+        // Simulate visitor count updates
+        setInterval(() => {
+            const visitorCount = document.querySelector('.counter');
+            let count = parseInt(visitorCount.textContent.replace(/,/g, ''));
+            count += Math.floor(Math.random() * 3);
+            visitorCount.textContent = count.toLocaleString();
+        }, 5000);
     </script>
 </body>
 </html>

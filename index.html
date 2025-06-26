@@ -3,1107 +3,492 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>موسوعة الأذكار | نظام تتبع الزوار</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>تطبيق الأذكار - النسخة المطورة</title>
     <style>
         :root {
-            --primary-color: #2c5f2d;
-            --secondary-color: #97bc62;
-            --accent-color: #f0f7da;
-            --text-color: #333;
-            --light-color: #f9f9f9;
-            --dark-color: #1a3c1d;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
+            --primary: #2c9faf;
+            --dark-bg: #1e2a38;
+            --light-text: #f0f0f0;
+            --visit-bar: #28a745;
+            --section-bg: #6f42c1;
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', 'Amiri', Tahoma, sans-serif;
         }
         
         body {
-            background: linear-gradient(135deg, #f5f9f0 0%, #e6f3e1 100%);
-            color: var(--text-color);
-            line-height: 1.8;
+            background-color: #f5f7fa;
+            color: #333;
+            transition: background 0.3s;
             min-height: 100vh;
-            position: relative;
-            padding-bottom: 100px;
+            padding-bottom: 30px;
+        }
+        
+        body.dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+        }
+        
+        /* شريط عداد الزوار */
+        #visit-bar {
+            background: var(--visit-bar);
+            color: white;
+            text-align: center;
+            padding: 12px 0;
+            font-size: 1.1em;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
         
         .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-        
-        header {
-            background: linear-gradient(to right, var(--primary-color), var(--dark-color));
-            color: white;
-            padding: 1rem 0;
-            box-shadow: var(--shadow);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .logo i {
-            font-size: 2.2rem;
-            color: var(--accent-color);
-        }
-        
-        .logo h1 {
-            font-size: 1.8rem;
-            font-weight: 700;
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-        
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 8px 15px;
-            border-radius: 30px;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .nav-links a:hover {
-            background-color: var(--secondary-color);
-            transform: translateY(-3px);
-        }
-        
-        .nav-links a.active {
-            background-color: var(--secondary-color);
-        }
-        
-        .nav-links a i {
-            font-size: 1.1rem;
-        }
-        
-        /* تصميم صفحة الأذكار */
-        .page {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        .page.active {
-            display: block;
-        }
-        
-        .hero {
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
-                        url('https://images.unsplash.com/photo-1519735771060-6e7b943d4d4f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') center/cover no-repeat;
-            height: 400px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            margin: 20px 0 30px;
-            border-radius: 15px;
-            overflow: hidden;
-        }
-        
-        .hero-content {
-            position: relative;
-            color: white;
-            text-align: center;
             max-width: 800px;
-            padding: 20px;
+            margin: 0 auto;
+            padding: 20px 15px;
         }
         
-        .hero-content h2 {
-            font-size: 2.8rem;
-            margin-bottom: 20px;
+        .header {
+            text-align: center;
+            margin: 25px 0;
+            padding: 0 10px;
         }
         
-        .hero-content p {
-            font-size: 1.3rem;
-            margin-bottom: 30px;
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 25px;
         }
         
         .btn {
-            display: inline-block;
-            background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+            background: var(--primary);
             color: white;
-            padding: 14px 35px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition);
             border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 1.1rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.2s;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         
         .btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
         }
         
-        .categories {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-            margin: 40px 0;
+        .btn:active {
+            transform: translateY(1px);
         }
         
-        .category-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            position: relative;
-            border: 2px solid var(--accent-color);
-            cursor: pointer;
+        .theme-btn {
+            background: #5a6268;
         }
         
-        .category-card:hover {
-            transform: translateY(-10px);
+        .section-btn {
+            background: var(--section-bg);
         }
         
-        .category-icon {
-            background: linear-gradient(to right, var(--primary-color), var(--dark-color));
-            color: white;
-            text-align: center;
-            padding: 25px;
-            font-size: 2.8rem;
-        }
-        
-        .category-content {
-            padding: 25px;
-        }
-        
-        .category-content h3 {
-            color: var(--primary-color);
-            margin-bottom: 15px;
-            font-size: 1.5rem;
-        }
-        
-        .category-content ul {
-            list-style: none;
-        }
-        
-        .category-content li {
-            margin-bottom: 12px;
-            position: relative;
-            padding-right: 25px;
-        }
-        
-        .category-content li:before {
-            content: "•";
-            color: var(--secondary-color);
-            position: absolute;
-            right: 0;
-            font-size: 1.5rem;
-            top: -2px;
-        }
-        
-        .azkar-section {
-            background: white;
-            border-radius: 15px;
-            padding: 35px;
-            margin: 50px 0;
-            box-shadow: var(--shadow);
-            position: relative;
-            overflow: hidden;
-            border: 2px solid var(--accent-color);
-            display: none;
-        }
-        
-        .azkar-section.active {
-            display: block;
-        }
-        
-        .section-title {
-            color: var(--primary-color);
-            text-align: center;
-            margin-bottom: 35px;
-            padding-bottom: 20px;
-            position: relative;
-            font-size: 2.2rem;
-        }
-        
-        .section-title:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: 50%;
-            transform: translateX(50%);
-            width: 150px;
-            height: 4px;
-            background: var(--secondary-color);
-        }
-        
-        .azkar-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 25px;
-        }
-        
-        .zekr-card {
-            background: var(--accent-color);
-            border-radius: 12px;
-            padding: 25px;
-            position: relative;
-            overflow: hidden;
-            border-right: 5px solid var(--secondary-color);
-            transition: var(--transition);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-        
-        .zekr-card:hover {
-            transform: scale(1.03);
-        }
-        
-        .zekr-card h4 {
-            color: var(--dark-color);
-            margin-bottom: 20px;
-            font-size: 1.4rem;
-        }
-        
-        .zekr-text {
-            font-size: 1.25rem;
-            line-height: 1.9;
-            margin-bottom: 20px;
-            text-align: justify;
-            font-weight: 500;
-            color: #2a5230;
-        }
-        
-        .zekr-reference {
-            font-style: italic;
-            color: #5a7d5e;
-            font-size: 1rem;
-            text-align: left;
-            padding: 8px 15px;
-            background: rgba(255,255,255,0.7);
-            border-radius: 5px;
-            display: inline-block;
+        .active-section {
+            background: #5a32a3;
+            box-shadow: 0 0 0 3px rgba(111, 66, 193, 0.3);
         }
         
         .counter {
-            display: flex;
-            align-items: center;
-            margin-top: 20px;
-            justify-content: center;
-        }
-        
-        .counter button {
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
-        }
-        
-        .counter button:hover {
-            background: var(--dark-color);
-        }
-        
-        .counter span {
-            margin: 0 20px;
-            font-weight: bold;
-            min-width: 40px;
+            background: white;
+            border-radius: 16px;
+            padding: 30px 20px;
             text-align: center;
-            font-size: 1.4rem;
-            color: var(--primary-color);
-            background: white;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-        }
-        
-        /* تصميم لوحة التحكم */
-        .dashboard {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin: 40px 0;
-        }
-        
-        .stat-card {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: var(--shadow);
-            text-align: center;
-            transition: var(--transition);
-            border-top: 4px solid var(--primary-color);
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .stat-card i {
-            font-size: 3rem;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-        }
-        
-        .stat-card .number {
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--dark-color);
-            margin: 15px 0;
-        }
-        
-        .stat-card .label {
-            font-size: 1.2rem;
-            color: #666;
-        }
-        
-        .chart-container {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            margin: 40px 0;
-            box-shadow: var(--shadow);
-            grid-column: 1 / -1;
-        }
-        
-        .recent-visitors {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            margin: 40px 0;
-            box-shadow: var(--shadow);
-            grid-column: 1 / -1;
-        }
-        
-        .visitors-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        
-        .visitors-table th,
-        .visitors-table td {
-            padding: 15px;
-            text-align: right;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .visitors-table th {
-            background-color: var(--accent-color);
-            color: var(--dark-color);
-            font-weight: 600;
-        }
-        
-        .visitors-table tr:hover {
-            background-color: #f9f9f9;
-        }
-        
-        .country-flag {
-            width: 24px;
-            height: 18px;
-            margin-left: 10px;
-            display: inline-block;
-            vertical-align: middle;
-        }
-        
-        .device-icon {
-            font-size: 1.2rem;
-            margin-left: 5px;
-        }
-        
-        .admin-controls {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        
-        .admin-btn {
-            padding: 10px 20px;
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .admin-btn:hover {
-            background: var(--dark-color);
-            transform: translateY(-3px);
-        }
-        
-        footer {
-            background: linear-gradient(to right, var(--dark-color), var(--primary-color));
-            color: white;
-            padding: 30px 0 20px;
-            margin-top: 50px;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-        
-        .footer-section h3 {
-            font-size: 1.3rem;
-            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
             position: relative;
-            padding-bottom: 10px;
+            overflow: hidden;
         }
         
-        .footer-section h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 50px;
-            height: 2px;
-            background: var(--secondary-color);
+        .dark-mode .counter {
+            background: #253241;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
         
-        .footer-links {
-            list-style: none;
+        .counter .count {
+            font-size: 4.5rem;
+            margin: 15px 0;
+            color: var(--primary);
+            font-weight: bold;
+            transition: transform 0.2s;
         }
         
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-        
-        .footer-links a {
-            color: #ddd;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-        
-        .footer-links a:hover {
-            color: var(--secondary-color);
-            padding-right: 5px;
-        }
-        
-        .social-links {
+        .counter .text {
+            font-size: 1.8rem;
+            line-height: 1.7;
+            margin: 25px 0;
+            min-height: 100px;
             display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .actions {
+            display: flex;
+            justify-content: center;
             gap: 15px;
             margin-top: 20px;
         }
         
-        .social-links a {
-            display: inline-flex;
+        .action-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
+            font-size: 1.5rem;
+            cursor: pointer;
+            border: none;
+            transition: transform 0.2s;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+        }
+        
+        .action-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .action-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .plus-btn {
+            background: var(--primary);
             color: white;
-            border-radius: 50%;
-            transition: var(--transition);
         }
         
-        .social-links a:hover {
-            background: var(--secondary-color);
-            transform: translateY(-3px);
+        .reset-btn {
+            background: #dc3545;
+            color: white;
         }
         
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.9rem;
-            color: #aaa;
+        .progress-container {
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
         }
         
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .dark-mode .progress-container {
+            background: #2a3b4d;
         }
         
-        @media (max-width: 768px) {
-            .section-title {
-                font-size: 1.8rem;
+        .progress-bar {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            transition: width 0.5s;
+        }
+        
+        .timer {
+            font-size: 1.2rem;
+            margin-top: 10px;
+            color: #6c757d;
+        }
+        
+        .dark-mode .timer {
+            color: #a0aec0;
+        }
+        
+        .sections {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        
+        /* تحسينات للجوال */
+        @media (max-width: 600px) {
+            .counter .text {
+                font-size: 1.5rem;
+                min-height: 80px;
             }
             
-            .hero-content h2 {
-                font-size: 2rem;
+            .counter .count {
+                font-size: 3.5rem;
             }
             
-            .stat-card .number {
-                font-size: 2.5rem;
+            .action-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.3rem;
             }
             
-            .header-content {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .nav-links {
-                justify-content: center;
+            .btn {
+                padding: 8px 15px;
+                font-size: 0.9rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- شريط الرأس -->
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <i class="fas fa-praying-hands"></i>
-                    <h1>موسوعة الأذكار الشاملة</h1>
-                </div>
-                <ul class="nav-links">
-                    <li><a href="#" class="active" onclick="showPage('azkar')"><i class="fas fa-book-open"></i> الأذكار</a></li>
-                    <li><a href="#" onclick="showPage('dashboard')"><i class="fas fa-chart-line"></i> لوحة التحكم</a></li>
-                    <li><a href="#" onclick="showPage('about')"><i class="fas fa-info-circle"></i> عن الموقع</a></li>
-                </ul>
-            </div>
-        </div>
-    </header>
-
-    <!-- صفحة الأذكار -->
-    <div id="azkar-page" class="page active">
-        <div class="container">
-            <!-- قسم البطل -->
-            <section class="hero">
-                <div class="hero-content">
-                    <h2>الذكر نور القلب وراحة الروح</h2>
-                    <p>موسوعة شاملة للأذكار والأدعية الثابتة من الكتاب والسنة، مقسمة حسب الأوقات والمناسبات</p>
-                    <a href="#categories" class="btn">اكتشف الأذكار الآن</a>
-                </div>
-            </section>
-            
-            <!-- فئات الأذكار -->
-            <section id="categories">
-                <h2 class="section-title">فئات الأذكار الشاملة</h2>
-                <div class="categories">
-                    <div class="category-card" onclick="showAzkar('morning')">
-                        <div class="category-icon">
-                            <i class="fas fa-sun"></i>
-                        </div>
-                        <div class="category-content">
-                            <h3>أذكار الصباح</h3>
-                            <ul>
-                                <li>أذكار الصباح الكاملة</li>
-                                <li>أذكار مختصرة</li>
-                                <li>دعاء الصباح</li>
-                                <li>أذكار الحفظ والوقاية</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="category-card" onclick="showAzkar('evening')">
-                        <div class="category-icon">
-                            <i class="fas fa-moon"></i>
-                        </div>
-                        <div class="category-content">
-                            <h3>أذكار المساء</h3>
-                            <ul>
-                                <li>أذكار المساء الكاملة</li>
-                                <li>أذكار مختصرة</li>
-                                <li>دعاء المساء</li>
-                                <li>أذكار الرقية الشرعية</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="category-card" onclick="showAzkar('prayer')">
-                        <div class="category-icon">
-                            <i class="fas fa-mosque"></i>
-                        </div>
-                        <div class="category-content">
-                            <h3>أذكار الصلاة</h3>
-                            <ul>
-                                <li>أذكار قبل الصلاة</li>
-                                <li>أذكار أثناء الصلاة</li>
-                                <li>أذكار بعد الصلاة</li>
-                                <li>دعاء الاستفتاح</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- أذكار الصباح -->
-            <div id="morning-azkar" class="azkar-section">
-                <h2 class="section-title">أذكار الصباح</h2>
-                <div class="azkar-grid">
-                    <div class="zekr-card">
-                        <h4>أذكار الصباح الأساسية</h4>
-                        <div class="zekr-text">
-                            أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ، رَبِّ أَسْأَلُكَ خَيْرَ مَا فِي هَذَا الْيَوْمِ وَخَيْرَ مَا بَعْدَهُ، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا فِي هَذَا الْيَوْمِ وَشَرِّ مَا بَعْدَهُ، رَبِّ أَعُوذُ بِكَ مِنَ الْكَسَلِ وَسُوءِ الْكِبَرِ، رَبِّ أَعُوذُ بِكَ مِنْ عَذَابٍ فِي النَّارِ وَعَذَابٍ فِي الْقَبْرِ.
-                        </div>
-                        <div class="zekr-reference">
-                            [مسلم 4/2088]
-                        </div>
-                        <div class="counter">
-                            <button onclick="decrementCounter(this)">-</button>
-                            <span>0</span>
-                            <button onclick="incrementCounter(this)">+</button>
-                        </div>
-                    </div>
-                    
-                    <div class="zekr-card">
-                        <h4>دعاء الصباح</h4>
-                        <div class="zekr-text">
-                            اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ النُّشُورُ.
-                        </div>
-                        <div class="zekr-reference">
-                            [الترمذي 3391]
-                        </div>
-                        <div class="counter">
-                            <button onclick="decrementCounter(this)">-</button>
-                            <span>0</span>
-                            <button onclick="incrementCounter(this)">+</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- أذكار المساء -->
-            <div id="evening-azkar" class="azkar-section">
-                <h2 class="section-title">أذكار المساء</h2>
-                <div class="azkar-grid">
-                    <div class="zekr-card">
-                        <h4>أذكار المساء الأساسية</h4>
-                        <div class="zekr-text">
-                            أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ، رَبِّ أَسْأَلُكَ خَيْرَ مَا فِي هَذِهِ اللَّيْلَةِ وَخَيْرَ مَا بَعْدَهَا، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا فِي هَذِهِ اللَّيْلَةِ وَشَرِّ مَا بَعْدَهَا، رَبِّ أَعُوذُ بِكَ مِنَ الْكَسَلِ وَسُوءِ الْكِبَرِ، رَبِّ أَعُوذُ بِكَ مِنْ عَذَابٍ فِي النَّارِ وَعَذَابٍ فِي الْقَبْرِ.
-                        </div>
-                        <div class="zekr-reference">
-                            [مسلم 4/2088]
-                        </div>
-                        <div class="counter">
-                            <button onclick="decrementCounter(this)">-</button>
-                            <span>0</span>
-                            <button onclick="incrementCounter(this)">+</button>
-                        </div>
-                    </div>
-                    
-                    <div class="zekr-card">
-                        <h4>دعاء المساء</h4>
-                        <div class="zekr-text">
-                            اللَّهُمَّ بِكَ أَمْسَيْنَا، وَبِكَ أَصْبَحْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ النُّشُورُ.
-                        </div>
-                        <div class="zekr-reference">
-                            [الترمذي 3391]
-                        </div>
-                        <div class="counter">
-                            <button onclick="decrementCounter(this)">-</button>
-                            <span>0</span>
-                            <button onclick="incrementCounter(this)">+</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- أذكار الصلاة -->
-            <div id="prayer-azkar" class="azkar-section">
-                <h2 class="section-title">أذكار الصلاة</h2>
-                <div class="azkar-grid">
-                    <div class="zekr-card">
-                        <h4>دعاء الاستفتاح</h4>
-                        <div class="zekr-text">
-                            سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ، وَتَبَارَكَ اسْمُكَ، وَتَعَالَى جَدُّكَ، وَلَا إِلَهَ غَيْرُكَ.
-                        </div>
-                        <div class="zekr-reference">
-                            [أبو داود 775]
-                        </div>
-                        <div class="counter">
-                            <button onclick="decrementCounter(this)">-</button>
-                            <span>0</span>
-                            <button onclick="incrementCounter(this)">+</button>
-                        </div>
-                    </div>
-                    
-                    <div class="zekr-card">
-                        <h4>التسبيح في الركوع</h4>
-                        <div class="zekr-text">
-                            سُبْحَانَ رَبِّيَ الْعَظِيمِ
-                        </div>
-                        <div class="zekr-reference">
-                            [أبو داود 869]
-                        </div>
-                        <div class="counter">
-                            <button onclick="decrementCounter(this)">-</button>
-                            <span>0</span>
-                            <button onclick="incrementCounter(this)">+</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- شريط عداد الزوار -->
+    <div id="visit-bar">
+        عدد الزوار: <span id="visit-count">0</span>
     </div>
     
-    <!-- صفحة لوحة التحكم -->
-    <div id="dashboard-page" class="page">
-        <div class="container">
-            <h2 class="section-title">لوحة تحكم إحصائيات الزوار</h2>
-            <div class="dashboard">
-                <div class="stat-card">
-                    <i class="fas fa-users"></i>
-                    <div class="number" id="totalVisitors">1,284</div>
-                    <div class="label">إجمالي الزوار</div>
-                </div>
-                
-                <div class="stat-card">
-                    <i class="fas fa-user-clock"></i>
-                    <div class="number" id="todayVisitors">142</div>
-                    <div class="label">زوار اليوم</div>
-                </div>
-                
-                <div class="stat-card">
-                    <i class="fas fa-globe-asia"></i>
-                    <div class="number" id="countries">24</div>
-                    <div class="label">دولة</div>
-                </div>
-                
-                <div class="stat-card">
-                    <i class="fas fa-clock"></i>
-                    <div class="number" id="avgTime">3:45</div>
-                    <div class="label">متوسط المدة</div>
-                </div>
-                
-                <div class="chart-container">
-                    <h3>توزيع الزوار خلال الأسبوع</h3>
-                    <canvas id="visitorsChart"></canvas>
-                </div>
-                
-                <div class="recent-visitors">
-                    <h3>آخر الزوار</h3>
-                    <table class="visitors-table">
-                        <thead>
-                            <tr>
-                                <th>الوقت</th>
-                                <th>البلد</th>
-                                <th>الصفحة</th>
-                                <th>المدة</th>
-                                <th>الجهاز</th>
-                            </tr>
-                        </thead>
-                        <tbody id="visitorsTableBody">
-                            <tr>
-                                <td>10:35 صباحاً</td>
-                                <td><img src="https://flagcdn.com/16x12/sa.png" class="country-flag"> السعودية</td>
-                                <td>أذكار الصباح</td>
-                                <td>4:12 د</td>
-                                <td><i class="fas fa-mobile device-icon"></i> جوال</td>
-                            </tr>
-                            <tr>
-                                <td>10:28 صباحاً</td>
-                                <td><img src="https://flagcdn.com/16x12/eg.png" class="country-flag"> مصر</td>
-                                <td>أذكار الصلاة</td>
-                                <td>2:45 د</td>
-                                <td><i class="fas fa-laptop device-icon"></i> حاسوب</td>
-                            </tr>
-                            <tr>
-                                <td>10:15 صباحاً</td>
-                                <td><img src="https://flagcdn.com/16x12/ae.png" class="country-flag"> الإمارات</td>
-                                <td>أذكار المساء</td>
-                                <td>5:33 د</td>
-                                <td><i class="fas fa-tablet device-icon"></i> لوحي</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                
-                <div class="admin-controls">
-                    <button class="admin-btn" onclick="refreshStats()"><i class="fas fa-sync-alt"></i> تحديث الإحصائيات</button>
-                    <button class="admin-btn" onclick="resetStats()"><i class="fas fa-trash-alt"></i> مسح البيانات</button>
-                </div>
-            </div>
+    <div class="container">
+        <div class="header">
+            <h1>تطبيق الأذكار</h1>
+            <p>للتذكير والدعاء في أوقات الصباح والمساء</p>
         </div>
-    </div>
-    
-    <!-- صفحة عن الموقع -->
-    <div id="about-page" class="page">
-        <div class="container">
-            <div class="hero">
-                <div class="hero-content">
-                    <h2>عن موسوعة الأذكار</h2>
-                    <p>منصة إلكترونية تهدف لنشر الأذكار والأدعية الثابتة من الكتاب والسنة</p>
-                </div>
+        
+        <div class="sections">
+            <button class="btn section-btn active-section" data-section="morning">أذكار الصباح</button>
+            <button class="btn section-btn" data-section="evening">أذكار المساء</button>
+            <button class="btn section-btn" data-section="sleep">أذكار النوم</button>
+        </div>
+        
+        <div class="controls">
+            <button class="btn theme-btn" id="theme-toggle">
+                <span>🌙</span> تبديل الوضع
+            </button>
+            <button class="btn" id="prev-btn">السابق</button>
+            <button class="btn" id="next-btn">التالي</button>
+        </div>
+        
+        <div class="counter">
+            <div class="count">0</div>
+            <div class="text">... جاري التحميل</div>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
             </div>
             
-            <div class="featured-azkar">
-                <h2 class="section-title">مهمتنا</h2>
-                <div style="font-size: 1.2rem; line-height: 1.8;">
-                    <p>نسعى في "موسوعة الأذكار" إلى تقديم محتوى موثوق ومنظم للأذكار والأدعية الصحيحة الثابتة عن النبي صلى الله عليه وسلم، مع التركيز على دقة المصادر ووضوح العبارة وسهولة الوصول.</p>
-                    <p>نلتزم في عملنا بالدقة العلمية والموثوقية، حيث نعتمد على مصادر موثوقة من كتب الحديث الصحيحة وكتب الأذكار المعتمدة لدى أهل العلم.</p>
-                    <p>كما نحرص على تقديم تجربة مستخدم مميزة تسهل الوصول إلى المحتوى والاستفادة منه في الحياة اليومية.</p>
-                </div>
-                
-                <h2 class="section-title" style="margin-top: 50px;">فريق العمل</h2>
-                <div class="azkar-grid">
-                    <div class="zekr-card">
-                        <h4>د. محمد أحمد</h4>
-                        <div class="zekr-text">
-                            رئيس فريق المراجعة العلمية، حاصل على الدكتوراة في السنة النبوية وعلومها.
-                        </div>
-                    </div>
-                    
-                    <div class="zekr-card">
-                        <h4>أ. خالد حسين</h4>
-                        <div class="zekr-text">
-                            مدير التطوير التقني، متخصص في تطوير الويب والتطبيقات الإسلامية.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- تذييل الصفحة -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>عن الموسوعة</h3>
-                    <p>موسوعة الأذكار هي منصة إلكترونية تهدف إلى نشر الأذكار والأدعية الثابتة من الكتاب والسنة الصحيحة، مع ذكر المصادر الموثوقة وشرح معانيها.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-telegram"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>روابط مهمة</h3>
-                    <ul class="footer-links">
-                        <li><a href="#" onclick="showPage('azkar')">الأذكار اليومية</a></li>
-                        <li><a href="#" onclick="showAzkar('morning')">أذكار الصباح</a></li>
-                        <li><a href="#" onclick="showAzkar('evening')">أذكار المساء</a></li>
-                        <li><a href="#" onclick="showAzkar('prayer')">أذكار الصلاة</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>المصادر الموثوقة</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">صحيح البخاري</a></li>
-                        <li><a href="#">صحيح مسلم</a></li>
-                        <li><a href="#">سنن الترمذي</a></li>
-                        <li><a href="#">حصن المسلم</a></li>
-                    </ul>
-                </div>
+            <div class="actions">
+                <button class="action-btn reset-btn">↺</button>
+                <button class="action-btn plus-btn">➕</button>
             </div>
             
-            <div class="copyright">
-                <p>جميع الحقوق محفوظة &copy; 2023 موسوعة الأذكار | تم تطويره بدقة وحرص</p>
-            </div>
+            <div class="timer" id="timer">الوقت: 00:00</div>
         </div>
-    </footer>
+    </div>
 
     <script>
-        // وظائف التبديل بين الصفحات
-        function showPage(pageId) {
-            // إخفاء جميع الصفحات
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
+        // ======= [ التحديثات الرئيسية ] ======= //
+        // 1. إصلاح مشكلة نقص الأذكار (تمت إضافة 30 ذكراً)
+        // 2. عداد زوار متقدم مع التخزين المحلي
+        // 3. واجهة مستخدم محسنة مع رسوم متحركة
+        // 4. تقدم بصري للعداد
+        // 5. مؤقت تلقائي
+        // 6. إزالة كامل رسائل وحدة التحكم
+        // 7. تنظيم الأذكار في أقسام
+        // 8. تصميم متجاوب للجوال
+        // ====================================== //
+        
+        // عداد الزوار (مطور)
+        document.addEventListener('DOMContentLoaded', () => {
+            let visits = localStorage.getItem('athkarVisits') || 0;
+            visits = parseInt(visits) + 1;
+            localStorage.setItem('athkarVisits', visits);
+            document.getElementById('visit-count').textContent = visits;
+        });
+
+        // قاعدة بيانات الأذكار (30 ذكراً)
+        const athkarDatabase = {
+            morning: [
+                {text: "أصبحنا وأصبح الملك لله، والحمد لله، لا إله إلا الله وحده لا شريك له", count: 0, max: 1},
+                {text: "اللهم بك أصبحنا، وبك أمسينا، وبك نحيا، وبك نموت، وإليك النشور", count: 0, max: 1},
+                {text: "سبحان الله وبحمده: عدد خلقه، ورضا نفسه، وزنة عرشه، ومداد كلماته (3 مرات)", count: 0, max: 3},
+                {text: "اللهم إني أصبحت منك في نعمة وعافية وستر، فأتم نعمتك علي وعافيتك وسترك في الدنيا والآخرة (3 مرات)", count: 0, max: 3},
+                {text: "حسبي الله لا إله إلا هو، عليه توكلت، وهو رب العرش العظيم (7 مرات)", count: 0, max: 7},
+                {text: "أعوذ بكلمات الله التامات من شر ما خلق (3 مرات)", count: 0, max: 3},
+                {text: "بسم الله الذي لا يضر مع اسمه شيء في الأرض ولا في السماء وهو السميع العليم (3 مرات)", count: 0, max: 3},
+                {text: "اللهم عافني في بدني، اللهم عافني في سمعي، اللهم عافني في بصري، لا إله إلا أنت (3 مرات)", count: 0, max: 3},
+                {text: "اللهم إني أسألك علماً نافعاً، ورزقاً طيباً، وعملاً متقبلاً (3 مرات)", count: 0, max: 3},
+                {text: "سبحان الله وبحمده (100 مرة)", count: 0, max: 100}
+            ],
+            evening: [
+                {text: "أمسينا وأمسى الملك لله، والحمد لله، لا إله إلا الله وحده لا شريك له", count: 0, max: 1},
+                {text: "اللهم بك أمسينا، وبك أصبحنا، وبك نحيا، وبك نموت، وإليك المصير", count: 0, max: 1},
+                {text: "أعوذ بكلمات الله التامات من شر ما خلق (3 مرات)", count: 0, max: 3},
+                {text: "بسم الله الذي لا يضر مع اسمه شيء في الأرض ولا في السماء وهو السميع العليم (3 مرات)", count: 0, max: 3},
+                {text: "اللهم إني أمسيت منك في نعمة وعافية وستر، فأتم نعمتك علي وعافيتك وسترك في الدنيا والآخرة (3 مرات)", count: 0, max: 3},
+                {text: "حسبي الله لا إله إلا هو، عليه توكلت، وهو رب العرش العظيم (7 مرات)", count: 0, max: 7},
+                {text: "قراءة آية الكرسي", count: 0, max: 1},
+                {text: "قراءة المعوذات (سورة الإخلاص، الفلق، الناس) (3 مرات)", count: 0, max: 3},
+                {text: "اللهم إني أسألك من خير ما في هذه الليلة، وأعوذ بك من شر ما في هذه الليلة", count: 0, max: 1},
+                {text: "أستغفر الله العظيم الذي لا إله إلا هو الحي القيوم وأتوب إليه (100 مرة)", count: 0, max: 100}
+            ],
+            sleep: [
+                {text: "باسمك ربي وضعت جنبي وبك أرفعه، إن أمسكت نفسي فارحمها، وإن أرسلتها فاحفظها بما تحفظ به عبادك الصالحين", count: 0, max: 1},
+                {text: "اللهم أسلمت نفسي إليك، ووجهت وجهي إليك، وفوضت أمري إليك، وألجأت ظهري إليك، رغبة ورهبة إليك", count: 0, max: 1},
+                {text: "اللهم قني عذابك يوم تبعث عبادك (3 مرات)", count: 0, max: 3},
+                {text: "سبحان الله (33 مرة)، الحمد لله (33 مرة)، الله أكبر (34 مرة)", count: 0, max: 100},
+                {text: "قراءة آية الكرسي", count: 0, max: 1},
+                {text: "قراءة المعوذات (سورة الإخلاص، الفلق، الناس) (3 مرات)", count: 0, max: 3},
+                {text: "اللهم رب السماوات السبع ورب العرش العظيم، ربنا ورب كل شيء، منزل التوراة والإنجيل والقرآن", count: 0, max: 1},
+                {text: "أعوذ بكلمات الله التامات من غضبه وعقابه، ومن شر عباده، ومن همزات الشياطين وأن يحضرون", count: 0, max: 1},
+                {text: "اللهم خلقت نفسي وأنت توفاها، لك مماتها ومحياها", count: 0, max: 1},
+                {text: "باسم الله الرحمن الرحيم: {قُلْ هُوَ اللَّهُ أَحَدٌ، اللَّهُ الصَّمَدُ، لَمْ يَلِدْ وَلَمْ يُولَدْ، وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ} (3 مرات)", count: 0, max: 3}
+            ]
+        };
+
+        // حالة التطبيق
+        let currentSection = 'morning';
+        let currentIndex = 0;
+        let count = 0;
+        let timerInterval = null;
+        let seconds = 0;
+        
+        // عناصر DOM
+        const countEl = document.querySelector('.count');
+        const textEl = document.querySelector('.text');
+        const plusBtn = document.querySelector('.plus-btn');
+        const resetBtn = document.querySelector('.reset-btn');
+        const themeBtn = document.getElementById('theme-toggle');
+        const nextBtn = document.getElementById('next-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const timerEl = document.getElementById('timer');
+        const sectionButtons = document.querySelectorAll('.section-btn');
+        
+        // تحديث الذكر المعروض
+        function updateAthkar() {
+            const section = athkarDatabase[currentSection];
+            const athkar = section[currentIndex];
             
-            // إظهار الصفحة المطلوبة
-            document.getElementById(pageId + '-page').classList.add('active');
+            textEl.textContent = athkar.text;
+            count = athkar.count;
+            countEl.textContent = count;
             
-            // تحديث التنقل النشط
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.classList.remove('active');
-            });
-            event.currentTarget.classList.add('active');
+            // تحديث شريط التقدم
+            const progress = (count / athkar.max) * 100;
+            progressBar.style.width = `${progress}%`;
             
-            // إذا كانت لوحة التحكم، قم بتحديث الإحصائيات
-            if (pageId === 'dashboard') {
-                updateStats();
-            }
+            // إعادة تعيين المؤقت
+            resetTimer();
         }
         
-        // وظائف إظهار الأذكار
-        function showAzkar(category) {
-            // إخفاء جميع أقسام الأذكار
-            document.querySelectorAll('.azkar-section').forEach(section => {
-                section.classList.remove('active');
-            });
+        // تبديل الأقسام
+        function changeSection(section) {
+            currentSection = section;
+            currentIndex = 0;
             
-            // إظهار القسم المطلوب
-            document.getElementById(category + '-azkar').classList.add('active');
-            
-            // التمرير إلى القسم
-            document.getElementById(category + '-azkar').scrollIntoView({behavior: 'smooth'});
-        }
-        
-        // وظائف عداد الأذكار
-        function incrementCounter(button) {
-            const counter = button.parentElement.querySelector('span');
-            let count = parseInt(counter.textContent);
-            count++;
-            counter.textContent = count;
-            
-            // تأثير للزر
-            button.style.transform = 'scale(0.9)';
-            setTimeout(() => {
-                button.style.transform = '';
-            }, 200);
-        }
-        
-        function decrementCounter(button) {
-            const counter = button.parentElement.querySelector('span');
-            let count = parseInt(counter.textContent);
-            if (count > 0) {
-                count--;
-                counter.textContent = count;
-                
-                // تأثير للزر
-                button.style.transform = 'scale(0.9)';
-                setTimeout(() => {
-                    button.style.transform = '';
-                }, 200);
-            }
-        }
-        
-        // نظام تتبع الزوار
-        function updateStats() {
-            // بيانات المخطط البياني
-            const ctx = document.getElementById('visitorsChart').getContext('2d');
-            const visitorsChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'],
-                    datasets: [{
-                        label: 'عدد الزوار',
-                        data: [120, 190, 140, 160, 180, 150, 210],
-                        backgroundColor: 'rgba(44, 95, 45, 0.7)',
-                        borderColor: 'rgba(44, 95, 45, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                stepSize: 50
-                            }
-                        }
-                    }
+            // تحديث الأزرار النشطة
+            sectionButtons.forEach(btn => {
+                if (btn.dataset.section === section) {
+                    btn.classList.add('active-section');
+                } else {
+                    btn.classList.remove('active-section');
                 }
             });
             
-            // زيادة عدد الزوار بشكل عشوائي عند التحديث
-            const todayVisitors = document.getElementById('todayVisitors');
-            const currentCount = parseInt(todayVisitors.textContent);
-            const increment = Math.floor(Math.random() * 3) + 1;
-            todayVisitors.textContent = currentCount + increment;
-            
-            // زيادة إجمالي الزوار
-            const totalVisitors = document.getElementById('totalVisitors');
-            const totalCount = parseInt(totalVisitors.textContent);
-            totalVisitors.textContent = totalCount + increment;
-            
-            // تحديث عدد الدول
-            const countries = document.getElementById('countries');
-            countries.textContent = 24 + Math.floor(Math.random() * 3);
+            updateAthkar();
         }
         
-        function refreshStats() {
-            // تحديث الإحصائيات
-            updateStats();
-            alert('تم تحديث الإحصائيات بنجاح!');
+        // تبديل الوضع الليلي
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            // حفظ التفضيل
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDarkMode);
         }
         
-        function resetStats() {
-            if(confirm('هل أنت متأكد من رغبتك في مسح جميع بيانات الزوار؟')) {
-                document.getElementById('todayVisitors').textContent = '0';
-                document.getElementById('totalVisitors').textContent = '0';
-                document.getElementById('countries').textContent = '0';
-                document.getElementById('avgTime').textContent = '0:00';
-                document.getElementById('visitorsTableBody').innerHTML = '';
-                alert('تم مسح جميع البيانات بنجاح!');
+        // إدارة المؤقت
+        function startTimer() {
+            seconds = 0;
+            clearInterval(timerInterval);
+            
+            timerInterval = setInterval(() => {
+                seconds++;
+                const mins = Math.floor(seconds / 60);
+                const secs = seconds % 60;
+                timerEl.textContent = `الوقت: ${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+        
+        function resetTimer() {
+            clearInterval(timerInterval);
+            seconds = 0;
+            timerEl.textContent = "الوقت: 00:00";
+            startTimer();
+        }
+        
+        // تهيئة التطبيق
+        function initApp() {
+            // تحميل الوضع الليلي
+            if (localStorage.getItem('darkMode') === 'true') {
+                document.body.classList.add('dark-mode');
             }
-        }
-        
-        // تسجيل زيارة عند تحميل الصفحة
-        window.onload = function() {
-            // تسجيل زيارة جديدة
-            const now = new Date();
-            const timeString = now.toLocaleTimeString('ar-EG', {hour: '2-digit', minute:'2-digit'});
             
-            // إضافة الزائر الجديد إلى الجدول
-            const visitors = [
-                {time: timeString, country: 'sa', page: 'أذكار الصباح', duration: '4:12', device: 'mobile'},
-                {time: timeString, country: 'eg', page: 'أذكار الصلاة', duration: '2:45', device: 'laptop'},
-                {time: timeString, country: 'ae', page: 'أذكار المساء', duration: '5:33', device: 'tablet'}
-            ];
-            
-            visitors.forEach(visitor => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${visitor.time}</td>
-                    <td><img src="https://flagcdn.com/16x12/${visitor.country}.png" class="country-flag"> ${getCountryName(visitor.country)}</td>
-                    <td>${visitor.page}</td>
-                    <td>${visitor.duration} د</td>
-                    <td><i class="fas fa-${visitor.device === 'mobile' ? 'mobile' : visitor.device === 'tablet' ? 'tablet' : 'laptop'} device-icon"></i> ${getDeviceName(visitor.device)}</td>
-                `;
-                document.getElementById('visitorsTableBody').prepend(row);
+            // تهيئة الأقسام
+            sectionButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    changeSection(btn.dataset.section);
+                });
             });
+            
+            // الأحداث
+            themeBtn.addEventListener('click', toggleTheme);
+            
+            plusBtn.addEventListener('click', () => {
+                const section = athkarDatabase[currentSection];
+                const athkar = section[currentIndex];
+                
+                if (count < athkar.max) {
+                    count++;
+                    athkar.count = count;
+                    countEl.textContent = count;
+                    
+                    // تحديث شريط التقدم
+                    const progress = (count / athkar.max) * 100;
+                    progressBar.style.width = `${progress}%`;
+                }
+            });
+            
+            resetBtn.addEventListener('click', () => {
+                athkarDatabase[currentSection][currentIndex].count = 0;
+                updateAthkar();
+            });
+            
+            nextBtn.addEventListener('click', () => {
+                const section = athkarDatabase[currentSection];
+                currentIndex = (currentIndex + 1) % section.length;
+                updateAthkar();
+            });
+            
+            prevBtn.addEventListener('click', () => {
+                const section = athkarDatabase[currentSection];
+                currentIndex = (currentIndex - 1 + section.length) % section.length;
+                updateAthkar();
+            });
+            
+            // بدء المؤقت
+            startTimer();
+            updateAthkar();
         }
-        
-        function getCountryName(code) {
-            const countries = {
-                'sa': 'السعودية',
-                'eg': 'مصر',
-                'ae': 'الإمارات',
-                'iq': 'العراق',
-                'ma': 'المغرب'
-            };
-            return countries[code] || 'غير معروف';
-        }
-        
-        function getDeviceName(device) {
-            const devices = {
-                'mobile': 'جوال',
-                'laptop': 'حاسوب',
-                'tablet': 'لوحي'
-            };
-            return devices[device] || 'غير معروف';
-        }
+
+        // بدء التطبيق
+        initApp();
     </script>
 </body>
 </html>

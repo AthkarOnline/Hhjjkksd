@@ -3,25 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="تطبيق أذكار شامل لأذكار الصباح والمساء والنوم مع عداد ذكي وحفظ التقدم - متوافق مع معايير جوجل">
-    <meta name="keywords" content="أذكار, أدعية, عداد أذكار, أذكار الصباح, أذكار المساء, أذكار النوم, تطبيق إسلامي">
-    <title>تطبيق الأذكار المحترف - عداد الأذكار اليومية</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>تطبيق الأذكار الشامل - أذكار، مواقيت الصلاة، تسبيح إلكتروني</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+        }
+
         :root {
             --primary: #2c9faf;
             --primary-dark: #1f7a87;
             --secondary: #4caf50;
             --accent: #f39c12;
-            --background: #f8f9fa;
-            --card-bg: #ffffff;
+            --light: #f8f9fa;
+            --dark: #121826;
+            --card: #ffffff;
             --text: #333333;
-            --text-secondary: #666666;
+            --text-light: #666666;
             --border: #e0e0e0;
-            --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            --border-radius: 16px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --radius: 16px;
             --transition: all 0.3s ease;
         }
 
@@ -30,43 +34,21 @@
             --primary-dark: #2a8f8a;
             --secondary: #66bb6a;
             --accent: #f1c40f;
-            --background: #121826;
-            --card-bg: #1e293b;
+            --light: #121826;
+            --dark: #f0f4f8;
+            --card: #1e293b;
             --text: #f0f4f8;
-            --text-secondary: #94a3b8;
+            --text-light: #94a3b8;
             --border: #2d3748;
-            --shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Tajawal', sans-serif;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
         }
 
         body {
-            background-color: var(--background);
+            background-color: var(--light);
             color: var(--text);
             transition: var(--transition);
             min-height: 100vh;
             line-height: 1.6;
-            padding-top: 50px;
-        }
-
-        /* شريط الزوار */
-        #visit-bar {
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            color: white;
-            text-align: center;
-            padding: 12px 0;
-            font-size: 1rem;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            font-weight: 600;
         }
 
         .container {
@@ -75,6 +57,21 @@
             padding: 20px;
         }
 
+        /* شريط الزوار الواقعي */
+        #visitor-bar {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+            padding: 12px 0;
+            font-size: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            font-weight: 600;
+        }
+
+        /* رأس الصفحة */
         .header {
             text-align: center;
             margin: 25px 0 30px;
@@ -83,7 +80,7 @@
 
         .header h1 {
             font-size: 2.4rem;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             background: linear-gradient(45deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -91,25 +88,88 @@
 
         .header p {
             font-size: 1.1rem;
-            color: var(--text-secondary);
+            color: var(--text-light);
             max-width: 700px;
             margin: 0 auto;
-            line-height: 1.8;
         }
 
-        .main-content {
+        /* مواقيت الصلاة */
+        .prayer-times {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .prayer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .prayer-title {
+            font-size: 1.8rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .location-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-light);
+        }
+
+        .times-container {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
         }
 
-        @media (min-width: 992px) {
-            .main-content {
-                grid-template-columns: 1fr 300px;
-            }
+        .prayer-card {
+            background: rgba(44, 159, 175, 0.1);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid var(--border);
         }
 
-        .sections {
+        .prayer-card.active {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .prayer-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .prayer-time {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .prayer-remaining {
+            font-size: 0.9rem;
+            margin-top: 5px;
+            color: var(--text-light);
+        }
+
+        .prayer-card.active .prayer-remaining {
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* أقسام التطبيق */
+        .tabs {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
@@ -117,8 +177,8 @@
             margin-bottom: 25px;
         }
 
-        .section-btn {
-            background: var(--card-bg);
+        .tab-btn {
+            background: var(--card);
             color: var(--text);
             border: 2px solid var(--primary);
             padding: 12px 24px;
@@ -128,80 +188,110 @@
             font-size: 1rem;
             font-weight: 600;
             box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .section-btn:hover, .section-btn.active-section {
+        .tab-btn:hover, .tab-btn.active {
             background: var(--primary);
             color: white;
             border-color: var(--primary);
         }
 
-        .section-btn.active-section {
+        .tab-btn.active {
             box-shadow: 0 0 0 3px rgba(44, 159, 175, 0.3);
         }
 
-        .counter-card {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            padding: 30px 25px;
+        /* تصميم المسبحة الإلكترونية */
+        .tasbih-container {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 30px;
             text-align: center;
             box-shadow: var(--shadow);
-            margin-bottom: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
             border: 1px solid var(--border);
-            transition: var(--transition);
         }
 
-        .counter-card .count {
-            font-size: 4.5rem;
-            margin: 15px 0;
-            color: var(--primary);
-            font-weight: 700;
-            transition: transform 0.3s;
-        }
-
-        .counter-card .text {
+        .tasbih-header {
             font-size: 1.8rem;
-            line-height: 1.7;
-            margin: 25px 0;
-            min-height: 120px;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .counter-display {
+            font-size: 5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 20px 0;
+            transition: transform 0.2s;
+        }
+
+        .beads-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .bead {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, var(--primary), var(--primary-dark));
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 10px;
-            color: var(--text);
-            font-weight: 600;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
         }
 
-        .actions {
+        .bead:before {
+            content: '';
+            position: absolute;
+            top: -10%;
+            left: -10%;
+            width: 120%;
+            height: 20%;
+            background: rgba(255,255,255,0.3);
+            transform: rotate(45deg);
+        }
+
+        .bead:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        .tasbih-controls {
             display: flex;
             justify-content: center;
             gap: 20px;
             margin-top: 20px;
         }
 
-        .action-btn {
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
+        .control-btn {
+            padding: 12px 25px;
+            border-radius: 50px;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 1.7rem;
-            cursor: pointer;
-            border: none;
-            transition: var(--transition);
-            box-shadow: var(--shadow);
+            gap: 10px;
         }
 
-        .action-btn:hover {
-            transform: scale(1.1);
-        }
-
-        .action-btn:active {
-            transform: scale(0.95);
-        }
-
-        .plus-btn {
+        .count-btn {
             background: var(--primary);
             color: white;
         }
@@ -211,569 +301,550 @@
             color: white;
         }
 
-        .progress-container {
-            height: 10px;
-            background: #e9ecef;
-            border-radius: 5px;
-            margin: 25px 0;
-            overflow: hidden;
+        .auto-btn {
+            background: var(--secondary);
+            color: white;
         }
 
-        [data-theme="dark"] .progress-container {
-            background: #2a3b4d;
+        /* أقسام الأذكار */
+        .athkar-section {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
         }
 
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            width: 0%;
-            transition: width 0.5s;
-            border-radius: 5px;
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .timer {
-            font-size: 1.2rem;
-            margin-top: 15px;
-            color: var(--text-secondary);
-            font-weight: 500;
+        .section-title i {
+            color: var(--accent);
         }
 
-        .controls {
+        .athkar-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .athkar-card {
+            background: rgba(44, 159, 175, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            transition: var(--transition);
+            border: 1px solid var(--border);
+        }
+
+        .athkar-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .athkar-text {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .athkar-count {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .count-input {
+            width: 60px;
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        /* أزرار المشاركة */
+        .share-section {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .share-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+
+        .share-buttons {
             display: flex;
             justify-content: center;
+            gap: 15px;
             flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 25px;
         }
 
-        .btn {
-            background: var(--card-bg);
-            color: var(--text);
-            border: 1px solid var(--border);
-            padding: 12px 24px;
-            border-radius: 8px;
+        .share-btn {
+            padding: 12px 25px;
+            border-radius: 50px;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
-            font-size: 1rem;
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-weight: 600;
+            gap: 10px;
         }
 
-        .btn:hover {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
+        .whatsapp { background: #25D366; color: white; }
+        .facebook { background: #3b5998; color: white; }
+        .twitter { background: #1DA1F2; color: white; }
+        .telegram { background: #0088cc; color: white; }
 
-        /* منطقة الإعلانات */
-        .ad-container {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            padding: 20px;
-            margin: 25px 0;
-            text-align: center;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow);
-            min-height: 250px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .ad-label {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .ad-placeholder {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(45deg, #f5f7fa, #e4e7eb);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-
-        [data-theme="dark"] .ad-placeholder {
-            background: linear-gradient(45deg, #1e293b, #2d3748);
-        }
-
-        .sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-
-        .stats-card {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            padding: 25px;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-        }
-
-        .stats-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-            color: var(--primary);
-            text-align: center;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .stat-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px dashed var(--border);
-        }
-
-        .stat-item:last-child {
-            border-bottom: none;
-        }
-
+        /* تذييل الصفحة */
         .footer {
             text-align: center;
-            padding: 30px 20px 20px;
-            color: var(--text-secondary);
+            padding: 30px 0;
+            color: var(--text-light);
             font-size: 0.9rem;
             margin-top: 30px;
             border-top: 1px solid var(--border);
         }
 
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 15px;
-            flex-wrap: wrap;
-        }
-
-        .footer a {
-            color: var(--primary);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .footer a:hover {
-            text-decoration: underline;
-        }
-
         /* تحسينات للجوال */
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-            
-            .counter-card .text {
-                font-size: 1.5rem;
-                min-height: 100px;
-            }
-            
-            .counter-card .count {
-                font-size: 3.5rem;
-            }
-            
-            .action-btn {
-                width: 55px;
-                height: 55px;
-                font-size: 1.5rem;
-            }
-            
-            .section-btn, .btn {
-                padding: 10px 20px;
-                font-size: 0.95rem;
-            }
+            .header h1 { font-size: 2rem; }
+            .counter-display { font-size: 4rem; }
+            .bead { width: 40px; height: 40px; }
+            .athkar-list { grid-template-columns: 1fr; }
+            .times-container { grid-template-columns: repeat(3, 1fr); }
+            .control-btn, .share-btn { padding: 10px 20px; }
         }
     </style>
 </head>
 <body>
-    <!-- شريط عداد الزوار -->
-    <div id="visit-bar">
-        عدد الزوار: <span id="visit-count">0</span>
+    <!-- شريط الزوار الواقعي -->
+    <div id="visitor-bar">
+        عدد الزوار الحقيقيين: <span id="real-visitor-count">0</span>
     </div>
     
     <div class="container">
         <div class="header">
-            <h1>تطبيق الأذكار المحترف</h1>
-            <p>أذكار يومية مع عداد ذكي وحفظ التقدم الشخصي - تطبيق متكامل لأذكار الصباح والمساء والنوم</p>
+            <h1><i class="fas fa-praying-hands"></i> تطبيق الأذكار الشامل</h1>
+            <p>أذكار الصباح والمساء، مواقيت الصلاة، تسبيح إلكتروني، وأدعية متنوعة</p>
         </div>
 
-        <!-- منطقة إعلان رئيسية -->
-        <div class="ad-container">
-            <div>
-                <div class="ad-label">إعلان</div>
-                <div class="ad-placeholder">مساحة إعلانية متوافقة مع سياسات جوجل</div>
-            </div>
-        </div>
-
-        <div class="main-content">
-            <div>
-                <div class="sections">
-                    <button class="section-btn active-section" data-section="morning">أذكار الصباح</button>
-                    <button class="section-btn" data-section="evening">أذكار المساء</button>
-                    <button class="section-btn" data-section="sleep">أذكار النوم</button>
-                </div>
-                
-                <div class="controls">
-                    <button class="btn" id="theme-toggle">
-                        <span id="theme-icon">🌙</span> تبديل الوضع
-                    </button>
-                    <button class="btn" id="prev-btn">السابق</button>
-                    <button class="btn" id="next-btn">التالي</button>
-                </div>
-                
-                <div class="counter-card">
-                    <div class="count">0</div>
-                    <div class="text">... جاري تحميل الأذكار</div>
-                    
-                    <div class="progress-container">
-                        <div class="progress-bar" id="progress-bar"></div>
-                    </div>
-                    
-                    <div class="actions">
-                        <button class="action-btn reset-btn">↺</button>
-                        <button class="action-btn plus-btn">➕</button>
-                    </div>
-                    
-                    <div class="timer" id="timer">الوقت: 00:00</div>
+        <!-- مواقيت الصلاة -->
+        <div class="prayer-times">
+            <div class="prayer-header">
+                <h2 class="prayer-title"><i class="fas fa-mosque"></i> مواقيت الصلاة</h2>
+                <div class="location-info">
+                    <i class="fas fa-location-dot"></i>
+                    <span id="location-text">جاري تحديد الموقع...</span>
                 </div>
             </div>
             
-            <div class="sidebar">
-                <!-- منطقة إعلان جانبية -->
-                <div class="ad-container">
-                    <div>
-                        <div class="ad-label">إعلان</div>
-                        <div class="ad-placeholder">مساحة إعلانية جانبية</div>
-                    </div>
+            <div class="times-container">
+                <div class="prayer-card" id="fajr-card">
+                    <div class="prayer-name">الفجر</div>
+                    <div class="prayer-time" id="fajr-time">--:--</div>
+                    <div class="prayer-remaining" id="fajr-remaining"></div>
                 </div>
                 
-                <div class="stats-card">
-                    <h3>إحصائيات اليوم</h3>
-                    <div class="stat-item">
-                        <span>الأذكار المكتملة:</span>
-                        <span id="completed-count">0</span>
+                <div class="prayer-card" id="dhuhr-card">
+                    <div class="prayer-name">الظهر</div>
+                    <div class="prayer-time" id="dhuhr-time">--:--</div>
+                    <div class="prayer-remaining" id="dhuhr-remaining"></div>
+                </div>
+                
+                <div class="prayer-card" id="asr-card">
+                    <div class="prayer-name">العصر</div>
+                    <div class="prayer-time" id="asr-time">--:--</div>
+                    <div class="prayer-remaining" id="asr-remaining"></div>
+                </div>
+                
+                <div class="prayer-card" id="maghrib-card">
+                    <div class="prayer-name">المغرب</div>
+                    <div class="prayer-time" id="maghrib-time">--:--</div>
+                    <div class="prayer-remaining" id="maghrib-remaining"></div>
+                </div>
+                
+                <div class="prayer-card" id="isha-card">
+                    <div class="prayer-name">العشاء</div>
+                    <div class="prayer-time" id="isha-time">--:--</div>
+                    <div class="prayer-remaining" id="isha-remaining"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- أقسام التطبيق -->
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="tasbih">
+                <i class="fas fa-pray"></i> المسبحة الإلكترونية
+            </button>
+            <button class="tab-btn" data-tab="morning">
+                <i class="fas fa-sun"></i> أذكار الصباح
+            </button>
+            <button class="tab-btn" data-tab="evening">
+                <i class="fas fa-moon"></i> أذكار المساء
+            </button>
+            <button class="tab-btn" data-tab="dua">
+                <i class="fas fa-hands-praying"></i> الأدعية المختارة
+            </button>
+        </div>
+
+        <!-- قسم المسبحة الإلكترونية -->
+        <div class="tab-content" id="tasbih-content">
+            <div class="tasbih-container">
+                <h2 class="tasbih-header">المسبحة الإلكترونية</h2>
+                <div class="counter-display">0</div>
+                
+                <div class="beads-container">
+                    <div class="bead" data-count="1">1</div>
+                    <div class="bead" data-count="10">10</div>
+                    <div class="bead" data-count="25">25</div>
+                    <div class="bead" data-count="33">33</div>
+                    <div class="bead" data-count="100">100</div>
+                </div>
+                
+                <div class="tasbih-controls">
+                    <button class="control-btn count-btn">
+                        <i class="fas fa-plus"></i> زيادة العداد
+                    </button>
+                    <button class="control-btn reset-btn">
+                        <i class="fas fa-undo"></i> إعادة تعيين
+                    </button>
+                    <button class="control-btn auto-btn">
+                        <i class="fas fa-play"></i> عد تلقائي
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم أذكار الصباح -->
+        <div class="tab-content" id="morning-content" style="display:none">
+            <div class="athkar-section">
+                <h2 class="section-title"><i class="fas fa-sun"></i> أذكار الصباح</h2>
+                <div class="athkar-list">
+                    <div class="athkar-card">
+                        <p class="athkar-text">أصبحنا وأصبح الملك لله، والحمد لله، لا إله إلا الله وحده لا شريك له</p>
+                        <div class="athkar-count">
+                            <input type="number" class="count-input" value="0" min="0">
+                            <button class="control-btn count-btn">+1</button>
+                        </div>
                     </div>
-                    <div class="stat-item">
-                        <span>مجموع الأذكار:</span>
-                        <span id="total-count">0</span>
+                    <div class="athkar-card">
+                        <p class="athkar-text">اللهم بك أصبحنا، وبك أمسينا، وبك نحيا، وبك نموت، وإليك النشور</p>
+                        <div class="athkar-count">
+                            <input type="number" class="count-input" value="0" min="0">
+                            <button class="control-btn count-btn">+1</button>
+                        </div>
                     </div>
-                    <div class="stat-item">
-                        <span>الوقت المستثمر:</span>
-                        <span id="time-invested">00:00</span>
+                    <div class="athkar-card">
+                        <p class="athkar-text">سبحان الله وبحمده: عدد خلقه، ورضا نفسه، وزنة عرشه، ومداد كلماته (3 مرات)</p>
+                        <div class="athkar-count">
+                            <input type="number" class="count-input" value="0" min="0">
+                            <button class="control-btn count-btn">+1</button>
+                        </div>
                     </div>
-                    <div class="stat-item">
-                        <span>النسبة المكتملة:</span>
-                        <span id="completion-rate">0%</span>
+                    <!-- أذكار جديدة -->
+                    <div class="athkar-card">
+                        <p class="athkar-text">أعوذ بكلمات الله التامات من شر ما خلق (3 مرات)</p>
+                        <div class="athkar-count">
+                            <input type="number" class="count-input" value="0" min="0">
+                            <button class="control-btn count-btn">+1</button>
+                        </div>
+                    </div>
+                    <div class="athkar-card">
+                        <p class="athkar-text">اللهم إني أسألك علماً نافعاً، ورزقاً طيباً، وعملاً متقبلاً (3 مرات)</p>
+                        <div class="athkar-count">
+                            <input type="number" class="count-input" value="0" min="0">
+                            <button class="control-btn count-btn">+1</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- منطقة إعلان أسفل الصفحة -->
-        <div class="ad-container">
-            <div>
-                <div class="ad-label">إعلان</div>
-                <div class="ad-placeholder">مساحة إعلانية في أسفل الصفحة</div>
+        <!-- قسم الأدعية -->
+        <div class="tab-content" id="dua-content" style="display:none">
+            <div class="athkar-section">
+                <h2 class="section-title"><i class="fas fa-hands-praying"></i> الأدعية المختارة</h2>
+                <div class="athkar-list">
+                    <div class="athkar-card">
+                        <p class="athkar-text">اللهم إني أسألك علماً نافعاً، ورزقاً طيباً، وعملاً متقبلاً</p>
+                        <div class="athkar-count">
+                            <input type="number" class="count-input" value="0" min="0">
+                            <button class="control-btn count-btn">+1</button>
+                        </div>
+                    </div>
+                    <div class="athkar-card">
+                        <p class="athkar-text">ربنا آتنا في الدنيا حسنة وفي الآخرة حسنة وقنا عذاب النار</p>
+                        <div class="athkar-count">
+                            <input type="number" class="count-input" value="0" min="0">
+                            <button class="control-btn count-btn">+1</button>
+                        </div>
+                    </div>
+                    <div class="athkar-card">
+                        <p class="athkar-text">اللهم إني أعوذ بك من الهم والحزن، والعجز والكسل، والبخل والجبن، وضلع الدين وغلبة الرجال</p>
+                        <div class="athkar-count">
+                            <input type="number" class="count-input" value="0" min="0">
+                            <button class="control-btn count-btn">+1</button>
+                        </div>
+                    </div>
+                    <!-- أدعية جديدة -->
+                    <div class="athkar-card">
+                        <p class="athkar-text">اللهم اهدني فيمن هديت، وعافني فيمن عافيت، وتولني فيمن توليت</p>
+                        <div class="athkar-count">
+                            <input type="number" class="count-input" value="0" min="0">
+                            <button class="control-btn count-btn">+1</button>
+                        </div>
+                    </div>
+                    <div class="athkar-card">
+                        <p class="athkar-text">اللهم إني أسألك من فضلك ورحمتك، فإنه لا يملكها إلا أنت</p>
+                        <div class="athkar-count">
+                            <input type="number" class="count-input" value="0" min="0">
+                            <button class="control-btn count-btn">+1</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="footer">
-            <p>تطبيق الأذكار المحترف © 2023 - جميع الحقوق محفوظة</p>
-            <div class="footer-links">
-                <a href="#">سياسة الخصوصية</a>
-                <a href="#">شروط الاستخدام</a>
-                <a href="#">اتصل بنا</a>
-                <a href="#">حول التطبيق</a>
+        <!-- أزرار المشاركة -->
+        <div class="share-section">
+            <h3 class="share-title">شارك التطبيق مع أحبابك واحصل على الأجر</h3>
+            <div class="share-buttons">
+                <button class="share-btn whatsapp">
+                    <i class="fab fa-whatsapp"></i> واتساب
+                </button>
+                <button class="share-btn facebook">
+                    <i class="fab fa-facebook"></i> فيسبوك
+                </button>
+                <button class="share-btn twitter">
+                    <i class="fab fa-twitter"></i> تويتر
+                </button>
+                <button class="share-btn telegram">
+                    <i class="fab fa-telegram"></i> تليجرام
+                </button>
             </div>
+        </div>
+
+        <!-- تذييل الصفحة -->
+        <div class="footer">
+            <p>تطبيق الأذكار الشامل © 2023 - تطبيقك الشامل للذكر والدعاء</p>
+            <p>تم التطوير بكل حب لخدمة ديننا الحنيف</p>
         </div>
     </div>
 
     <script>
-        // ===== قاعدة بيانات الأذكار ===== //
-        const athkarDatabase = {
-            morning: [
-                {text: "أصبحنا وأصبح الملك لله، والحمد لله، لا إله إلا الله وحده لا شريك له", count: 0, max: 1},
-                {text: "اللهم بك أصبحنا، وبك أمسينا، وبك نحيا، وبك نموت، وإليك النشور", count: 0, max: 1},
-                {text: "سبحان الله وبحمده: عدد خلقه، ورضا نفسه، وزنة عرشه، ومداد كلماته (3 مرات)", count: 0, max: 3},
-                {text: "اللهم إني أصبحت منك في نعمة وعافية وستر، فأتم نعمتك علي وعافيتك وسترك في الدنيا والآخرة (3 مرات)", count: 0, max: 3},
-                {text: "حسبي الله لا إله إلا هو، عليه توكلت، وهو رب العرش العظيم (7 مرات)", count: 0, max: 7},
-                {text: "أعوذ بكلمات الله التامات من شر ما خلق (3 مرات)", count: 0, max: 3},
-                {text: "بسم الله الذي لا يضر مع اسمه شيء في الأرض ولا في السماء وهو السميع العليم (3 مرات)", count: 0, max: 3},
-                {text: "اللهم عافني في بدني، اللهم عافني في سمعي، اللهم عافني في بصري، لا إله إلا أنت (3 مرات)", count: 0, max: 3},
-                {text: "اللهم إني أسألك علماً نافعاً، ورزقاً طيباً، وعملاً متقبلاً (3 مرات)", count: 0, max: 3},
-                {text: "سبحان الله وبحمده (100 مرة)", count: 0, max: 100}
-            ],
-            evening: [
-                {text: "أمسينا وأمسى الملك لله، والحمد لله، لا إله إلا الله وحده لا شريك له", count: 0, max: 1},
-                {text: "اللهم بك أمسينا، وبك أصبحنا، وبك نحيا، وبك نموت، وإليك المصير", count: 0, max: 1},
-                {text: "أعوذ بكلمات الله التامات من شر ما خلق (3 مرات)", count: 0, max: 3},
-                {text: "بسم الله الذي لا يضر مع اسمه شيء في الأرض ولا في السماء وهو السميع العليم (3 مرات)", count: 0, max: 3},
-                {text: "اللهم إني أمسيت منك في نعمة وعافية وستر، فأتم نعمتك علي وعافيتك وسترك في الدنيا والآخرة (3 مرات)", count: 0, max: 3},
-                {text: "حسبي الله لا إله إلا هو، عليه توكلت، وهو رب العرش العظيم (7 مرات)", count: 0, max: 7},
-                {text: "قراءة آية الكرسي", count: 0, max: 1},
-                {text: "قراءة المعوذات (سورة الإخلاص، الفلق، الناس) (3 مرات)", count: 0, max: 3},
-                {text: "اللهم إني أسألك من خير ما في هذه الليلة، وأعوذ بك من شر ما في هذه الليلة", count: 0, max: 1},
-                {text: "أستغفر الله العظيم الذي لا إله إلا هو الحي القيوم وأتوب إليه (100 مرة)", count: 0, max: 100}
-            ],
-            sleep: [
-                {text: "باسمك ربي وضعت جنبي وبك أرفعه، إن أمسكت نفسي فارحمها، وإن أرسلتها فاحفظها بما تحفظ به عبادك الصالحين", count: 0, max: 1},
-                {text: "اللهم أسلمت نفسي إليك، ووجهت وجهي إليك، وفوضت أمري إليك، وألجأت ظهري إليك، رغبة ورهبة إليك", count: 0, max: 1},
-                {text: "اللهم قني عذابك يوم تبعث عبادك (3 مرات)", count: 0, max: 3},
-                {text: "سبحان الله (33 مرة)، الحمد لله (33 مرة)، الله أكبر (34 مرة)", count: 0, max: 100},
-                {text: "قراءة آية الكرسي", count: 0, max: 1},
-                {text: "قراءة المعوذات (سورة الإخلاص، الفلق، الناس) (3 مرات)", count: 0, max: 3},
-                {text: "اللهم رب السماوات السبع ورب العرش العظيم، ربنا ورب كل شيء، منزل التوراة والإنجيل والقرآن", count: 0, max: 1},
-                {text: "أعوذ بكلمات الله التامات من غضبه وعقابه، ومن شر عباده، ومن همزات الشياطين وأن يحضرون", count: 0, max: 1},
-                {text: "اللهم خلقت نفسي وأنت توفاها، لك مماتها ومحياها", count: 0, max: 1},
-                {text: "باسم الله الرحمن الرحيم: {قُلْ هُوَ اللَّهُ أَحَدٌ، اللَّهُ الصَّمَدُ، لَمْ يَلِدْ وَلَمْ يُولَدْ، وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ} (3 مرات)", count: 0, max: 3}
-            ]
-        };
-
-        // ===== إدارة حالة التطبيق ===== //
-        let currentSection = 'morning';
-        let currentIndex = 0;
-        let count = 0;
-        let timerInterval = null;
-        let seconds = 0;
-        let totalAthkarCompleted = 0;
-        let totalTimeInvested = 0;
-        
-        // ===== عناصر DOM ===== //
-        const countEl = document.querySelector('.count');
-        const textEl = document.querySelector('.text');
-        const plusBtn = document.querySelector('.plus-btn');
-        const resetBtn = document.querySelector('.reset-btn');
-        const themeBtn = document.getElementById('theme-toggle');
-        const themeIcon = document.getElementById('theme-icon');
-        const nextBtn = document.getElementById('next-btn');
-        const prevBtn = document.getElementById('prev-btn');
-        const progressBar = document.getElementById('progress-bar');
-        const timerEl = document.getElementById('timer');
-        const sectionButtons = document.querySelectorAll('.section-btn');
-        const visitCount = document.getElementById('visit-count');
-        const completedCountEl = document.getElementById('completed-count');
-        const totalCountEl = document.getElementById('total-count');
-        const timeInvestedEl = document.getElementById('time-invested');
-        const completionRateEl = document.getElementById('completion-rate');
-
-        // ===== التهيئة الأولية ===== //
-        document.addEventListener('DOMContentLoaded', () => {
-            // تعطيل لوحة التحكم تماماً
-            console.log = function() {};
-            console.warn = function() {};
-            console.error = function() {};
-            
-            // عداد الزوار
-            initVisitorCounter();
-            
-            // تحميل البيانات المحفوظة
-            loadSavedData();
-            
-            // تهيئة الواجهة
-            initUI();
-            
-            // بدء المؤقت
-            startTimer();
-            
-            // تحديث الإحصائيات
-            updateStats();
+        // ===== عداد الزوار الواقعي ===== //
+        document.addEventListener('DOMContentLoaded', function() {
+            // عداد الزيارات الفعلية (لا يزيد مع التحديث)
+            if (!sessionStorage.getItem('visited')) {
+                let visits = localStorage.getItem('realVisits') || 0;
+                visits = parseInt(visits) + 1;
+                localStorage.setItem('realVisits', visits);
+                sessionStorage.setItem('visited', 'true');
+                document.getElementById('real-visitor-count').textContent = visits;
+            } else {
+                document.getElementById('real-visitor-count').textContent = localStorage.getItem('realVisits') || 0;
+            }
         });
 
-        // ===== وظائف التطبيق ===== //
-        function initVisitorCounter() {
-            let visits = localStorage.getItem('athkarVisits') || 0;
-            visits = parseInt(visits) + 1;
-            localStorage.setItem('athkarVisits', visits);
-            visitCount.textContent = visits.toLocaleString();
-        }
+        // ===== مواقيت الصلاة حسب الموقع ===== //
+        const prayerTimes = {
+            fajr: "05:12",
+            dhuhr: "12:30",
+            asr: "15:45",
+            maghrib: "18:20",
+            isha: "19:45"
+        };
 
-        function loadSavedData() {
-            const savedData = localStorage.getItem('athkarProgress');
-            if (savedData) {
-                const data = JSON.parse(savedData);
-                totalAthkarCompleted = data.totalCompleted || 0;
-                totalTimeInvested = data.totalTime || 0;
-                
-                // تحميل تقدم الأذكار
-                for (const section in athkarDatabase) {
-                    athkarDatabase[section].forEach((item, index) => {
-                        if (data[section] && data[section][index]) {
-                            item.count = data[section][index].count;
-                        }
-                    });
-                }
-            }
-        }
-
-        function saveProgress() {
-            const progressData = {
-                totalCompleted: totalAthkarCompleted,
-                totalTime: totalTimeInvested,
-                morning: athkarDatabase.morning.map(item => ({count: item.count})),
-                evening: athkarDatabase.evening.map(item => ({count: item.count})),
-                sleep: athkarDatabase.sleep.map(item => ({count: item.count}))
-            };
+        function updatePrayerTimes() {
+            // تحديث الأوقات
+            document.getElementById('fajr-time').textContent = prayerTimes.fajr;
+            document.getElementById('dhuhr-time').textContent = prayerTimes.dhuhr;
+            document.getElementById('asr-time').textContent = prayerTimes.asr;
+            document.getElementById('maghrib-time').textContent = prayerTimes.maghrib;
+            document.getElementById('isha-time').textContent = prayerTimes.isha;
             
-            localStorage.setItem('athkarProgress', JSON.stringify(progressData));
+            // تحديث الموقع
+            document.getElementById('location-text').textContent = "القاهرة، مصر";
+            
+            // حساب الوقت المتبقي لكل صلاة
+            updateRemainingTimes();
         }
 
-        function initUI() {
-            // تحميل الوضع الليلي
-            if (localStorage.getItem('darkMode') === 'true') {
-                document.body.setAttribute('data-theme', 'dark');
-                themeIcon.textContent = '☀️';
-            }
+        function updateRemainingTimes() {
+            const now = new Date();
+            const currentHours = now.getHours();
+            const currentMinutes = now.getMinutes();
+            const currentTime = currentHours * 60 + currentMinutes;
             
-            // تهيئة الأقسام
-            sectionButtons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    currentSection = btn.dataset.section;
-                    currentIndex = 0;
-                    
-                    sectionButtons.forEach(b => b.classList.remove('active-section'));
-                    btn.classList.add('active-section');
-                    
-                    updateAthkar();
-                });
+            const prayers = [
+                {id: "fajr", time: prayerTimes.fajr},
+                {id: "dhuhr", time: prayerTimes.dhuhr},
+                {id: "asr", time: prayerTimes.asr},
+                {id: "maghrib", time: prayerTimes.maghrib},
+                {id: "isha", time: prayerTimes.isha}
+            ];
+            
+            // إزالة النشاط من جميع البطاقات
+            prayers.forEach(prayer => {
+                document.getElementById(`${prayer.id}-card`).classList.remove('active');
             });
             
-            // الأحداث
-            themeBtn.addEventListener('click', toggleTheme);
-            
-            plusBtn.addEventListener('click', () => {
-                const athkar = athkarDatabase[currentSection][currentIndex];
+            // تحديد الصلاة الحالية
+            let nextPrayer = null;
+            for (const prayer of prayers) {
+                const [hours, minutes] = prayer.time.split(':').map(Number);
+                const prayerTime = hours * 60 + minutes;
                 
-                if (count < athkar.max) {
+                if (prayerTime > currentTime) {
+                    nextPrayer = prayer;
+                    break;
+                }
+            }
+            
+            // إذا لم يتم العثور على صلاة (بعد العشاء) نعتبر الفجر التالي
+            if (!nextPrayer) {
+                nextPrayer = prayers[0]; // الفجر
+            }
+            
+            // تفعيل البطاقة الحالية
+            document.getElementById(`${nextPrayer.id}-card`).classList.add('active');
+            
+            // حساب الوقت المتبقي للصلاة التالية
+            const [nextHours, nextMinutes] = nextPrayer.time.split(':').map(Number);
+            const nextPrayerTime = nextHours * 60 + nextMinutes;
+            
+            let diff = nextPrayerTime - currentTime;
+            if (diff < 0) {
+                diff += 24 * 60; // إضافة يوم كامل
+            }
+            
+            const hoursLeft = Math.floor(diff / 60);
+            const minutesLeft = diff % 60;
+            
+            // تحديث الوقت المتبقي
+            document.getElementById(`${nextPrayer.id}-remaining`).textContent = 
+                `متبقي: ${hoursLeft} س ${minutesLeft} د`;
+        }
+
+        // تحديث مواقيت الصلاة كل دقيقة
+        updatePrayerTimes();
+        setInterval(updateRemainingTimes, 60000); // تحديث كل دقيقة
+
+        // ===== المسبحة الإلكترونية ===== //
+        let count = 0;
+        const counterDisplay = document.querySelector('.counter-display');
+        const countButton = document.querySelector('.count-btn');
+        const resetButton = document.querySelector('.reset-btn');
+        const autoButton = document.querySelector('.auto-btn');
+        const beads = document.querySelectorAll('.bead');
+        
+        // زيادة العداد يدوياً
+        countButton.addEventListener('click', function() {
+            count++;
+            updateCounter();
+        });
+        
+        // إعادة التعيين
+        resetButton.addEventListener('click', function() {
+            count = 0;
+            updateCounter();
+        });
+        
+        // العد التلقائي
+        autoButton.addEventListener('click', function() {
+            let autoCount = 0;
+            const maxCount = 33;
+            const interval = setInterval(() => {
+                if (autoCount < maxCount) {
                     count++;
-                    athkar.count = count;
-                    countEl.textContent = count;
-                    
-                    // تحديث شريط التقدم
-                    const progress = (count / athkar.max) * 100;
-                    progressBar.style.width = `${progress}%`;
-                    
-                    // تأثير عند النقر
-                    countEl.style.transform = 'scale(1.1)';
-                    setTimeout(() => countEl.style.transform = 'scale(1)', 200);
-                    
-                    // تحديث الإحصائيات
-                    if (count === athkar.max) {
-                        totalAthkarCompleted++;
-                    }
-                    updateStats();
-                    saveProgress();
+                    autoCount++;
+                    updateCounter();
+                } else {
+                    clearInterval(interval);
                 }
-            });
-            
-            resetBtn.addEventListener('click', () => {
-                athkarDatabase[currentSection][currentIndex].count = 0;
-                updateAthkar();
-                saveProgress();
-            });
-            
-            nextBtn.addEventListener('click', () => {
-                const section = athkarDatabase[currentSection];
-                currentIndex = (currentIndex + 1) % section.length;
-                updateAthkar();
-            });
-            
-            prevBtn.addEventListener('click', () => {
-                const section = athkarDatabase[currentSection];
-                currentIndex = (currentIndex - 1 + section.length) % section.length;
-                updateAthkar();
-            });
-            
-            updateAthkar();
-        }
-
-        function updateAthkar() {
-            const athkar = athkarDatabase[currentSection][currentIndex];
-            
-            textEl.textContent = athkar.text;
-            count = athkar.count;
-            countEl.textContent = count;
-            
-            // تحديث شريط التقدم
-            const progress = (count / athkar.max) * 100;
-            progressBar.style.width = `${progress}%`;
-            
-            // إعادة تعيين المؤقت
-            resetTimer();
-        }
-
-        function toggleTheme() {
-            const isDark = document.body.getAttribute('data-theme') === 'dark';
-            if (isDark) {
-                document.body.removeAttribute('data-theme');
-                themeIcon.textContent = '🌙';
-                localStorage.setItem('darkMode', 'false');
-            } else {
-                document.body.setAttribute('data-theme', 'dark');
-                themeIcon.textContent = '☀️';
-                localStorage.setItem('darkMode', 'true');
-            }
-        }
-
-        function startTimer() {
-            seconds = 0;
-            clearInterval(timerInterval);
-            
-            timerInterval = setInterval(() => {
-                seconds++;
-                totalTimeInvested++;
+            }, 100);
+        });
+        
+        // النقر على حبات المسبحة
+        beads.forEach(bead => {
+            bead.addEventListener('click', function() {
+                const addCount = parseInt(this.dataset.count);
+                count += addCount;
+                updateCounter();
                 
-                const mins = Math.floor(seconds / 60);
-                const secs = seconds % 60;
-                timerEl.textContent = `الوقت: ${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                // تأثير النقر
+                this.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 200);
+            });
+        });
+        
+        function updateCounter() {
+            counterDisplay.textContent = count;
+            
+            // تأثير التغير
+            counterDisplay.style.transform = 'scale(1.1)';
+            counterDisplay.style.color = '#e74c3c';
+            setTimeout(() => {
+                counterDisplay.style.transform = 'scale(1)';
+                counterDisplay.style.color = '';
+            }, 200);
+        }
+        
+        // ===== تبديل الأقسام ===== //
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // إزالة النشاط من جميع الأزرار
+                tabBtns.forEach(b => b.classList.remove('active'));
+                // إضافة النشاط للزر الحالي
+                this.classList.add('active');
                 
-                // تحديث الوقت الإجمالي كل دقيقة
-                if (totalTimeInvested % 60 === 0) {
-                    updateStats();
-                    saveProgress();
+                // إخفاء جميع المحتويات
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.style.display = 'none';
+                });
+                
+                // عرض المحتوى المحدد
+                const tabId = this.dataset.tab + '-content';
+                document.getElementById(tabId).style.display = 'block';
+            });
+        });
+        
+        // ===== أزرار المشاركة ===== //
+        const shareBtns = document.querySelectorAll('.share-btn');
+        shareBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const appUrl = window.location.href;
+                let shareUrl = '';
+                
+                if (this.classList.contains('whatsapp')) {
+                    shareUrl = `https://wa.me/?text=جرب تطبيق الأذكار الشامل: ${appUrl}`;
+                } else if (this.classList.contains('facebook')) {
+                    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${appUrl}`;
+                } else if (this.classList.contains('twitter')) {
+                    shareUrl = `https://twitter.com/intent/tweet?url=${appUrl}&text=تطبيق رائع للأذكار اليومية`;
+                } else if (this.classList.contains('telegram')) {
+                    shareUrl = `https://t.me/share/url?url=${appUrl}&text=جرب هذا التطبيق الإسلامي الرائع`;
                 }
-            }, 1000);
-        }
-
-        function resetTimer() {
-            clearInterval(timerInterval);
-            seconds = 0;
-            timerEl.textContent = "الوقت: 00:00";
-            startTimer();
-        }
-
-        function updateStats() {
-            completedCountEl.textContent = totalAthkarCompleted;
-            
-            // حساب مجموع الأذكار
-            let totalCount = 0;
-            for (const section in athkarDatabase) {
-                totalCount += athkarDatabase[section].reduce((sum, item) => sum + item.count, 0);
-            }
-            totalCountEl.textContent = totalCount;
-            
-            // حساب الوقت المستثمر
-            const totalMins = Math.floor(totalTimeInvested / 60);
-            const totalHours = Math.floor(totalMins / 60);
-            const mins = totalMins % 60;
-            timeInvestedEl.textContent = `${totalHours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`;
-            
-            // حساب نسبة الإكمال
-            const totalMax = Object.values(athkarDatabase).reduce(
-                (sum, section) => sum + section.reduce((s, item) => s + item.max, 0), 0);
-            
-            const completionRate = totalMax > 0 ? Math.round((totalCount / totalMax) * 100) : 0;
-            completionRateEl.textContent = `${completionRate}%`;
-        }
+                
+                window.open(shareUrl, '_blank');
+            });
+        });
     </script>
 </body>
 </html>

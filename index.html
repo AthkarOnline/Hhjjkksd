@@ -714,6 +714,47 @@
             text-decoration: none;
             font-weight: 600;
         }
+        
+        /* User Profile */
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            z-index: 3000;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.3s ease;
+        }
+        
+        .notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body>
@@ -739,7 +780,7 @@
                 </ul>
             </nav>
             
-            <div class="auth-buttons">
+            <div class="auth-buttons" id="auth-buttons">
                 <button class="btn btn-outline" id="login-btn">
                     <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
                 </button>
@@ -747,8 +788,16 @@
                     <i class="fas fa-user-plus"></i> إنشاء حساب
                 </button>
             </div>
+            
+            <div class="user-profile" id="user-profile" style="display:none;">
+                <div class="user-avatar" id="user-avatar">م</div>
+                <div id="username">محمد</div>
+            </div>
         </div>
     </header>
+
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -758,11 +807,11 @@
             
             <div class="counter-container">
                 <div>
-                    <div class="counter">5,842</div>
+                    <div class="counter" id="current-visitors">5,842</div>
                     <div class="counter-label">زائر حالياً</div>
                 </div>
                 <div>
-                    <div class="counter">1,243,976</div>
+                    <div class="counter" id="total-visitors">1,243,976</div>
                     <div class="counter-label">إجمالي الزيارات</div>
                 </div>
             </div>
@@ -849,7 +898,7 @@
                 </div>
                 <div class="rosary-body">
                     <div class="rosary-display">
-                        <div>سُبْحَانَ اللَّهِ</div>
+                        <div id="rosary-text">سُبْحَانَ اللَّهِ</div>
                     </div>
                     
                     <div class="rosary-counter" id="counter">0</div>
@@ -1070,7 +1119,7 @@
                     <a href="#" class="forgot-password">نسيت كلمة المرور؟</a>
                 </div>
                 
-                <button class="btn btn-primary" style="width: 100%;">تسجيل الدخول</button>
+                <button class="btn btn-primary" style="width: 100%;" id="login-submit">تسجيل الدخول</button>
                 
                 <div class="switch-mode">
                     ليس لديك حساب؟ <a href="#" id="switch-to-register">إنشاء حساب جديد</a>
@@ -1107,7 +1156,7 @@
                     <input type="password" id="register-confirm" class="form-control" placeholder="أعد كتابة كلمة المرور">
                 </div>
                 
-                <button class="btn btn-primary" style="width: 100%;">إنشاء حساب</button>
+                <button class="btn btn-primary" style="width: 100%;" id="register-submit">إنشاء حساب</button>
                 
                 <div class="switch-mode">
                     لديك حساب بالفعل؟ <a href="#" id="switch-to-login">تسجيل الدخول</a>
@@ -1134,6 +1183,75 @@
         const closeRegister = document.getElementById('close-register');
         const switchToRegister = document.getElementById('switch-to-register');
         const switchToLogin = document.getElementById('switch-to-login');
+        const authButtons = document.getElementById('auth-buttons');
+        const userProfile = document.getElementById('user-profile');
+        const notification = document.getElementById('notification');
+        const userAvatar = document.getElementById('user-avatar');
+        const username = document.getElementById('username');
+        
+        // Show notification function
+        function showNotification(message, isSuccess = true) {
+            notification.textContent = message;
+            notification.style.backgroundColor = isSuccess ? 'var(--secondary-color)' : '#e74c3c';
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Login functionality
+        document.getElementById('login-submit').addEventListener('click', () => {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            if (!email || !password) {
+                showNotification('الرجاء ملء جميع الحقول', false);
+                return;
+            }
+            
+            // Simulate login
+            showNotification('تم تسجيل الدخول بنجاح!');
+            
+            // Hide login modal
+            loginModal.classList.remove('show');
+            
+            // Show user profile
+            authButtons.style.display = 'none';
+            userProfile.style.display = 'flex';
+            
+            // Set user info
+            const name = email.split('@')[0];
+            username.textContent = name;
+            userAvatar.textContent = name.charAt(0).toUpperCase();
+        });
+        
+        // Register functionality
+        document.getElementById('register-submit').addEventListener('click', () => {
+            const name = document.getElementById('register-name').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('register-confirm').value;
+            
+            if (!name || !email || !password || !confirmPassword) {
+                showNotification('الرجاء ملء جميع الحقول', false);
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                showNotification('كلمتا المرور غير متطابقتين', false);
+                return;
+            }
+            
+            // Simulate registration
+            showNotification('تم إنشاء الحساب بنجاح!');
+            
+            // Hide register modal
+            registerModal.classList.remove('show');
+            
+            // Show login modal
+            loginModal.classList.add('show');
+        });
         
         loginBtn.addEventListener('click', () => {
             loginModal.classList.add('show');
@@ -1178,6 +1296,7 @@
         const resetBtn = document.getElementById('reset-btn');
         const counter = document.getElementById('counter');
         const presetBtns = document.querySelectorAll('.preset-btn');
+        const rosaryText = document.getElementById('rosary-text');
         
         let count = 0;
         let targetCount = 33;
@@ -1188,13 +1307,12 @@
                 counter.textContent = count;
                 
                 // Change dhikr text based on count
-                const dhikrText = document.querySelector('.rosary-display div');
                 if (count % 33 === 0) {
-                    dhikrText.textContent = 'الْحَمْدُ لِلَّهِ';
+                    rosaryText.textContent = 'الْحَمْدُ لِلَّهِ';
                 } else if (count % 33 === 0) {
-                    dhikrText.textContent = 'اللَّهُ أَكْبَرُ';
+                    rosaryText.textContent = 'اللَّهُ أَكْبَرُ';
                 } else {
-                    dhikrText.textContent = 'سُبْحَانَ اللَّهِ';
+                    rosaryText.textContent = 'سُبْحَانَ اللَّهِ';
                 }
                 
                 // Animation
@@ -1208,7 +1326,7 @@
         resetBtn.addEventListener('click', () => {
             count = 0;
             counter.textContent = count;
-            document.querySelector('.rosary-display div').textContent = 'سُبْحَانَ اللَّهِ';
+            rosaryText.textContent = 'سُبْحَانَ اللَّهِ';
         });
         
         presetBtns.forEach(btn => {
@@ -1230,11 +1348,24 @@
         
         // Simulate visitor count updates
         setInterval(() => {
-            const visitorCount = document.querySelector('.counter');
-            let count = parseInt(visitorCount.textContent.replace(/,/g, ''));
-            count += Math.floor(Math.random() * 3);
-            visitorCount.textContent = count.toLocaleString();
+            const currentVisitors = document.getElementById('current-visitors');
+            const totalVisitors = document.getElementById('total-visitors');
+            
+            let currentCount = parseInt(currentVisitors.textContent.replace(/,/g, ''));
+            let totalCount = parseInt(totalVisitors.textContent.replace(/,/g, ''));
+            
+            currentCount += Math.floor(Math.random() * 3);
+            totalCount += Math.floor(Math.random() * 5);
+            
+            currentVisitors.textContent = currentCount.toLocaleString();
+            totalVisitors.textContent = totalCount.toLocaleString();
         }, 5000);
+        
+        // Initialize the site
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Website loaded successfully');
+            showNotification('مرحباً بك في موقع أذكار المسلم!');
+        });
     </script>
 </body>
 </html>

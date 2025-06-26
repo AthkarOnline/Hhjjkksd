@@ -7,6 +7,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PN6SQWX4KY"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-PN6SQWX4KY');
+    </script>
     <style>
         :root {
             --primary-color: #2c7744;
@@ -15,8 +23,9 @@
             --light-color: #f8f9fa;
             --dark-color: #343a40;
             --gray-color: #6c757d;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             --transition: all 0.3s ease;
+            --card-radius: 16px;
         }
 
         * {
@@ -34,17 +43,9 @@
             position: relative;
         }
 
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(42, 157, 93, 0.05) 0%, transparent 20%),
-                radial-gradient(circle at 80% 80%, rgba(241, 196, 15, 0.05) 0%, transparent 20%);
-            z-index: -1;
+        body.dark-mode {
+            background: linear-gradient(135deg, #0d1f15 0%, #15241b 100%);
+            color: #e0e0e0;
         }
 
         .container {
@@ -63,6 +64,10 @@
             position: sticky;
             top: 0;
             z-index: 1000;
+        }
+
+        body.dark-mode header {
+            background: linear-gradient(135deg, #1a3b27 0%, #2a5a3d 100%);
         }
 
         .header-container {
@@ -169,11 +174,19 @@
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
+        body.dark-mode .hero h2 {
+            color: #4caf7a;
+        }
+
         .hero p {
             font-size: 1.2rem;
             max-width: 700px;
             margin: 0 auto 2rem;
             color: var(--gray-color);
+        }
+
+        body.dark-mode .hero p {
+            color: #b0b0b0;
         }
 
         .counter-container {
@@ -187,10 +200,18 @@
             margin-top: 1.5rem;
         }
 
+        body.dark-mode .counter-container {
+            background-color: #1a2a21;
+        }
+
         .counter {
             font-size: 2rem;
             font-weight: 700;
             color: var(--primary-color);
+        }
+
+        body.dark-mode .counter {
+            color: #4caf7a;
         }
 
         .counter-label {
@@ -204,12 +225,20 @@
             backdrop-filter: blur(10px);
         }
 
+        body.dark-mode .features {
+            background-color: rgba(13, 31, 21, 0.7);
+        }
+
         .section-title {
             text-align: center;
             margin-bottom: 3rem;
             color: var(--primary-color);
             position: relative;
             padding-bottom: 1rem;
+        }
+
+        body.dark-mode .section-title {
+            color: #4caf7a;
         }
 
         .section-title::after {
@@ -232,11 +261,17 @@
 
         .feature-card {
             background: white;
-            border-radius: 10px;
+            border-radius: var(--card-radius);
             overflow: hidden;
             box-shadow: var(--shadow);
             transition: var(--transition);
             cursor: pointer;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        body.dark-mode .feature-card {
+            background: #1a2a21;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .feature-card:hover {
@@ -263,19 +298,33 @@
             margin-bottom: 0.5rem;
         }
 
+        body.dark-mode .feature-content h3 {
+            color: #4caf7a;
+        }
+
         /* Rosary Section */
         .rosary-section {
             padding: 4rem 0;
             background: linear-gradient(135deg, #f0f9f4 0%, #e0f3e8 100%);
         }
 
+        body.dark-mode .rosary-section {
+            background: linear-gradient(135deg, #0f1f16 0%, #14281d 100%);
+        }
+
         .rosary-container {
             max-width: 800px;
             margin: 0 auto;
             background: white;
-            border-radius: 15px;
+            border-radius: var(--card-radius);
             box-shadow: var(--shadow);
             overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        body.dark-mode .rosary-container {
+            background: #1a2a21;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .rosary-header {
@@ -301,6 +350,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            text-align: center;
+            line-height: 1.3;
+        }
+
+        body.dark-mode .rosary-display {
+            color: #4caf7a;
         }
 
         .rosary-counter {
@@ -315,6 +370,13 @@
             align-items: center;
             justify-content: center;
             border: 5px solid var(--primary-color);
+            transition: transform 0.3s ease;
+        }
+
+        body.dark-mode .rosary-counter {
+            background: #0f1f16;
+            color: #3a9d5d;
+            border-color: #2c7744;
         }
 
         .rosary-controls {
@@ -339,6 +401,12 @@
             border-radius: 30px;
             cursor: pointer;
             transition: var(--transition);
+            font-weight: 600;
+        }
+
+        body.dark-mode .preset-btn {
+            background-color: #2a3b32;
+            color: #e0e0e0;
         }
 
         .preset-btn:hover {
@@ -350,6 +418,10 @@
         .adhkar-section {
             padding: 4rem 0;
             background-color: rgba(255, 255, 255, 0.7);
+        }
+
+        body.dark-mode .adhkar-section {
+            background-color: rgba(13, 31, 21, 0.7);
         }
 
         .adhkar-categories {
@@ -371,6 +443,12 @@
             transition: var(--transition);
         }
 
+        body.dark-mode .category-btn {
+            background-color: #1a2a21;
+            color: #4caf7a;
+            border-color: #2c7744;
+        }
+
         .category-btn.active, .category-btn:hover {
             background-color: var(--primary-color);
             color: white;
@@ -378,12 +456,18 @@
 
         .adhkar-container {
             background: white;
-            border-radius: 15px;
+            border-radius: var(--card-radius);
             box-shadow: var(--shadow);
             padding: 2rem;
             max-height: 500px;
             overflow-y: auto;
             position: relative;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        body.dark-mode .adhkar-container {
+            background: #1a2a21;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .dhikr-card {
@@ -391,6 +475,13 @@
             border-bottom: 1px solid #eee;
             transition: var(--transition);
             animation: fadeIn 0.5s ease;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        body.dark-mode .dhikr-card {
+            border-bottom: 1px solid #2a3b32;
         }
 
         @keyframes fadeIn {
@@ -404,7 +495,11 @@
 
         .dhikr-card:hover {
             background-color: #f8f9fa;
-            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        body.dark-mode .dhikr-card:hover {
+            background-color: #1e3227;
         }
 
         .dhikr-text {
@@ -415,10 +510,18 @@
             text-align: center;
         }
 
+        body.dark-mode .dhikr-text {
+            color: #e0e0e0;
+        }
+
         .dhikr-reference {
             color: var(--gray-color);
             font-style: italic;
             text-align: left;
+        }
+
+        body.dark-mode .dhikr-reference {
+            color: #a0a0a0;
         }
 
         .dhikr-actions {
@@ -439,11 +542,21 @@
             gap: 5px;
             padding: 0.3rem 0.8rem;
             border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        body.dark-mode .action-btn {
+            color: #a0a0a0;
         }
 
         .action-btn:hover {
             background-color: #f0f9f4;
             color: var(--primary-color);
+        }
+
+        body.dark-mode .action-btn:hover {
+            background-color: #1e3227;
+            color: #4caf7a;
         }
 
         .dhikr-counter {
@@ -473,6 +586,13 @@
             border: 2px solid var(--primary-color);
             border-radius: 50px;
             font-size: 1rem;
+            background: white;
+        }
+
+        body.dark-mode .search-input {
+            background: #1a2a21;
+            color: #e0e0e0;
+            border-color: #2c7744;
         }
 
         .search-btn {
@@ -504,6 +624,15 @@
             background: white;
             cursor: pointer;
             transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        body.dark-mode .page-btn {
+            background: #1a2a21;
+            border-color: #2a3b32;
+            color: #e0e0e0;
         }
 
         .page-btn.active, .page-btn:hover {
@@ -711,12 +840,16 @@
 
         .modal-content {
             background-color: white;
-            border-radius: 15px;
+            border-radius: var(--card-radius);
             width: 90%;
             max-width: 500px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             overflow: hidden;
             animation: modalOpen 0.4s ease;
+        }
+
+        body.dark-mode .modal-content {
+            background-color: #1a2a21;
         }
 
         @keyframes modalOpen {
@@ -764,6 +897,10 @@
             font-weight: 600;
         }
 
+        body.dark-mode .form-group label {
+            color: #e0e0e0;
+        }
+
         .form-control {
             width: 100%;
             padding: 0.8rem 1rem;
@@ -771,6 +908,13 @@
             border-radius: 8px;
             font-size: 1rem;
             transition: var(--transition);
+            background: white;
+        }
+
+        body.dark-mode .form-control {
+            background: #1a2a21;
+            color: #e0e0e0;
+            border-color: #2a3b32;
         }
 
         .form-control:focus {
@@ -795,6 +939,10 @@
         .switch-mode {
             margin-top: 1rem;
             color: var(--gray-color);
+        }
+
+        body.dark-mode .switch-mode {
+            color: #a0a0a0;
         }
 
         .switch-mode a {
@@ -879,13 +1027,23 @@
             background: linear-gradient(135deg, #f5f7ff 0%, #e8ebfa 100%);
         }
         
+        body.dark-mode .settings-section {
+            background: linear-gradient(135deg, #0f1720 0%, #141c26 100%);
+        }
+        
         .settings-container {
             max-width: 800px;
             margin: 0 auto;
             background: white;
-            border-radius: 15px;
+            border-radius: var(--card-radius);
             box-shadow: var(--shadow);
             overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        body.dark-mode .settings-container {
+            background: #1a2a21;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
         
         .settings-header {
@@ -905,12 +1063,20 @@
             border-bottom: 1px solid #eee;
         }
         
+        body.dark-mode .settings-group {
+            border-bottom: 1px solid #2a3b32;
+        }
+        
         .settings-group h3 {
             color: var(--primary-color);
             margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
             gap: 10px;
+        }
+        
+        body.dark-mode .settings-group h3 {
+            color: #4caf7a;
         }
         
         .settings-group h3 i {
@@ -924,6 +1090,11 @@
             color: var(--primary-color);
         }
         
+        body.dark-mode .settings-group h3 i {
+            background: #0f1f16;
+            color: #4caf7a;
+        }
+        
         .setting-item {
             display: flex;
             align-items: center;
@@ -932,6 +1103,10 @@
             background: #f8f9fa;
             border-radius: 8px;
             margin-bottom: 1rem;
+        }
+        
+        body.dark-mode .setting-item {
+            background: #1e3227;
         }
         
         .setting-info {
@@ -943,9 +1118,17 @@
             color: var(--dark-color);
         }
         
+        body.dark-mode .setting-info h4 {
+            color: #e0e0e0;
+        }
+        
         .setting-info p {
             color: var(--gray-color);
             font-size: 0.9rem;
+        }
+        
+        body.dark-mode .setting-info p {
+            color: #a0a0a0;
         }
         
         .setting-control {
@@ -1061,6 +1244,11 @@
             text-align: center;
             flex: 1;
             min-width: 120px;
+            background: #f8f9fa;
+        }
+        
+        body.dark-mode .theme-option {
+            background: #1e3227;
         }
         
         .theme-option:hover, .theme-option.selected {
@@ -1083,15 +1271,114 @@
             color: var(--gray-color);
             margin-bottom: 1rem;
         }
+        
+        /* Language Selector */
+        .language-selector {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            padding: 8px 16px;
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+        
+        .lang-btn {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .lang-btn.active {
+            background: white;
+            color: var(--primary-color);
+        }
+        
+        /* Prayer Times */
+        .prayer-times {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .prayer-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+        
+        body.dark-mode .prayer-card {
+            background: #1a2a21;
+        }
+        
+        .prayer-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        body.dark-mode .prayer-name {
+            color: #4caf7a;
+        }
+        
+        .prayer-time {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        
+        /* Streak Counter */
+        .streak-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(241, 196, 15, 0.1);
+            border-radius: 50px;
+            padding: 8px 16px;
+            margin-top: 1rem;
+        }
+        
+        .streak-count {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--accent-color);
+        }
+        
+        /* Animation */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 1.5s infinite;
+        }
     </style>
 </head>
 <body>
+    <!-- Language Selector -->
+    <div class="language-selector">
+        <button class="lang-btn active" data-lang="ar">العربية</button>
+        <button class="lang-btn" data-lang="en">English</button>
+        <button class="lang-btn" data-lang="fr">Français</button>
+    </div>
+    
     <!-- Header -->
     <header>
         <div class="container header-container">
             <div class="logo">
                 <i class="fas fa-pray"></i>
-                <h1>أذكار المسلم</h1>
+                <h1 data-translate="site_title">أذكار المسلم</h1>
             </div>
             
             <nav>
@@ -1099,19 +1386,20 @@
                     <i class="fas fa-bars"></i>
                 </button>
                 <ul id="nav-menu">
-                    <li><a href="#" class="nav-link active" data-section="home-section">الرئيسية</a></li>
-                    <li><a href="#" class="nav-link" data-section="adhkar-section">الأذكار</a></li>
-                    <li><a href="#" class="nav-link" data-section="rosary-section">المسبحة</a></li>
-                    <li><a href="#" class="nav-link" data-section="settings-section">الإعدادات</a></li>
+                    <li><a href="#" class="nav-link active" data-section="home-section" data-translate="home">الرئيسية</a></li>
+                    <li><a href="#" class="nav-link" data-section="adhkar-section" data-translate="adhkar">الأذكار</a></li>
+                    <li><a href="#" class="nav-link" data-section="rosary-section" data-translate="rosary">المسبحة</a></li>
+                    <li><a href="#" class="nav-link" data-section="prayer-section" data-translate="prayer_times">أوقات الصلاة</a></li>
+                    <li><a href="#" class="nav-link" data-section="settings-section" data-translate="settings">الإعدادات</a></li>
                 </ul>
             </nav>
             
             <div class="auth-buttons" id="auth-buttons">
                 <button class="btn btn-outline" id="login-btn">
-                    <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
+                    <i class="fas fa-sign-in-alt"></i> <span data-translate="login">تسجيل الدخول</span>
                 </button>
                 <button class="btn btn-primary" id="register-btn">
-                    <i class="fas fa-user-plus"></i> إنشاء حساب
+                    <i class="fas fa-user-plus"></i> <span data-translate="register">إنشاء حساب</span>
                 </button>
             </div>
             
@@ -1133,18 +1421,24 @@
         <!-- Home Section -->
         <section class="hero section active" id="home-section">
             <div class="container">
-                <h2>موقع أذكار المسلم الشامل</h2>
-                <p>استذكر ربك في كل وقت وحين مع أكبر مجموعة من الأذكار والأدعية المأثورة مصنفة ومرتبة لسهولة الوصول إليها</p>
+                <h2 data-translate="hero_title">موقع أذكار المسلم الشامل</h2>
+                <p data-translate="hero_desc">استذكر ربك في كل وقت وحين مع أكبر مجموعة من الأذكار والأدعية المأثورة مصنفة ومرتبة لسهولة الوصول إليها</p>
                 
                 <div class="counter-container">
                     <div>
                         <div class="counter" id="current-visitors">5,842</div>
-                        <div class="counter-label">زائر حالياً</div>
+                        <div class="counter-label" data-translate="current_visitors">زائر حالياً</div>
                     </div>
                     <div>
                         <div class="counter" id="total-visitors">1,243,976</div>
-                        <div class="counter-label">إجمالي الزيارات</div>
+                        <div class="counter-label" data-translate="total_visitors">إجمالي الزيارات</div>
                     </div>
+                </div>
+                
+                <div class="streak-container">
+                    <i class="fas fa-fire" style="color: var(--accent-color);"></i>
+                    <div data-translate="streak">سلسلة الاستمرار:</div>
+                    <div class="streak-count">12 <span data-translate="days">يوم</span></div>
                 </div>
             </div>
         </section>
@@ -1152,7 +1446,7 @@
         <!-- Features Section -->
         <section class="features section" id="features-section">
             <div class="container">
-                <h2 class="section-title">مميزات موقعنا</h2>
+                <h2 class="section-title" data-translate="features_title">مميزات موقعنا</h2>
                 
                 <div class="features-grid">
                     <div class="feature-card" data-section="adhkar-section">
@@ -1160,8 +1454,8 @@
                             <i class="fas fa-book-quran"></i>
                         </div>
                         <div class="feature-content">
-                            <h3>أكثر من 2500 ذكر ودعاء</h3>
-                            <p>مجموعة ضخمة من الأذكار والأدعية المأثورة مصنفة حسب الأوقات والمناسبات مع شرح وتوضيح لكل ذكر</p>
+                            <h3 data-translate="feature1_title">أكثر من 2500 ذكر ودعاء</h3>
+                            <p data-translate="feature1_desc">مجموعة ضخمة من الأذكار والأدعية المأثورة مصنفة حسب الأوقات والمناسبات مع شرح وتوضيح لكل ذكر</p>
                         </div>
                     </div>
                     
@@ -1170,8 +1464,8 @@
                             <i class="fas fa-mobile-alt"></i>
                         </div>
                         <div class="feature-content">
-                            <h3>مسبحة رقمية متطورة</h3>
-                            <p>مسبحة إلكترونية بتصميم جميل مع إمكانية تحديد العدد وعدة أصوات للسبحة وحفظ التقدم</p>
+                            <h3 data-translate="feature2_title">مسبحة رقمية متطورة</h3>
+                            <p data-translate="feature2_desc">مسبحة إلكترونية بتصميم جميل مع إمكانية تحديد العدد وعدة أصوات للسبحة وحفظ التقدم</p>
                         </div>
                     </div>
                     
@@ -1180,8 +1474,8 @@
                             <i class="fas fa-bell"></i>
                         </div>
                         <div class="feature-content">
-                            <h3>تذكير بالأذكار</h3>
-                            <p>نظام تذكيرات ذكي يذكرك بالأذكار في أوقاتها المناسبة حسب اختيارك</p>
+                            <h3 data-translate="feature3_title">تذكير بالأذكار</h3>
+                            <p data-translate="feature3_desc">نظام تذكيرات ذكي يذكرك بالأذكار في أوقاتها المناسبة حسب اختيارك</p>
                         </div>
                     </div>
                     
@@ -1190,8 +1484,8 @@
                             <i class="fas fa-chart-line"></i>
                         </div>
                         <div class="feature-content">
-                            <h3>تتبع التقدم</h3>
-                            <p>إحصائيات وتقارير عن تقدمك في حفظ الأذكار والمسبحة مع جوائز تحفيزية</p>
+                            <h3 data-translate="feature4_title">تتبع التقدم</h3>
+                            <p data-translate="feature4_desc">إحصائيات وتقارير عن تقدمك في حفظ الأذكار والمسبحة مع جوائز تحفيزية</p>
                         </div>
                     </div>
                     
@@ -1200,18 +1494,18 @@
                             <i class="fas fa-users"></i>
                         </div>
                         <div class="feature-content">
-                            <h3>مجتمع متكامل</h3>
-                            <p>انضم لمجتمع المؤمنين وتنافس مع الأصدقاء في حفظ الأذكار والأدعية</p>
+                            <h3 data-translate="feature5_title">مجتمع متكامل</h3>
+                            <p data-translate="feature5_desc">انضم لمجتمع المؤمنين وتنافس مع الأصدقاء في حفظ الأذكار والأدعية</p>
                         </div>
                     </div>
                     
-                    <div class="feature-card" data-section="settings-section">
+                    <div class="feature-card" data-section="prayer-section">
                         <div class="feature-icon">
                             <i class="fas fa-moon"></i>
                         </div>
                         <div class="feature-content">
-                            <h3>أوقات الصلاة</h3>
-                            <p>مواقيت الصلاة الدقيقة حسب موقعك مع تنبيهات قبل الأذان</p>
+                            <h3 data-translate="feature6_title">أوقات الصلاة</h3>
+                            <p data-translate="feature6_desc">مواقيت الصلاة الدقيقة حسب موقعك مع تنبيهات قبل الأذان</p>
                         </div>
                     </div>
                 </div>
@@ -1221,11 +1515,11 @@
         <!-- Rosary Section -->
         <section class="rosary-section section" id="rosary-section">
             <div class="container">
-                <h2 class="section-title">المسبحة الإلكترونية</h2>
+                <h2 class="section-title" data-translate="rosary_title">المسبحة الإلكترونية</h2>
                 
                 <div class="rosary-container">
                     <div class="rosary-header">
-                        <h3>سبح معنا واستغفر ربك</h3>
+                        <h3 data-translate="rosary_subtitle">سبح معنا واستغفر ربك</h3>
                     </div>
                     <div class="rosary-body">
                         <div class="rosary-display">
@@ -1236,23 +1530,23 @@
                         
                         <div class="rosary-controls">
                             <button class="btn btn-primary" id="count-btn">
-                                <i class="fas fa-plus"></i> زيادة
+                                <i class="fas fa-plus"></i> <span data-translate="increase">زيادة</span>
                             </button>
                             <button class="btn btn-outline" id="reset-btn">
-                                <i class="fas fa-redo"></i> إعادة
+                                <i class="fas fa-redo"></i> <span data-translate="reset">إعادة</span>
                             </button>
                             <button class="btn btn-outline" id="vibrate-btn">
-                                <i class="fas fa-vibrate"></i> اهتزاز
+                                <i class="fas fa-vibrate"></i> <span data-translate="vibrate">اهتزاز</span>
                             </button>
                             <button class="btn btn-outline" id="sound-btn">
-                                <i class="fas fa-volume-up"></i> صوت
+                                <i class="fas fa-volume-up"></i> <span data-translate="sound">صوت</span>
                             </button>
                         </div>
                         
                         <div class="rosary-presets">
-                            <button class="preset-btn" data-count="33">33 تسبيحة</button>
-                            <button class="preset-btn" data-count="99">99 تسبيحة</button>
-                            <button class="preset-btn" data-count="100">100 تسبيحة</button>
+                            <button class="preset-btn" data-count="33">33 <span data-translate="tasbeeh">تسبيحة</span></button>
+                            <button class="preset-btn" data-count="99">99 <span data-translate="tasbeeh">تسبيحة</span></button>
+                            <button class="preset-btn" data-count="100">100 <span data-translate="tasbeeh">تسبيحة</span></button>
                         </div>
                     </div>
                 </div>
@@ -1262,18 +1556,18 @@
         <!-- Adhkar Section -->
         <section class="adhkar-section section" id="adhkar-section">
             <div class="container">
-                <h2 class="section-title">أذكار الصباح والمساء</h2>
+                <h2 class="section-title" data-translate="adhkar_title">أذكار الصباح والمساء</h2>
                 
                 <div class="adhkar-categories">
-                    <button class="category-btn active" data-category="morning">أذكار الصباح</button>
-                    <button class="category-btn" data-category="evening">أذكار المساء</button>
-                    <button class="category-btn" data-category="sleep">أذكار النوم</button>
-                    <button class="category-btn" data-category="wakeup">أذكار الاستيقاظ</button>
-                    <button class="category-btn" data-category="prayer">أذكار الصلاة</button>
+                    <button class="category-btn active" data-category="morning" data-translate="morning_adhkar">أذكار الصباح</button>
+                    <button class="category-btn" data-category="evening" data-translate="evening_adhkar">أذكار المساء</button>
+                    <button class="category-btn" data-category="sleep" data-translate="sleep_adhkar">أذكار النوم</button>
+                    <button class="category-btn" data-category="wakeup" data-translate="wakeup_adhkar">أذكار الاستيقاظ</button>
+                    <button class="category-btn" data-category="prayer" data-translate="prayer_adhkar">أذكار الصلاة</button>
                 </div>
                 
                 <div class="search-container">
-                    <input type="text" id="search-input" class="search-input" placeholder="ابحث عن ذكر أو دعاء...">
+                    <input type="text" id="search-input" class="search-input" placeholder="ابحث عن ذكر أو دعاء..." data-translate="search_placeholder">
                     <button class="search-btn" id="search-btn">
                         <i class="fas fa-search"></i>
                     </button>
@@ -1289,74 +1583,111 @@
             </div>
         </section>
 
+        <!-- Prayer Times Section -->
+        <section class="section" id="prayer-section">
+            <div class="container">
+                <h2 class="section-title" data-translate="prayer_times">أوقات الصلاة</h2>
+                
+                <div class="prayer-times">
+                    <div class="prayer-card">
+                        <div class="prayer-name" data-translate="fajr">الفجر</div>
+                        <div class="prayer-time">4:30</div>
+                    </div>
+                    <div class="prayer-card">
+                        <div class="prayer-name" data-translate="sunrise">الشروق</div>
+                        <div class="prayer-time">5:45</div>
+                    </div>
+                    <div class="prayer-card">
+                        <div class="prayer-name" data-translate="dhuhr">الظهر</div>
+                        <div class="prayer-time">12:15</div>
+                    </div>
+                    <div class="prayer-card">
+                        <div class="prayer-name" data-translate="asr">العصر</div>
+                        <div class="prayer-time">3:45</div>
+                    </div>
+                    <div class="prayer-card">
+                        <div class="prayer-name" data-translate="maghrib">المغرب</div>
+                        <div class="prayer-time">6:20</div>
+                    </div>
+                    <div class="prayer-card">
+                        <div class="prayer-name" data-translate="isha">العشاء</div>
+                        <div class="prayer-time">7:45</div>
+                    </div>
+                </div>
+                
+                <div class="settings-group" style="margin-top: 2rem;">
+                    <h3><i class="fas fa-bell"></i> <span data-translate="prayer_notifications">تنبيهات الصلاة</span></h3>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4 data-translate="enable_notifications">تفعيل التنبيهات</h4>
+                            <p data-translate="prayer_notifications_desc">تلقي تنبيهات قبل كل صلاة بـ 10 دقائق</p>
+                        </div>
+                        <div class="setting-control">
+                            <label class="switch">
+                                <input type="checkbox" id="prayer-notifications">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Settings Section -->
         <section class="settings-section section" id="settings-section">
             <div class="container">
-                <h2 class="section-title">إعدادات الموقع</h2>
+                <h2 class="section-title" data-translate="settings_title">إعدادات الموقع</h2>
                 
                 <div class="settings-container">
                     <div class="settings-header">
-                        <h3>تخصيص تجربتك في موقع أذكار المسلم</h3>
+                        <h3 data-translate="settings_subtitle">تخصيص تجربتك في موقع أذكار المسلم</h3>
                     </div>
                     <div class="settings-body">
                         <!-- Account Settings -->
                         <div class="settings-group">
-                            <h3><i class="fas fa-user-cog"></i> إعدادات الحساب</h3>
+                            <h3><i class="fas fa-user-cog"></i> <span data-translate="account_settings">إعدادات الحساب</span></h3>
                             <div class="setting-item">
                                 <div class="setting-info">
-                                    <h4>تغيير الاسم</h4>
-                                    <p>تحديث اسمك المعروض في الموقع</p>
+                                    <h4 data-translate="change_name">تغيير الاسم</h4>
+                                    <p data-translate="change_name_desc">تحديث اسمك المعروض في الموقع</p>
                                 </div>
                                 <div class="setting-control">
-                                    <button class="btn btn-outline">تغيير</button>
+                                    <button class="btn btn-outline" data-translate="change">تغيير</button>
                                 </div>
                             </div>
                             
                             <div class="setting-item">
                                 <div class="setting-info">
-                                    <h4>تغيير كلمة المرور</h4>
-                                    <p>تحديث كلمة المرور الخاصة بحسابك</p>
+                                    <h4 data-translate="change_password">تغيير كلمة المرور</h4>
+                                    <p data-translate="change_password_desc">تحديث كلمة المرور الخاصة بحسابك</p>
                                 </div>
                                 <div class="setting-control">
-                                    <button class="btn btn-outline">تغيير</button>
+                                    <button class="btn btn-outline" data-translate="change">تغيير</button>
                                 </div>
                             </div>
                             
                             <div class="setting-item">
                                 <div class="setting-info">
-                                    <h4>تغيير البريد الإلكتروني</h4>
-                                    <p>تحديث البريد الإلكتروني المرتبط بحسابك</p>
+                                    <h4 data-translate="change_email">تغيير البريد الإلكتروني</h4>
+                                    <p data-translate="change_email_desc">تحديث البريد الإلكتروني المرتبط بحسابك</p>
                                 </div>
                                 <div class="setting-control">
-                                    <button class="btn btn-outline">تغيير</button>
+                                    <button class="btn btn-outline" data-translate="change">تغيير</button>
                                 </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Profile Picture Settings -->
-                        <div class="settings-group">
-                            <h3><i class="fas fa-user-circle"></i> صورة الحساب</h3>
-                            <p>اختر صورة لحسابك من الخيارات التالية:</p>
-                            <div class="avatar-options">
-                                <div class="avatar-option selected" style="background-color: #f1c40f;">م</div>
-                                <div class="avatar-option" style="background-color: #3498db;">ع</div>
-                                <div class="avatar-option" style="background-color: #e74c3c;">أ</div>
-                                <div class="avatar-option" style="background-color: #2ecc71;">خ</div>
-                                <div class="avatar-option" style="background-color: #9b59b6;">س</div>
                             </div>
                         </div>
                         
                         <!-- Notification Settings -->
                         <div class="settings-group">
-                            <h3><i class="fas fa-bell"></i> الإشعارات</h3>
+                            <h3><i class="fas fa-bell"></i> <span data-translate="notifications">الإشعارات</span></h3>
                             <div class="setting-item">
                                 <div class="setting-info">
-                                    <h4>تذكير بالأذكار</h4>
-                                    <p>استقبال تذكيرات بأذكار الصباح والمساء</p>
+                                    <h4 data-translate="adhkar_reminder">تذكير بالأذكار</h4>
+                                    <p data-translate="adhkar_reminder_desc">استقبال تذكيرات بأذكار الصباح والمساء</p>
                                 </div>
                                 <div class="setting-control">
                                     <label class="switch">
-                                        <input type="checkbox" checked>
+                                        <input type="checkbox" id="adhkar-notifications" checked>
                                         <span class="slider"></span>
                                     </label>
                                 </div>
@@ -1364,12 +1695,12 @@
                             
                             <div class="setting-item">
                                 <div class="setting-info">
-                                    <h4>تنبيهات المسبحة</h4>
-                                    <p>تذكيرك بمواصلة المسبحة اليومية</p>
+                                    <h4 data-translate="rosary_reminder">تنبيهات المسبحة</h4>
+                                    <p data-translate="rosary_reminder_desc">تذكيرك بمواصلة المسبحة اليومية</p>
                                 </div>
                                 <div class="setting-control">
                                     <label class="switch">
-                                        <input type="checkbox" checked>
+                                        <input type="checkbox" id="rosary-notifications" checked>
                                         <span class="slider"></span>
                                     </label>
                                 </div>
@@ -1377,12 +1708,12 @@
                             
                             <div class="setting-item">
                                 <div class="setting-info">
-                                    <h4>إشعارات التحديثات</h4>
-                                    <p>تلقي إشعارات حول التحديثات الجديدة</p>
+                                    <h4 data-translate="updates_notifications">إشعارات التحديثات</h4>
+                                    <p data-translate="updates_notifications_desc">تلقي إشعارات حول التحديثات الجديدة</p>
                                 </div>
                                 <div class="setting-control">
                                     <label class="switch">
-                                        <input type="checkbox">
+                                        <input type="checkbox" id="updates-notifications">
                                         <span class="slider"></span>
                                     </label>
                                 </div>
@@ -1391,8 +1722,8 @@
                         
                         <!-- Theme Settings -->
                         <div class="settings-group">
-                            <h3><i class="fas fa-palette"></i> المظهر</h3>
-                            <p>اختر اللون الرئيسي للموقع:</p>
+                            <h3><i class="fas fa-palette"></i> <span data-translate="theme_settings">المظهر</span></h3>
+                            <p data-translate="choose_color">اختر اللون الرئيسي للموقع:</p>
                             <div class="color-palette">
                                 <div class="color-option selected" style="background-color: #2c7744;"></div>
                                 <div class="color-option" style="background-color: #3498db;"></div>
@@ -1401,56 +1732,15 @@
                                 <div class="color-option" style="background-color: #1abc9c;"></div>
                             </div>
                             
-                            <p style="margin-top: 1.5rem;">اختر نمط المظهر:</p>
+                            <p style="margin-top: 1.5rem;" data-translate="choose_theme">اختر نمط المظهر:</p>
                             <div class="theme-options">
-                                <div class="theme-option selected">
+                                <div class="theme-option selected" id="light-theme">
                                     <i class="fas fa-sun"></i>
-                                    <div>فاتح</div>
+                                    <div data-translate="light_theme">فاتح</div>
                                 </div>
-                                <div class="theme-option">
+                                <div class="theme-option" id="dark-theme">
                                     <i class="fas fa-moon"></i>
-                                    <div>داكن</div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Additional Settings -->
-                        <div class="settings-group">
-                            <h3><i class="fas fa-cog"></i> إعدادات أخرى</h3>
-                            <div class="setting-item">
-                                <div class="setting-info">
-                                    <h4>لغة الموقع</h4>
-                                    <p>تغيير لغة واجهة المستخدم</p>
-                                </div>
-                                <div class="setting-control">
-                                    <select class="form-control">
-                                        <option>العربية (الافتراضية)</option>
-                                        <option>English</option>
-                                        <option>Français</option>
-                                    </select>
-                                </div>
-                            </div>
-                            
-                            <div class="setting-item">
-                                <div class="setting-info">
-                                    <h4>وضع التركيز</h4>
-                                    <p>تمكين وضع القراءة المريح</p>
-                                </div>
-                                <div class="setting-control">
-                                    <label class="switch">
-                                        <input type="checkbox">
-                                        <span class="slider"></span>
-                                    </label>
-                                </div>
-                            </div>
-                            
-                            <div class="setting-item">
-                                <div class="setting-info">
-                                    <h4>نسخ احتياطي للبيانات</h4>
-                                    <p>حفظ نسخة احتياطية من أذكارك المفضلة</p>
-                                </div>
-                                <div class="setting-control">
-                                    <button class="btn btn-outline">حفظ الآن</button>
+                                    <div data-translate="dark_theme">داكن</div>
                                 </div>
                             </div>
                         </div>
@@ -1465,8 +1755,8 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-column">
-                    <h3>عن الموقع</h3>
-                    <p>موقع أذكار المسلم هو موقع متخصص في الأذكار والأدعية الإسلامية الصحيحة، نسعى لنشر السنة الصحيحة وتيسير الوصول إلى الأذكار النبوية.</p>
+                    <h3 data-translate="about_site">عن الموقع</h3>
+                    <p data-translate="about_desc">موقع أذكار المسلم هو موقع متخصص في الأذكار والأدعية الإسلامية الصحيحة، نسعى لنشر السنة الصحيحة وتيسير الوصول إلى الأذكار النبوية.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
@@ -1477,38 +1767,38 @@
                 </div>
                 
                 <div class="footer-column">
-                    <h3>روابط سريعة</h3>
+                    <h3 data-translate="quick_links">روابط سريعة</h3>
                     <ul class="footer-links">
-                        <li><a href="#"><i class="fas fa-angle-left"></i> الرئيسية</a></li>
-                        <li><a href="#"><i class="fas fa-angle-left"></i> الأذكار</a></li>
-                        <li><a href="#"><i class="fas fa-angle-left"></i> المسبحة</a></li>
-                        <li><a href="#"><i class="fas fa-angle-left"></i> الإعدادات</a></li>
+                        <li><a href="#"><i class="fas fa-angle-left"></i> <span data-translate="home">الرئيسية</span></a></li>
+                        <li><a href="#"><i class="fas fa-angle-left"></i> <span data-translate="adhkar">الأذكار</span></a></li>
+                        <li><a href="#"><i class="fas fa-angle-left"></i> <span data-translate="rosary">المسبحة</span></a></li>
+                        <li><a href="#"><i class="fas fa-angle-left"></i> <span data-translate="settings">الإعدادات</span></a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-column">
-                    <h3>أقسام الموقع</h3>
+                    <h3 data-translate="site_sections">أقسام الموقع</h3>
                     <ul class="footer-links">
-                        <li><a href="#"><i class="fas fa-angle-left"></i> أذكار الصباح</a></li>
-                        <li><a href="#"><i class="fas fa-angle-left"></i> أذكار المساء</a></li>
-                        <li><a href="#"><i class="fas fa-angle-left"></i> أذكار النوم</a></li>
-                        <li><a href="#"><i class="fas fa-angle-left"></i> أذكار الصلاة</a></li>
-                        <li><a href="#"><i class="fas fa-angle-left"></i> أدعية قرآنية</a></li>
+                        <li><a href="#"><i class="fas fa-angle-left"></i> <span data-translate="morning_adhkar">أذكار الصباح</span></a></li>
+                        <li><a href="#"><i class="fas fa-angle-left"></i> <span data-translate="evening_adhkar">أذكار المساء</span></a></li>
+                        <li><a href="#"><i class="fas fa-angle-left"></i> <span data-translate="sleep_adhkar">أذكار النوم</span></a></li>
+                        <li><a href="#"><i class="fas fa-angle-left"></i> <span data-translate="prayer_adhkar">أذكار الصلاة</span></a></li>
+                        <li><a href="#"><i class="fas fa-angle-left"></i> <span data-translate="quran_duas">أدعية قرآنية</span></a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-column">
-                    <h3>اتصل بنا</h3>
+                    <h3 data-translate="contact_us">اتصل بنا</h3>
                     <ul class="footer-links">
                         <li><a href="#"><i class="fas fa-envelope"></i> info@athkar.com</a></li>
                         <li><a href="#"><i class="fas fa-phone"></i> +966 123 456 789</a></li>
-                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> الرياض، المملكة العربية السعودية</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> <span data-translate="location">الرياض، المملكة العربية السعودية</span></a></li>
                     </ul>
                 </div>
             </div>
             
             <div class="copyright">
-                <p>جميع الحقوق محفوظة &copy; موقع أذكار المسلم <span id="current-year"></span></p>
+                <p data-translate="copyright">جميع الحقوق محفوظة &copy; موقع أذكار المسلم <span id="current-year"></span></p>
             </div>
         </div>
     </footer>
@@ -1518,27 +1808,27 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button class="close-modal" id="close-login">&times;</button>
-                <h3>تسجيل الدخول إلى حسابك</h3>
+                <h3 data-translate="login_title">تسجيل الدخول إلى حسابك</h3>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="login-email">البريد الإلكتروني</label>
-                    <input type="email" id="login-email" class="form-control" placeholder="ادخل بريدك الإلكتروني">
+                    <label for="login-email" data-translate="email">البريد الإلكتروني</label>
+                    <input type="email" id="login-email" class="form-control" placeholder="ادخل بريدك الإلكتروني" data-translate="email_placeholder">
                 </div>
                 
                 <div class="form-group">
-                    <label for="login-password">كلمة المرور</label>
-                    <input type="password" id="login-password" class="form-control" placeholder="ادخل كلمة المرور">
-                    <a href="#" class="forgot-password">نسيت كلمة المرور؟</a>
+                    <label for="login-password" data-translate="password">كلمة المرور</label>
+                    <input type="password" id="login-password" class="form-control" placeholder="ادخل كلمة المرور" data-translate="password_placeholder">
+                    <a href="#" class="forgot-password" data-translate="forgot_password">نسيت كلمة المرور؟</a>
                 </div>
                 
                 <button class="btn btn-primary" style="width: 100%;" id="login-submit">
-                    <span id="login-text">تسجيل الدخول</span>
+                    <span id="login-text" data-translate="login">تسجيل الدخول</span>
                     <div class="spinner" id="login-spinner" style="display: none;"></div>
                 </button>
                 
                 <div class="switch-mode">
-                    ليس لديك حساب؟ <a href="#" id="switch-to-register">إنشاء حساب جديد</a>
+                    <span data-translate="no_account">ليس لديك حساب؟</span> <a href="#" id="switch-to-register" data-translate="create_account">إنشاء حساب جديد</a>
                 </div>
             </div>
         </div>
@@ -1549,36 +1839,36 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button class="close-modal" id="close-register">&times;</button>
-                <h3>إنشاء حساب جديد</h3>
+                <h3 data-translate="register_title">إنشاء حساب جديد</h3>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="register-name">الاسم الكامل</label>
-                    <input type="text" id="register-name" class="form-control" placeholder="ادخل اسمك الكامل">
+                    <label for="register-name" data-translate="full_name">الاسم الكامل</label>
+                    <input type="text" id="register-name" class="form-control" placeholder="ادخل اسمك الكامل" data-translate="name_placeholder">
                 </div>
                 
                 <div class="form-group">
-                    <label for="register-email">البريد الإلكتروني</label>
-                    <input type="email" id="register-email" class="form-control" placeholder="ادخل بريدك الإلكتروني">
+                    <label for="register-email" data-translate="email">البريد الإلكتروني</label>
+                    <input type="email" id="register-email" class="form-control" placeholder="ادخل بريدك الإلكتروني" data-translate="email_placeholder">
                 </div>
                 
                 <div class="form-group">
-                    <label for="register-password">كلمة المرور</label>
-                    <input type="password" id="register-password" class="form-control" placeholder="اختر كلمة مرور قوية">
+                    <label for="register-password" data-translate="password">كلمة المرور</label>
+                    <input type="password" id="register-password" class="form-control" placeholder="اختر كلمة مرور قوية" data-translate="password_placeholder">
                 </div>
                 
                 <div class="form-group">
-                    <label for="register-confirm">تأكيد كلمة المرور</label>
-                    <input type="password" id="register-confirm" class="form-control" placeholder="أعد كتابة كلمة المرور">
+                    <label for="register-confirm" data-translate="confirm_password">تأكيد كلمة المرور</label>
+                    <input type="password" id="register-confirm" class="form-control" placeholder="أعد كتابة كلمة المرور" data-translate="confirm_password_placeholder">
                 </div>
                 
                 <button class="btn btn-primary" style="width: 100%;" id="register-submit">
-                    <span id="register-text">إنشاء حساب</span>
+                    <span id="register-text" data-translate="create_account">إنشاء حساب</span>
                     <div class="spinner" id="register-spinner" style="display: none;"></div>
                 </button>
                 
                 <div class="switch-mode">
-                    لديك حساب بالفعل؟ <a href="#" id="switch-to-login">تسجيل الدخول</a>
+                    <span data-translate="have_account">لديك حساب بالفعل؟</span> <a href="#" id="switch-to-login" data-translate="login">تسجيل الدخول</a>
                 </div>
             </div>
         </div>
@@ -1596,6 +1886,301 @@
         let favorites = [];
         let rosaryCount = 0;
         let rosaryDhikr = 'سُبْحَانَ اللَّهِ';
+        let currentLanguage = 'ar';
+        let darkMode = false;
+        let notificationsEnabled = false;
+
+        // ====== Translations ======
+        const translations = {
+            'ar': {
+                'site_title': 'أذكار المسلم',
+                'home': 'الرئيسية',
+                'adhkar': 'الأذكار',
+                'rosary': 'المسبحة',
+                'prayer_times': 'أوقات الصلاة',
+                'settings': 'الإعدادات',
+                'hero_title': 'موقع أذكار المسلم الشامل',
+                'hero_desc': 'استذكر ربك في كل وقت وحين مع أكبر مجموعة من الأذكار والأدعية المأثورة مصنفة ومرتبة لسهولة الوصول إليها',
+                'current_visitors': 'زائر حالياً',
+                'total_visitors': 'إجمالي الزيارات',
+                'streak': 'سلسلة الاستمرار:',
+                'days': 'يوم',
+                'features_title': 'مميزات موقعنا',
+                'feature1_title': 'أكثر من 2500 ذكر ودعاء',
+                'feature1_desc': 'مجموعة ضخمة من الأذكار والأدعية المأثورة مصنفة حسب الأوقات والمناسبات مع شرح وتوضيح لكل ذكر',
+                'feature2_title': 'مسبحة رقمية متطورة',
+                'feature2_desc': 'مسبحة إلكترونية بتصميم جميل مع إمكانية تحديد العدد وعدة أصوات للسبحة وحفظ التقدم',
+                'feature3_title': 'تذكير بالأذكار',
+                'feature3_desc': 'نظام تذكيرات ذكي يذكرك بالأذكار في أوقاتها المناسبة حسب اختيارك',
+                'feature4_title': 'تتبع التقدم',
+                'feature4_desc': 'إحصائيات وتقارير عن تقدمك في حفظ الأذكار والمسبحة مع جوائز تحفيزية',
+                'feature5_title': 'مجتمع متكامل',
+                'feature5_desc': 'انضم لمجتمع المؤمنين وتنافس مع الأصدقاء في حفظ الأذكار والأدعية',
+                'feature6_title': 'أوقات الصلاة',
+                'feature6_desc': 'مواقيت الصلاة الدقيقة حسب موقعك مع تنبيهات قبل الأذان',
+                'rosary_title': 'المسبحة الإلكترونية',
+                'rosary_subtitle': 'سبح معنا واستغفر ربك',
+                'increase': 'زيادة',
+                'reset': 'إعادة',
+                'vibrate': 'اهتزاز',
+                'sound': 'صوت',
+                'tasbeeh': 'تسبيحة',
+                'adhkar_title': 'أذكار الصباح والمساء',
+                'morning_adhkar': 'أذكار الصباح',
+                'evening_adhkar': 'أذكار المساء',
+                'sleep_adhkar': 'أذكار النوم',
+                'wakeup_adhkar': 'أذكار الاستيقاظ',
+                'prayer_adhkar': 'أذكار الصلاة',
+                'search_placeholder': 'ابحث عن ذكر أو دعاء...',
+                'prayer_times': 'أوقات الصلاة',
+                'fajr': 'الفجر',
+                'sunrise': 'الشروق',
+                'dhuhr': 'الظهر',
+                'asr': 'العصر',
+                'maghrib': 'المغرب',
+                'isha': 'العشاء',
+                'prayer_notifications': 'تنبيهات الصلاة',
+                'enable_notifications': 'تفعيل التنبيهات',
+                'prayer_notifications_desc': 'تلقي تنبيهات قبل كل صلاة بـ 10 دقائق',
+                'settings_title': 'إعدادات الموقع',
+                'settings_subtitle': 'تخصيص تجربتك في موقع أذكار المسلم',
+                'account_settings': 'إعدادات الحساب',
+                'change_name': 'تغيير الاسم',
+                'change_name_desc': 'تحديث اسمك المعروض في الموقع',
+                'change_password': 'تغيير كلمة المرور',
+                'change_password_desc': 'تحديث كلمة المرور الخاصة بحسابك',
+                'change_email': 'تغيير البريد الإلكتروني',
+                'change_email_desc': 'تحديث البريد الإلكتروني المرتبط بحسابك',
+                'change': 'تغيير',
+                'notifications': 'الإشعارات',
+                'adhkar_reminder': 'تذكير بالأذكار',
+                'adhkar_reminder_desc': 'استقبال تذكيرات بأذكار الصباح والمساء',
+                'rosary_reminder': 'تنبيهات المسبحة',
+                'rosary_reminder_desc': 'تذكيرك بمواصلة المسبحة اليومية',
+                'updates_notifications': 'إشعارات التحديثات',
+                'updates_notifications_desc': 'تلقي إشعارات حول التحديثات الجديدة',
+                'theme_settings': 'المظهر',
+                'choose_color': 'اختر اللون الرئيسي للموقع',
+                'choose_theme': 'اختر نمط المظهر',
+                'light_theme': 'فاتح',
+                'dark_theme': 'داكن',
+                'about_site': 'عن الموقع',
+                'about_desc': 'موقع أذكار المسلم هو موقع متخصص في الأذكار والأدعية الإسلامية الصحيحة، نسعى لنشر السنة الصحيحة وتيسير الوصول إلى الأذكار النبوية.',
+                'quick_links': 'روابط سريعة',
+                'site_sections': 'أقسام الموقع',
+                'quran_duas': 'أدعية قرآنية',
+                'contact_us': 'اتصل بنا',
+                'location': 'الرياض، المملكة العربية السعودية',
+                'copyright': 'جميع الحقوق محفوظة © موقع أذكار المسلم',
+                'login_title': 'تسجيل الدخول إلى حسابك',
+                'email': 'البريد الإلكتروني',
+                'email_placeholder': 'ادخل بريدك الإلكتروني',
+                'password': 'كلمة المرور',
+                'password_placeholder': 'ادخل كلمة المرور',
+                'forgot_password': 'نسيت كلمة المرور؟',
+                'login': 'تسجيل الدخول',
+                'no_account': 'ليس لديك حساب؟',
+                'create_account': 'إنشاء حساب جديد',
+                'register_title': 'إنشاء حساب جديد',
+                'full_name': 'الاسم الكامل',
+                'name_placeholder': 'ادخل اسمك الكامل',
+                'confirm_password': 'تأكيد كلمة المرور',
+                'confirm_password_placeholder': 'أعد كتابة كلمة المرور',
+                'have_account': 'لديك حساب بالفعل؟'
+            },
+            'en': {
+                'site_title': 'Muslim Athkar',
+                'home': 'Home',
+                'adhkar': 'Athkar',
+                'rosary': 'Rosary',
+                'prayer_times': 'Prayer Times',
+                'settings': 'Settings',
+                'hero_title': 'Comprehensive Muslim Athkar Website',
+                'hero_desc': 'Remember your Lord at all times with the largest collection of authentic Athkar and Duas, categorized and organized for easy access',
+                'current_visitors': 'Current Visitors',
+                'total_visitors': 'Total Visits',
+                'streak': 'Streak:',
+                'days': 'days',
+                'features_title': 'Our Features',
+                'feature1_title': 'Over 2500 Athkar and Duas',
+                'feature1_desc': 'A massive collection of authentic Athkar and Duas categorized by times and occasions with explanations',
+                'feature2_title': 'Advanced Digital Rosary',
+                'feature2_desc': 'Beautifully designed digital rosary with multiple sound options and progress saving',
+                'feature3_title': 'Athkar Reminders',
+                'feature3_desc': 'Smart reminder system that notifies you of Athkar at their appropriate times',
+                'feature4_title': 'Progress Tracking',
+                'feature4_desc': 'Statistics and reports on your Athkar and rosary progress with motivational rewards',
+                'feature5_title': 'Community',
+                'feature5_desc': 'Join a community of believers and compete with friends in memorizing Athkar and Duas',
+                'feature6_title': 'Prayer Times',
+                'feature6_desc': 'Accurate prayer times based on your location with pre-prayer notifications',
+                'rosary_title': 'Digital Rosary',
+                'rosary_subtitle': 'Glorify Allah with us',
+                'increase': 'Increase',
+                'reset': 'Reset',
+                'vibrate': 'Vibrate',
+                'sound': 'Sound',
+                'tasbeeh': 'Tasbeeh',
+                'adhkar_title': 'Morning and Evening Athkar',
+                'morning_adhkar': 'Morning Athkar',
+                'evening_adhkar': 'Evening Athkar',
+                'sleep_adhkar': 'Sleep Athkar',
+                'wakeup_adhkar': 'Wakeup Athkar',
+                'prayer_adhkar': 'Prayer Athkar',
+                'search_placeholder': 'Search for Athkar or Duas...',
+                'prayer_times': 'Prayer Times',
+                'fajr': 'Fajr',
+                'sunrise': 'Sunrise',
+                'dhuhr': 'Dhuhr',
+                'asr': 'Asr',
+                'maghrib': 'Maghrib',
+                'isha': 'Isha',
+                'prayer_notifications': 'Prayer Notifications',
+                'enable_notifications': 'Enable Notifications',
+                'prayer_notifications_desc': 'Receive notifications 10 minutes before each prayer',
+                'settings_title': 'Site Settings',
+                'settings_subtitle': 'Customize your experience on Muslim Athkar',
+                'account_settings': 'Account Settings',
+                'change_name': 'Change Name',
+                'change_name_desc': 'Update your display name',
+                'change_password': 'Change Password',
+                'change_password_desc': 'Update your account password',
+                'change_email': 'Change Email',
+                'change_email_desc': 'Update your account email',
+                'change': 'Change',
+                'notifications': 'Notifications',
+                'adhkar_reminder': 'Athkar Reminders',
+                'adhkar_reminder_desc': 'Receive reminders for morning and evening Athkar',
+                'rosary_reminder': 'Rosary Reminders',
+                'rosary_reminder_desc': 'Reminders to continue your daily rosary',
+                'updates_notifications': 'Updates Notifications',
+                'updates_notifications_desc': 'Receive notifications about new updates',
+                'theme_settings': 'Appearance',
+                'choose_color': 'Choose primary color',
+                'choose_theme': 'Choose theme style',
+                'light_theme': 'Light',
+                'dark_theme': 'Dark',
+                'about_site': 'About Us',
+                'about_desc': 'Muslim Athkar is a specialized website for authentic Islamic Athkar and Duas. We strive to spread authentic Sunnah and facilitate access to Prophetic Athkar.',
+                'quick_links': 'Quick Links',
+                'site_sections': 'Site Sections',
+                'quran_duas': 'Quranic Duas',
+                'contact_us': 'Contact Us',
+                'location': 'Riyadh, Saudi Arabia',
+                'copyright': 'All Rights Reserved © Muslim Athkar',
+                'login_title': 'Login to Your Account',
+                'email': 'Email',
+                'email_placeholder': 'Enter your email',
+                'password': 'Password',
+                'password_placeholder': 'Enter your password',
+                'forgot_password': 'Forgot Password?',
+                'login': 'Login',
+                'no_account': 'Don\'t have an account?',
+                'create_account': 'Create New Account',
+                'register_title': 'Create New Account',
+                'full_name': 'Full Name',
+                'name_placeholder': 'Enter your full name',
+                'confirm_password': 'Confirm Password',
+                'confirm_password_placeholder': 'Re-enter your password',
+                'have_account': 'Already have an account?'
+            },
+            'fr': {
+                'site_title': 'Athkar Musulman',
+                'home': 'Accueil',
+                'adhkar': 'Athkar',
+                'rosary': 'Chapelet',
+                'prayer_times': 'Heures de Prière',
+                'settings': 'Paramètres',
+                'hero_title': 'Site Complet d\'Athkar Musulman',
+                'hero_desc': 'Souvenez-vous de votre Seigneur à tout moment avec la plus grande collection d\'Athkar et Douas authentiques, classés et organisés pour un accès facile',
+                'current_visitors': 'Visiteurs Actuels',
+                'total_visitors': 'Visites Totales',
+                'streak': 'Série:',
+                'days': 'jours',
+                'features_title': 'Nos Fonctionnalités',
+                'feature1_title': 'Plus de 2500 Athkar et Douas',
+                'feature1_desc': 'Une collection massive d\'Athkar et Douas authentiques classés par moments et occasions avec explications',
+                'feature2_title': 'Chapelet Numérique Avancé',
+                'feature2_desc': 'Chapelet numérique magnifiquement conçu avec plusieurs options sonores et sauvegarde de progression',
+                'feature3_title': 'Rappels d\'Athkar',
+                'feature3_desc': 'Système de rappel intelligent qui vous notifie des Athkar à leurs moments appropriés',
+                'feature4_title': 'Suivi de Progression',
+                'feature4_desc': 'Statistiques et rapports sur votre progression d\'Athkar et de chapelet avec récompenses motivationnelles',
+                'feature5_title': 'Communauté',
+                'feature5_desc': 'Rejoignez une communauté de croyants et rivalisez avec des amis pour mémoriser les Athkar et Douas',
+                'feature6_title': 'Heures de Prière',
+                'feature6_desc': 'Heures de prière précises basées sur votre position avec notifications avant la prière',
+                'rosary_title': 'Chapelet Numérique',
+                'rosary_subtitle': 'Glorifiez Allah avec nous',
+                'increase': 'Augmenter',
+                'reset': 'Réinitialiser',
+                'vibrate': 'Vibration',
+                'sound': 'Son',
+                'tasbeeh': 'Tasbih',
+                'adhkar_title': 'Athkar du Matin et du Soir',
+                'morning_adhkar': 'Athkar du Matin',
+                'evening_adhkar': 'Athkar du Soir',
+                'sleep_adhkar': 'Athkar du Sommeil',
+                'wakeup_adhkar': 'Athkar du Réveil',
+                'prayer_adhkar': 'Athkar de Prière',
+                'search_placeholder': 'Rechercher Athkar ou Douas...',
+                'prayer_times': 'Heures de Prière',
+                'fajr': 'Fajr',
+                'sunrise': 'Lever du Soleil',
+                'dhuhr': 'Dhuhr',
+                'asr': 'Asr',
+                'maghrib': 'Maghrib',
+                'isha': 'Isha',
+                'prayer_notifications': 'Notifications de Prière',
+                'enable_notifications': 'Activer les Notifications',
+                'prayer_notifications_desc': 'Recevoir des notifications 10 minutes avant chaque prière',
+                'settings_title': 'Paramètres du Site',
+                'settings_subtitle': 'Personnalisez votre expérience sur Athkar Musulman',
+                'account_settings': 'Paramètres du Compte',
+                'change_name': 'Changer de Nom',
+                'change_name_desc': 'Mettre à jour votre nom d\'affichage',
+                'change_password': 'Changer de Mot de Passe',
+                'change_password_desc': 'Mettre à jour le mot de passe de votre compte',
+                'change_email': 'Changer d\'Email',
+                'change_email_desc': 'Mettre à jour l\'email de votre compte',
+                'change': 'Changer',
+                'notifications': 'Notifications',
+                'adhkar_reminder': 'Rappels d\'Athkar',
+                'adhkar_reminder_desc': 'Recevoir des rappels pour les Athkar du matin et du soir',
+                'rosary_reminder': 'Rappels de Chapelet',
+                'rosary_reminder_desc': 'Rappels pour continuer votre chapelet quotidien',
+                'updates_notifications': 'Notifications de Mises à Jour',
+                'updates_notifications_desc': 'Recevoir des notifications sur les nouvelles mises à jour',
+                'theme_settings': 'Apparence',
+                'choose_color': 'Choisissez la couleur principale',
+                'choose_theme': 'Choisissez le style de thème',
+                'light_theme': 'Clair',
+                'dark_theme': 'Sombre',
+                'about_site': 'À Propos',
+                'about_desc': 'Athkar Musulman est un site spécialisé pour les Athkar et Douas islamiques authentiques. Nous nous efforçons de diffuser la Sunnah authentique et de faciliter l\'accès aux Athkar prophétiques.',
+                'quick_links': 'Liens Rapides',
+                'site_sections': 'Sections du Site',
+                'quran_duas': 'Douas Coraniques',
+                'contact_us': 'Contactez-Nous',
+                'location': 'Riyad, Arabie Saoudite',
+                'copyright': 'Tous Droits Réservés © Athkar Musulman',
+                'login_title': 'Connectez-vous à Votre Compte',
+                'email': 'Email',
+                'email_placeholder': 'Entrez votre email',
+                'password': 'Mot de Passe',
+                'password_placeholder': 'Entrez votre mot de passe',
+                'forgot_password': 'Mot de Passe Oublié?',
+                'login': 'Connexion',
+                'no_account': 'Vous n\'avez pas de compte?',
+                'create_account': 'Créer un Compte',
+                'register_title': 'Créer un Nouveau Compte',
+                'full_name': 'Nom Complet',
+                'name_placeholder': 'Entrez votre nom complet',
+                'confirm_password': 'Confirmer le Mot de Passe',
+                'confirm_password_placeholder': 'Retapez votre mot de passe',
+                'have_account': 'Vous avez déjà un compte?'
+            }
+        };
 
         // ====== DOM Elements ======
         const notification = document.getElementById('notification');
@@ -1619,6 +2204,64 @@
             }, 3000);
         }
 
+        // ====== Language System ======
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            document.querySelectorAll('[data-translate]').forEach(el => {
+                const key = el.getAttribute('data-translate');
+                if (translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+            
+            // Update placeholders
+            document.querySelectorAll('[data-translate-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-translate-placeholder');
+                if (translations[lang][key]) {
+                    el.placeholder = translations[lang][key];
+                }
+            });
+            
+            // Update HTML direction
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            
+            // Save language preference
+            localStorage.setItem('athkar_language', lang);
+            
+            // Update active language button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.lang === lang) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        // ====== Dark Mode System ======
+        function toggleDarkMode(enable) {
+            darkMode = enable;
+            if (enable) {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+            localStorage.setItem('athkar_dark_mode', enable);
+        }
+
+        // ====== Notification Permission ======
+        function requestNotificationPermission() {
+            if (Notification.permission !== 'granted') {
+                Notification.requestPermission().then(permission => {
+                    if (permission === 'granted') {
+                        notificationsEnabled = true;
+                        showNotification(translations[currentLanguage]['notifications_enabled']);
+                    }
+                });
+            } else {
+                notificationsEnabled = true;
+            }
+        }
+
         // ====== User Authentication System ======
         function hashPassword(password) {
             return CryptoJS.SHA256(password).toString();
@@ -1628,7 +2271,7 @@
             const users = JSON.parse(localStorage.getItem('users')) || {};
             
             if (users[email]) {
-                return { success: false, message: 'البريد الإلكتروني مسجل مسبقاً' };
+                return { success: false, message: translations[currentLanguage]['email_exists'] };
             }
             
             const hashedPassword = hashPassword(password);
@@ -1640,7 +2283,9 @@
                 favorites: [],
                 rosaryCount: 0,
                 totalDhikr: 0,
-                streak: 0
+                streak: 0,
+                language: currentLanguage,
+                darkMode: darkMode
             };
             
             users[email] = newUser;
@@ -1654,12 +2299,12 @@
             const user = users[email];
             
             if (!user) {
-                return { success: false, message: 'البريد الإلكتروني غير مسجل' };
+                return { success: false, message: translations[currentLanguage]['email_not_found'] };
             }
             
             const hashedPassword = hashPassword(password);
             if (user.password !== hashedPassword) {
-                return { success: false, message: 'كلمة المرور غير صحيحة' };
+                return { success: false, message: translations[currentLanguage]['wrong_password'] };
             }
             
             return { success: true, user: user };
@@ -1669,13 +2314,21 @@
             currentUser = user;
             localStorage.setItem('currentUser', JSON.stringify(user));
             updateUIForUser();
+            
+            // Apply user preferences
+            if (user.language) {
+                setLanguage(user.language);
+            }
+            if (user.darkMode) {
+                toggleDarkMode(user.darkMode);
+            }
         }
 
         function logoutUser() {
             currentUser = null;
             localStorage.removeItem('currentUser');
             updateUIForUser();
-            showNotification('تم تسجيل الخروج بنجاح');
+            showNotification(translations[currentLanguage]['logout_success']);
             showSection('home-section');
         }
 
@@ -1808,8 +2461,8 @@
                 adhkarContainer.innerHTML = `
                     <div style="text-align: center; padding: 2rem;">
                         <i class="fas fa-book-open" style="font-size: 3rem; color: var(--gray-color); margin-bottom: 1rem;"></i>
-                        <h3>لا توجد أذكار تطابق بحثك</h3>
-                        <p>حاول البحث بكلمات أخرى أو اختر تصنيفاً مختلفاً</p>
+                        <h3>${translations[currentLanguage]['no_results']}</h3>
+                        <p>${translations[currentLanguage]['try_again']}</p>
                     </div>
                 `;
                 return;
@@ -1824,13 +2477,13 @@
                     <div class="dhikr-reference">${adhkar.reference}</div>
                     <div class="dhikr-actions">
                         <button class="action-btn">
-                            <i class="fas fa-heart"></i> حفظ
+                            <i class="fas fa-heart"></i> ${translations[currentLanguage]['save']}
                         </button>
                         <button class="action-btn">
-                            <i class="fas fa-share-alt"></i> مشاركة
+                            <i class="fas fa-share-alt"></i> ${translations[currentLanguage]['share']}
                         </button>
                         <button class="action-btn">
-                            <i class="fas fa-volume-up"></i> استماع
+                            <i class="fas fa-volume-up"></i> ${translations[currentLanguage]['listen']}
                         </button>
                     </div>
                 `;
@@ -1860,6 +2513,13 @@
             // Initialize
             adhkarData = generateAdhkarData();
             document.getElementById('current-year').textContent = new Date().getFullYear();
+            
+            // Check for saved preferences
+            const savedLanguage = localStorage.getItem('athkar_language') || 'ar';
+            const savedDarkMode = localStorage.getItem('athkar_dark_mode') === 'true';
+            
+            setLanguage(savedLanguage);
+            toggleDarkMode(savedDarkMode);
             
             // Check if user is logged in
             const storedUser = localStorage.getItem('currentUser');
@@ -1945,6 +2605,7 @@
             document.getElementById('reset-btn').addEventListener('click', () => {
                 rosaryCount = 0;
                 document.getElementById('counter').textContent = rosaryCount;
+                document.getElementById('rosary-text').textContent = 'سُبْحَانَ اللَّهِ';
             });
             
             // Settings functionality
@@ -1955,7 +2616,7 @@
                     
                     if (currentUser) {
                         userAvatar.textContent = option.textContent;
-                        showNotification('تم تغيير صورة الحساب بنجاح');
+                        showNotification(translations[currentLanguage]['avatar_changed']);
                     }
                 });
             });
@@ -1969,23 +2630,30 @@
                     document.documentElement.style.setProperty('--primary-color', color);
                     document.documentElement.style.setProperty('--secondary-color', color.replace('rgb', 'rgba').replace(')', ', 0.8)'));
                     
-                    showNotification('تم تغيير لون الموقع بنجاح');
+                    showNotification(translations[currentLanguage]['color_changed']);
                 });
             });
             
-            document.querySelectorAll('.theme-option').forEach(option => {
-                option.addEventListener('click', () => {
-                    document.querySelectorAll('.theme-option').forEach(opt => opt.classList.remove('selected'));
-                    option.classList.add('selected');
-                    
-                    if (option.textContent.includes('داكن')) {
-                        document.body.style.backgroundColor = '#1a1a1a';
-                        document.body.style.color = '#f0f0f0';
-                    } else {
-                        document.body.style.backgroundColor = '';
-                        document.body.style.color = '';
-                    }
+            document.getElementById('light-theme').addEventListener('click', () => {
+                toggleDarkMode(false);
+            });
+            
+            document.getElementById('dark-theme').addEventListener('click', () => {
+                toggleDarkMode(true);
+            });
+            
+            // Language selector
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    setLanguage(btn.dataset.lang);
                 });
+            });
+            
+            // Notification settings
+            document.getElementById('adhkar-notifications').addEventListener('change', function() {
+                if (this.checked) {
+                    requestNotificationPermission();
+                }
             });
             
             // Registration
@@ -1996,12 +2664,12 @@
                 const confirmPassword = document.getElementById('register-confirm').value;
                 
                 if (!name || !email || !password || !confirmPassword) {
-                    showNotification('الرجاء ملء جميع الحقول', false);
+                    showNotification(translations[currentLanguage]['fill_all_fields'], false);
                     return;
                 }
                 
                 if (password !== confirmPassword) {
-                    showNotification('كلمتا المرور غير متطابقتين', false);
+                    showNotification(translations[currentLanguage]['password_mismatch'], false);
                     return;
                 }
                 
@@ -2011,7 +2679,7 @@
                 setTimeout(() => {
                     const result = registerUser(name, email, password);
                     if (result.success) {
-                        showNotification('تم إنشاء الحساب بنجاح!');
+                        showNotification(translations[currentLanguage]['register_success']);
                         document.getElementById('register-modal').classList.remove('show');
                         document.getElementById('login-modal').classList.add('show');
                     } else {
@@ -2029,7 +2697,7 @@
                 const password = document.getElementById('login-password').value;
                 
                 if (!email || !password) {
-                    showNotification('الرجاء ملء جميع الحقول', false);
+                    showNotification(translations[currentLanguage]['fill_all_fields'], false);
                     return;
                 }
                 
@@ -2040,7 +2708,7 @@
                     const result = loginUser(email, password);
                     if (result.success) {
                         updateUserSession(result.user);
-                        showNotification('تم تسجيل الدخول بنجاح!');
+                        showNotification(translations[currentLanguage]['login_success']);
                         document.getElementById('login-modal').classList.remove('show');
                     } else {
                         showNotification(result.message, false);
@@ -2107,6 +2775,9 @@
                 currentVisitors.textContent = currentCount.toLocaleString();
                 totalVisitors.textContent = totalCount.toLocaleString();
             }, 5000);
+            
+            // Initialize Google Analytics
+            gtag('config', 'G-PN6SQWX4KY');
         });
     </script>
 </body>

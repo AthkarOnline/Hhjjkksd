@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+هاض كود موقعي القديم.    <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -11,8 +11,1553 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
     <style>
-        /* تم الحفاظ على جميع أنماط التصميم الأصلية */
-        /* ... (جميع أنماط CSS الأصلية) ... */
+        :root {
+            --primary-color: #1a5d38;
+            --secondary-color: #2e8b57;
+            --accent-color: #d4af37;
+            --light-color: #f8f9fa;
+            --dark-color: #2c3e50;
+            --gray-color: #6c757d;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --card-radius: 16px;
+            --prayer-active-bg: linear-gradient(135deg, #1a5d38 0%, #2e8b57 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f0f9f4 0%, #e0f3e8 100%);
+            color: var(--dark-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%231a5d3820" d="M20,20 C40,0 60,0 80,20 C100,40 100,60 80,80 C60,100 40,100 20,80 C0,60 0,40 20,20 Z"/></svg>');
+            background-size: 120px;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            animation: fadeInDown 0.5s ease;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: var(--accent-color);
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: var(--transition);
+            transform: translateX(-50%);
+        }
+
+        nav a:hover::after {
+            width: 80%;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            z-index: 0;
+        }
+
+        .btn:hover::before {
+            transform: translateX(0);
+        }
+
+        .btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: var(--dark-color);
+        }
+
+        .btn-primary:hover {
+            background-color: #c19d0c;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(193, 157, 12, 0.3);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-small {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.9rem;
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .hamburger:hover {
+            transform: scale(1.1);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .user-profile:hover {
+            transform: scale(1.05);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--dark-color);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .user-avatar:hover {
+            transform: rotate(15deg);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 5rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(rgba(26, 93, 56, 0.8), rgba(46, 139, 87, 0.8)), 
+                        url('https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            border-radius: 0 0 50px 50px;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow);
+            animation: fadeIn 1s ease;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            animation: slideInDown 0.8s ease;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+            animation: slideInUp 0.8s ease;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+            animation: fadeInUp 0.6s ease;
+            transform-style: preserve-3d;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px) rotateY(5deg);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: skewX(-30deg) translateX(-150%);
+            transition: transform 0.5s ease;
+        }
+
+        .feature-card:hover .feature-icon::before {
+            transform: skewX(-30deg) translateX(150%);
+        }
+
+        .feature-content {
+            padding: 1.8rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .feature-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            text-align: center;
+            font-size: 1.6rem;
+        }
+
+        .feature-content p {
+            flex: 1;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--gray-color);
+        }
+
+        .feature-btn {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            margin-top: auto;
+            font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .feature-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            z-index: -1;
+        }
+
+        .feature-btn:hover::before {
+            transform: translateX(0);
+        }
+
+        .feature-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Daily Inspiration */
+        .daily-inspiration {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: var(--card-radius);
+            text-align: center;
+            margin: 2rem auto;
+            max-width: 900px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            animation: fadeIn 1.2s ease;
+        }
+
+        .daily-inspiration::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,261.3C672,256,768,224,864,224C960,224,1056,256,1152,261.3C1248,267,1344,245,1392,234.7L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+            background-size: cover;
+            z-index: 0;
+        }
+
+        .daily-inspiration > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .daily-inspiration h3 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .inspiration-text {
+            font-size: 1.8rem;
+            font-style: italic;
+            margin: 1.5rem 0;
+            line-height: 1.8;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            position: relative;
+            padding: 1.5rem;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .inspiration-text::before, .inspiration-text::after {
+            content: '"';
+            font-size: 3rem;
+            position: absolute;
+            color: var(--accent-color);
+            opacity: 0.5;
+        }
+
+        .inspiration-text::before {
+            top: 0;
+            left: 1rem;
+        }
+
+        .inspiration-text::after {
+            bottom: -1.5rem;
+            right: 1rem;
+        }
+
+        .inspiration-reference {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            background: rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+        }
+
+        /* Back Button */
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: var(--transition);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(-5px) rotate(-10deg);
+        }
+
+        /* Sections */
+        .section {
+            display: none;
+            padding: 4rem 0;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        .section.active {
+            display: block;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideInDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Adhkar Section */
+        .adhkar-section {
+            background: linear-gradient(135deg, #f0f9f4 0%, #e0f3e8 100%);
+        }
+        
+        .adhkar-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            padding: 0 1rem;
+        }
+        
+        .adhkar-header h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .adhkar-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+        
+        .adhkar-header p {
+            font-size: 1.2rem;
+            color: var(--gray-color);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .adhkar-categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            padding: 0 1rem;
+        }
+
+        .category-btn {
+            padding: 0.9rem 1.8rem;
+            background-color: white;
+            border: 2px solid var(--primary-color);
+            border-radius: 50px;
+            color: var(--primary-color);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.1rem;
+            box-shadow: var(--shadow);
+        }
+
+        .category-btn.active, .category-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(26, 93, 56, 0.3);
+        }
+
+        .adhkar-container {
+            background: white;
+            border-radius: var(--card-radius);
+            box-shadow: var(--shadow);
+            padding: 2.5rem;
+            max-height: 600px;
+            overflow-y: auto;
+            position: relative;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .dhikr-card {
+            padding: 1.8rem;
+            border-bottom: 1px solid #eee;
+            transition: var(--transition);
+            animation: fadeIn 0.5s ease;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            position: relative;
+            background: #fff;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .dhikr-card:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .dhikr-card:hover {
+            background-color: #f8f9fa;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transform: translateY(-5px);
+        }
+
+        .dhikr-text {
+            font-size: 1.6rem;
+            color: var(--dark-color);
+            line-height: 1.9;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .dhikr-reference {
+            color: var(--gray-color);
+            font-style: italic;
+            text-align: left;
+            font-size: 1.1rem;
+            padding: 0.8rem 0;
+            border-top: 1px dashed #eee;
+        }
+
+        .dhikr-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            color: var(--gray-color);
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            font-size: 1rem;
+            background: #f5f5f5;
+        }
+
+        .action-btn:hover {
+            background-color: #e9f9f1;
+            color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .action-btn.saved {
+            color: var(--accent-color);
+        }
+
+        .dhikr-counter {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Rosary Section */
+        .rosary-section {
+            background: linear-gradient(135deg, #f0f9f4 0%, #e0f3e8 100%);
+        }
+        
+        .rosary-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: var(--card-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .rosary-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 1.8rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .rosary-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="%23ffffff20" stroke-width="2" /></svg>');
+            background-size: 120px;
+            opacity: 0.3;
+        }
+        
+        .rosary-header h3 {
+            font-size: 1.8rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .rosary-body {
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.8rem;
+        }
+        
+        .rosary-display {
+            font-size: 5.5rem;
+            color: var(--primary-color);
+            margin: 1rem 0;
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            line-height: 1.3;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            padding: 0 1rem;
+        }
+        
+        .rosary-counter {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            background: #f0f9f4;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 6px solid var(--primary-color);
+            transition: transform 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .rosary-controls {
+            display: flex;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+        
+        .rosary-presets {
+            display: flex;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+        
+        .preset-btn {
+            padding: 0.7rem 1.5rem;
+            background-color: #e9ecef;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .preset-btn:hover {
+            background-color: var(--secondary-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(46, 139, 87, 0.3);
+        }
+        
+        /* Prayer Times Section */
+        .prayer-section {
+            background: linear-gradient(135deg, #f5f7ff 0%, #e8ebfa 100%);
+        }
+        
+        .prayer-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: var(--card-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .prayer-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 1.8rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .prayer-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M0,0 L100,100 M100,0 L0,100" stroke="%23ffffff20" stroke-width="2" /></svg>');
+            background-size: 120px;
+            opacity: 0.3;
+        }
+        
+        .prayer-header h3 {
+            font-size: 1.8rem;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        
+        .prayer-body {
+            padding: 2.5rem;
+        }
+        
+        .prayer-times-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .city-selector {
+            margin-bottom: 2.5rem;
+            padding: 0 1rem;
+        }
+        
+        .city-selector label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+        
+        .city-selector select {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            font-size: 1.1rem;
+            background: white;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .city-selector select:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+            outline: none;
+        }
+        
+        .prayer-times {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .prayer-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 1.8rem 1.2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            border: 2px solid transparent;
+        }
+        
+        .prayer-card.active {
+            background: var(--prayer-active-bg);
+            color: white;
+            border-color: var(--accent-color);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .prayer-card.active .prayer-name,
+        .prayer-card.active .prayer-time {
+            color: white;
+        }
+        
+        .prayer-icon {
+            font-size: 2rem;
+            margin-bottom: 0.8rem;
+            color: var(--primary-color);
+            transition: var(--transition);
+        }
+        
+        .prayer-card.active .prayer-icon {
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        .prayer-name {
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+        
+        .prayer-time {
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+        
+        .prayer-next {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: var(--accent-color);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+            font-weight: bold;
+        }
+        
+        .notification-section {
+            margin-top: 2rem;
+            background: #f0f9f4;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .notification-section p {
+            margin-bottom: 1.2rem;
+            font-size: 1.1rem;
+            color: var(--dark-color);
+        }
+        
+        .notification-btn {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .notification-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* User Section */
+        .user-section {
+            background: linear-gradient(135deg, #f5f7ff 0%, #e8ebfa 100%);
+        }
+        
+        .user-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: var(--card-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            padding: 3rem;
+        }
+        
+        .user-container h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            font-size: 2.2rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        .user-container h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+        
+        .auth-forms {
+            display: flex;
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+        
+        .auth-form {
+            flex: 1;
+            background: #f8f9fa;
+            border-radius: var(--card-radius);
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .auth-form:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .auth-form h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.8rem;
+            text-align: center;
+            font-size: 1.8rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        .auth-form h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--accent-color);
+        }
+        
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+        
+        .form-group input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(26, 93, 56, 0.2);
+        }
+        
+        #login-form-btn, #register-form-btn {
+            width: 100%;
+            padding: 1.1rem;
+            font-size: 1.2rem;
+            margin-top: 1rem;
+        }
+        
+        #forgot-password {
+            display: block;
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        #forgot-password:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+        
+        .admin-section {
+            display: none;
+            margin-top: 3rem;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        .admin-section h3 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+        
+        .admin-panel {
+            background: white;
+            border-radius: var(--card-radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            margin-top: 1.5rem;
+            overflow: hidden;
+        }
+        
+        .admin-panel h4 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+        
+        .users-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .users-table th, .users-table td {
+            padding: 1.2rem;
+            border: 1px solid #eee;
+            text-align: center;
+        }
+        
+        .users-table th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .users-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .users-table tr:hover {
+            background-color: #e9f9f1;
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--dark-color) 0%, #23272b 100%);
+            color: white;
+            padding: 4rem 0 2rem;
+            margin-top: 4rem;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color), var(--secondary-color));
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .footer-column h3 {
+            position: relative;
+            padding-bottom: 1rem;
+            margin-bottom: 1.8rem;
+            font-size: 1.6rem;
+        }
+
+        .footer-column h3::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--accent-color);
+        }
+
+        .footer-column p {
+            color: #ddd;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+            font-size: 1.2rem;
+        }
+
+        .social-links a:hover {
+            background-color: var(--accent-color);
+            color: var(--dark-color);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 1rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: var(--card-radius);
+            padding: 2.5rem;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: slideInDown 0.4s ease;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.8rem;
+        }
+        
+        .modal-header h3 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--gray-color);
+            transition: var(--transition);
+        }
+        
+        .close-modal:hover {
+            color: var(--primary-color);
+            transform: rotate(90deg);
+        }
+        
+        /* Share Modal */
+        .share-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.8rem;
+        }
+        
+        .share-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1.5rem 1rem;
+            background: #f8f9fa;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            border: 2px solid transparent;
+        }
+        
+        .share-btn:hover {
+            background: #e9ecef;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-color: var(--accent-color);
+        }
+        
+        .share-btn i {
+            font-size: 2.2rem;
+        }
+        
+        .share-btn span {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .facebook-btn i { color: #3b5998; }
+        .instagram-btn i { color: #e1306c; }
+        .whatsapp-btn i { color: #25d366; }
+        .telegram-btn i { color: #0088cc; }
+        
+        /* Ads */
+        .ad-container {
+            background: #f8f9fa;
+            border-radius: var(--card-radius);
+            padding: 1.5rem;
+            margin: 3rem 0;
+            text-align: center;
+            border: 2px dashed var(--accent-color);
+            box-shadow: var(--shadow);
+        }
+        
+        .ad-title {
+            color: var(--accent-color);
+            margin-bottom: 0.8rem;
+            font-size: 1.5rem;
+        }
+        
+        .ad-content {
+            color: var(--gray-color);
+            font-style: italic;
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            nav ul {
+                gap: 1rem;
+            }
+            
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .auth-forms {
+                flex-direction: column;
+            }
+            
+            .rosary-display {
+                font-size: 4.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--primary-color);
+                flex-direction: column;
+                padding: 1.5rem 0;
+                box-shadow: var(--shadow);
+                gap: 0.5rem;
+            }
+            
+            nav ul.show {
+                display: flex;
+            }
+            
+            nav ul li {
+                width: 100%;
+            }
+            
+            nav ul li a {
+                display: block;
+                padding: 1rem;
+                text-align: center;
+            }
+            
+            .header-container {
+                flex-wrap: wrap;
+            }
+            
+            .auth-buttons {
+                margin-left: auto;
+            }
+            
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .rosary-display {
+                font-size: 3.8rem;
+                height: 120px;
+            }
+            
+            .rosary-counter {
+                width: 100px;
+                height: 100px;
+                font-size: 2.8rem;
+            }
+            
+            .dhikr-text {
+                font-size: 1.4rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+            
+            .btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .hero {
+                padding: 3rem 0;
+            }
+            
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .adhkar-categories {
+                gap: 0.8rem;
+            }
+            
+            .category-btn {
+                padding: 0.7rem 1.2rem;
+                font-size: 1rem;
+            }
+            
+            .rosary-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .rosary-presets {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .preset-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
     </style>
 </head>
 <body>
@@ -60,27 +1605,223 @@
     <main id="main-content">
         <!-- Home Section -->
         <section class="hero section active" id="home-section">
-            <!-- ... (نفس محتوى القسم الرئيسي) ... -->
+            <div class="container">
+                <h2>موقع أذكار المسلم الشامل</h2>
+                <p>استذكر ربك في كل وقت وحين مع أكبر مجموعة من الأذكار والأدعية المأثورة مصنفة ومرتبة لسهولة الوصول إليها</p>
+                
+                <div class="features-grid">
+                    <div class="feature-card" data-section="adhkar-section">
+                        <div class="feature-icon">
+                            <i class="fas fa-book-quran"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>الأذكار</h3>
+                            <p>مجموعة ضخمة من الأذكار والأدعية المأثورة مصنفة حسب الأوقات والمناسبات</p>
+                            <div class="feature-btn">تصفح الأذكار</div>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card" data-section="rosary-section">
+                        <div class="feature-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>المسبحة</h3>
+                            <p>مسبحة إلكترونية بتصميم جميل مع إمكانية تحديد العدد وحفظ التقدم</p>
+                            <div class="feature-btn">ابدأ الآن</div>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card" data-section="prayer-section">
+                        <div class="feature-icon">
+                            <i class="fas fa-mosque"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>أوقات الصلاة</h3>
+                            <p>مواقيت الصلاة الدقيقة حسب موقعك مع تنبيهات قبل الأذان</p>
+                            <div class="feature-btn">عرض الأوقات</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Ad Space -->
+                <div class="ad-container">
+                    <h3 class="ad-title">مساحة إعلانية</h3>
+                    <p class="ad-content">هذه مساحة مخصصة للإعلانات - للإعلان على موقعنا راسلنا على islamalsharqi231@gmail.com</p>
+                </div>
+            </div>
         </section>
         
         <!-- Daily Inspiration -->
         <div class="container">
-            <!-- ... (نفس محتوى وحي اليوم) ... -->
+            <div class="daily-inspiration">
+                <h3>وحي اليوم</h3>
+                <div class="inspiration-text">
+                    "وَمَا خَلَقْتُ الْجِنَّ وَالْإِنسَ إِلَّا لِيَعْبُدُونِ"
+                </div>
+                <div class="inspiration-reference">
+                    الذاريات - الآية 56
+                </div>
+            </div>
         </div>
 
         <!-- Adhkar Section -->
         <section class="adhkar-section section" id="adhkar-section">
-            <!-- ... (نفس محتوى الأذكار) ... -->
+            <div class="back-button" data-section="home-section">
+                <i class="fas fa-arrow-left"></i>
+            </div>
+            <div class="container">
+                <div class="adhkar-header">
+                    <h2>الأذكار اليومية</h2>
+                    <p>مجموعة شاملة من الأذكار والأدعية المأثورة عن النبي صلى الله عليه وسلم</p>
+                </div>
+                
+                <div class="adhkar-categories">
+                    <button class="category-btn active" data-category="morning">أذكار الصباح</button>
+                    <button class="category-btn" data-category="evening">أذكار المساء</button>
+                    <button class="category-btn" data-category="sleep">أذكار النوم</button>
+                    <button class="category-btn" data-category="wakeup">أذكار الاستيقاظ</button>
+                    <button class="category-btn" data-category="prayer">أذكار الصلاة</button>
+                    <button class="category-btn" data-category="home">أذكار المنزل</button>
+                    <button class="category-btn" data-category="food">أذكار الطعام</button>
+                </div>
+                
+                <div class="adhkar-container" id="adhkar-container">
+                    <!-- Adhkar will be loaded here -->
+                </div>
+            </div>
         </section>
 
         <!-- Rosary Section -->
         <section class="rosary-section section" id="rosary-section">
-            <!-- ... (نفس محتوى المسبحة) ... -->
+            <div class="back-button" data-section="home-section">
+                <i class="fas fa-arrow-left"></i>
+            </div>
+            <div class="container">
+                <h2 class="adhkar-header">المسبحة الإلكترونية</h2>
+                
+                <div class="rosary-container">
+                    <div class="rosary-header">
+                        <h3>سبح معنا واستغفر ربك</h3>
+                    </div>
+                    <div class="rosary-body">
+                        <div class="rosary-display">
+                            <div id="rosary-text">سُبْحَانَ اللَّهِ</div>
+                        </div>
+                        
+                        <div class="rosary-counter" id="counter">0</div>
+                        
+                        <div class="rosary-controls">
+                            <button class="btn btn-primary" id="count-btn">
+                                <i class="fas fa-plus"></i> زيادة
+                            </button>
+                            <button class="btn btn-outline" id="reset-btn">
+                                <i class="fas fa-redo"></i> إعادة
+                            </button>
+                            <button class="btn btn-outline" id="vibrate-btn">
+                                <i class="fas fa-vibrate"></i> اهتزاز
+                            </button>
+                            <button class="btn btn-outline" id="sound-btn">
+                                <i class="fas fa-volume-up"></i> صوت
+                            </button>
+                        </div>
+                        
+                        <div class="rosary-presets">
+                            <button class="preset-btn" data-count="33">33 تسبيحة</button>
+                            <button class="preset-btn" data-count="99">99 تسبيحة</button>
+                            <button class="preset-btn" data-count="100">100 تسبيحة</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Ad Space -->
+                <div class="ad-container">
+                    <h3 class="ad-title">مساحة إعلانية</h3>
+                    <p class="ad-content">هذه مساحة مخصصة للإعلانات - للإعلان على موقعنا راسلنا على islamalsharqi231@gmail.com</p>
+                </div>
+            </div>
         </section>
 
         <!-- Prayer Times Section -->
         <section class="prayer-section section" id="prayer-section">
-            <!-- ... (نفس محتوى أوقات الصلاة) ... -->
+            <div class="back-button" data-section="home-section">
+                <i class="fas fa-arrow-left"></i>
+            </div>
+            <div class="container">
+                <div class="prayer-container">
+                    <div class="prayer-header">
+                        <h3>أوقات الصلاة في الأردن</h3>
+                    </div>
+                    <div class="prayer-body">
+                        <div class="prayer-times-container">
+                            <div class="city-selector">
+                                <label for="city-select">اختر مدينتك:</label>
+                                <select id="city-select">
+                                    <option value="amman">عمان</option>
+                                    <option value="irbid">إربد</option>
+                                    <option value="zarqa">الزرقاء</option>
+                                    <option value="mafraq">المفرق</option>
+                                    <option value="ajloun">عجلون</option>
+                                    <option value="jerash">جرش</option>
+                                    <option value="maan">معان</option>
+                                    <option value="salt">السلط</option>
+                                    <option value="tafilah">الطفيلة</option>
+                                    <option value="madaba">مادبا</option>
+                                    <option value="karak">الكرك</option>
+                                    <option value="aqaba">العقبة</option>
+                                </select>
+                            </div>
+                            
+                            <div class="prayer-times">
+                                <div class="prayer-card active">
+                                    <div class="prayer-next">التالي</div>
+                                    <div class="prayer-icon"><i class="fas fa-moon"></i></div>
+                                    <div class="prayer-name">الفجر</div>
+                                    <div class="prayer-time" id="fajr">3:46 ص</div>
+                                </div>
+                                <div class="prayer-card">
+                                    <div class="prayer-icon"><i class="fas fa-sun"></i></div>
+                                    <div class="prayer-name">الشروق</div>
+                                    <div class="prayer-time" id="sunrise">5:31 ص</div>
+                                </div>
+                                <div class="prayer-card">
+                                    <div class="prayer-icon"><i class="fas fa-sun"></i></div>
+                                    <div class="prayer-name">الظهر</div>
+                                    <div class="prayer-time" id="dhuhr">12:40 م</div>
+                                </div>
+                                <div class="prayer-card">
+                                    <div class="prayer-icon"><i class="fas fa-sun"></i></div>
+                                    <div class="prayer-name">العصر</div>
+                                    <div class="prayer-time" id="asr">4:22 م</div>
+                                </div>
+                                <div class="prayer-card">
+                                    <div class="prayer-icon"><i class="fas fa-sun"></i></div>
+                                    <div class="prayer-name">المغرب</div>
+                                    <div class="prayer-time" id="maghrib">7:49 م</div>
+                                </div>
+                                <div class="prayer-card">
+                                    <div class="prayer-icon"><i class="fas fa-moon"></i></div>
+                                    <div class="prayer-name">العشاء</div>
+                                    <div class="prayer-time" id="isha">9:19 م</div>
+                                </div>
+                            </div>
+                            
+                            <div class="notification-section">
+                                <p>تفعيل تنبيهات الأذان قبل 10 دقائق من دخول وقت الصلاة</p>
+                                <button class="notification-btn" id="notification-btn">
+                                    <i class="fas fa-bell"></i> تفعيل التنبيهات
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Ad Space -->
+                <div class="ad-container">
+                    <h3 class="ad-title">مساحة إعلانية</h3>
+                    <p class="ad-content">هذه مساحة مخصصة للإعلانات - للإعلان على موقعنا راسلنا على islamalsharqi231@gmail.com</p>
+                </div>
+            </div>
         </section>
         
         <!-- User Section -->
@@ -152,17 +1893,93 @@
 
     <!-- Footer -->
     <footer>
-        <!-- ... (نفس محتوى التذييل) ... -->
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>عن الموقع</h3>
+                    <p>موقع أذكار المسلم هو موقع متخصص في الأذكار والأدعية الإسلامية الصحيحة، نسعى لنشر السنة الصحيحة وتيسير الوصول إلى الأذكار النبوية.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>روابط سريعة</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" data-section="home-section"><i class="fas fa-angle-left"></i> الرئيسية</a></li>
+                        <li><a href="#" data-section="adhkar-section"><i class="fas fa-angle-left"></i> الأذكار</a></li>
+                        <li><a href="#" data-section="rosary-section"><i class="fas fa-angle-left"></i> المسبحة</a></li>
+                        <li><a href="#" data-section="prayer-section"><i class="fas fa-angle-left"></i> أوقات الصلاة</a></li>
+                        <li><a href="#" data-section="user-section"><i class="fas fa-angle-left"></i> حسابي</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>أقسام الموقع</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" data-category="morning"><i class="fas fa-angle-left"></i> أذكار الصباح</a></li>
+                        <li><a href="#" data-category="evening"><i class="fas fa-angle-left"></i> أذكار المساء</a></li>
+                        <li><a href="#" data-category="sleep"><i class="fas fa-angle-left"></i> أذكار النوم</a></li>
+                        <li><a href="#" data-category="prayer"><i class="fas fa-angle-left"></i> أذكار الصلاة</a></li>
+                        <li><a href="#" data-category="home"><i class="fas fa-angle-left"></i> أذكار المنزل</a></li>
+                        <li><a href="#" data-category="food"><i class="fas fa-angle-left"></i> أذكار الطعام</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>اتصل بنا</h3>
+                    <ul class="footer-links">
+                        <li><a href="mailto:islamalsharqi231@gmail.com"><i class="fas fa-envelope"></i> islamalsharqi231@gmail.com</a></li>
+                        <li><a href="#"><i class="fas fa-phone"></i> +962 79 000 0000</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> عمان، الأردن</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>جميع الحقوق محفوظة &copy; موقع أذكار المسلم <span id="current-year"></span></p>
+            </div>
+        </div>
     </footer>
 
     <!-- Share Modal -->
     <div class="modal" id="share-modal">
-        <!-- ... (نفس محتوى نافذة المشاركة) ... -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>مشاركة الذكر</h3>
+                <button class="close-modal" id="close-share-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>اختر الطريقة التي تريد مشاركة الذكر بها:</p>
+                <div class="share-options">
+                    <button class="share-btn facebook-btn">
+                        <i class="fab fa-facebook"></i>
+                        <span>فيسبوك</span>
+                    </button>
+                    <button class="share-btn instagram-btn">
+                        <i class="fab fa-instagram"></i>
+                        <span>إنستغرام</span>
+                    </button>
+                    <button class="share-btn whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>واتساب</span>
+                    </button>
+                    <button class="share-btn telegram-btn">
+                        <i class="fab fa-telegram"></i>
+                        <span>تيليجرام</span>
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Audio for Adhan - تم التعديل على الرابط -->
+    <!-- Audio for Adhan -->
     <audio id="adhan-audio" preload="auto">
-        <source src="https://www.islamcan.com/audio/adhan/azan1.mp3" type="audio/mpeg">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
     </audio>
 
     <script>
@@ -203,7 +2020,174 @@
 
         // ====== Adhkar Data ======
         const adhkarData = {
-            // ... (نفس بيانات الأذكار) ...
+            morning: [
+                {id: 1, text: "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ", reference: "رواه مسلم"},
+                {id: 2, text: "اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ النُّشُورُ", reference: "رواه الترمذي"},
+                {id: 3, text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ: عَدَدَ خَلْقِهِ، وَرِضَا نَفْسِهِ، وَزِنَةَ عَرْشِهِ، وَمِدَادَ كَلِمَاتِهِ", reference: "رواه مسلم"},
+                {id: 4, text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا، وَرِزْقًا طَيِّبًا، وَعَمَلًا مُتَقَبَّلًا", reference: "رواه ابن ماجه"},
+                {id: 5, text: "حَسْبِيَ اللَّهُ لَا إِلَهَ إِلَّا هُوَ عَلَيْهِ تَوَكَّلْتُ وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ", reference: "القرآن الكريم - سورة التوبة"},
+                {id: 6, text: "رَضِيتُ بِاللَّهِ رَبًّا، وَبِالْإِسْلَامِ دِينًا، وَبِمُحَمَّدٍ نَبِيًّا", reference: "رواه أبو داود"},
+                {id: 7, text: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ، وَالْعَجْزِ وَالْكَسَلِ، وَالْبُخْلِ وَالْجُبْنِ، وَضَلَعِ الدَّيْنِ، وَغَلَبَةِ الرِّجَالِ", reference: "رواه البخاري"},
+                {id: 8, text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْهُدَى وَالتُّقَى وَالْعَفَافَ وَالْغِنَى", reference: "رواه مسلم"},
+                {id: 9, text: "أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ", reference: "رواه البخاري"},
+                {id: 10, text: "اللَّهُمَّ أَنْتَ رَبِّي، لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ بِذَنْبِي، فَاغْفِرْ لِي فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ", reference: "رواه البخاري"},
+                {id: 11, text: "اللَّهُمَّ إِنِّي أَصْبَحْتُ أُشْهِدُكَ، وَأُشْهِدُ حَمَلَةَ عَرْشِكَ، وَمَلَائِكَتَكَ، وَجَمِيعَ خَلْقِكَ، أَنَّكَ أَنْتَ اللَّهُ لَا إِلَهَ إِلَّا أَنْتَ وَحْدَكَ لَا شَرِيكَ لَكَ، وَأَنَّ مُحَمَّدًا عَبْدُكَ وَرَسُولُكَ", reference: "رواه أبو داود"},
+                {id: 12, text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ سُبْحَانَ اللَّهِ الْعَظِيمِ", reference: "رواه البخاري ومسلم"},
+                {id: 13, text: "لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ", reference: "رواه الترمذي"},
+                {id: 14, text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ فِعْلَ الْخَيْرَاتِ، وَتَرْكَ الْمُنْكَرَاتِ، وَحُبَّ الْمَسَاكِينِ، وَأَنْ تَغْفِرَ لِي وَتَرْحَمَنِي، وَإِذَا أَرَدْتَ فِتْنَةَ قَوْمٍ فَتَوَفَّنِي غَيْرَ مَفْتُونٍ", reference: "رواه الترمذي"},
+                {id: 15, text: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ نَفْسِي، وَمِنْ شَرِّ كُلِّ دَابَّةٍ أَنْتَ آخِذٌ بِنَاصِيَتِهَا، إِنَّ رَبِّي عَلَى صِرَاطٍ مُسْتَقِيمٍ", reference: "رواه الترمذي"},
+                {id: 16, text: "اللَّهُمَّ عَافِنِي فِي بَدَنِي، اللَّهُمَّ عَافِنِي فِي سَمْعِي، اللَّهُمَّ عَافِنِي فِي بَصَرِي، لَا إِلَهَ إِلَّا أَنْتَ", reference: "رواه أبو داود"},
+                {id: 17, text: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْكُفْرِ وَالْفَقْرِ، وَأَعُوذُ بِكَ مِنْ عَذَابِ الْقَبْرِ، لَا إِلَهَ إِلَّا أَنْتَ", reference: "رواه أبو داود"},
+                {id: 18, text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْجَنَّةَ وَأَعُوذُ بِكَ مِنَ النَّارِ", reference: "رواه أبو داود"},
+                {id: 19, text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ خَيْرِ مَا سَأَلَكَ مِنْهُ نَبِيُّكَ مُحَمَّدٌ، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا اسْتَعَاذَكَ مِنْهُ نَبِيُّكَ مُحَمَّدٌ", reference: "رواه الترمذي"},
+                {id: 20, text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا، وَرِزْقًا طَيِّبًا، وَعَمَلًا مُتَقَبَّلًا", reference: "رواه ابن ماجه"},
+                {id: 21, text: "سُبْحَانَ اللَّهِ وَالْحَمْدُ لِلَّهِ، وَلَا إِلَهَ إِلَّا اللَّهُ، وَاللَّهُ أَكْبَرُ", reference: "رواه الترمذي"},
+                {id: 22, text: "اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ", reference: "رواه البخاري ومسلم"}
+            ],
+            evening: [
+                {id: 1, text: "أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ", reference: "رواه مسلم"},
+                {id: 2, text: "اللَّهُمَّ بِكَ أَمْسَيْنَا، وَبِكَ أَصْبَحْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ الْمَصِيرُ", reference: "رواه الترمذي"},
+                {id: 3, text: "اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ", reference: "رواه البخاري"},
+                {id: 4, text: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ نَفْسِي، وَمِنْ شَرِّ كُلِّ دَابَّةٍ أَنْتَ آخِذٌ بِنَاصِيَتِهَا", reference: "رواه الترمذي"},
+                {id: 5, text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ سُبْحَانَ اللَّهِ الْعَظِيمِ", reference: "رواه البخاري ومسلم"},
+                {id: 6, text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ رَحْمَةً مِنْ عِنْدِكَ تَهْدِي بِهَا قَلْبِي، وَتَجْمَعُ بِهَا أَمْرِي، وَتَلُمُّ بِهَا شَعَثِي، وَتُصْلِحُ بِهَا غَائِبِي، وَتَرْفَعُ بِهَا شَاهِدِي، وَتُزَكِّي بِهَا عَمَلِي، وَتُبَصِّرُنِي بِهَا فِي دِينِي، وَتُعَافِنِي فِي بَدَنِي، وَتَسْتُرُنِي فِي عَوْرَتِي، وَتَحْفَظُنِي فِي غَيْبَتِي", reference: "رواه الطبراني"},
+                {id: 7, text: "اللَّهُمَّ عَالِمَ الْغَيْبِ وَالشَّهَادَةِ فَاطِرَ السَّمَاوَاتِ وَالْأَرْضِ، رَبَّ كُلِّ شَيْءٍ وَمَلِيكَهُ، أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا أَنْتَ، أَعُوذُ بِكَ مِنْ شَرِّ نَفْسِي، وَمِنْ شَرِّ الشَّيْطَانِ وَشِرْكِهِ، وَأَنْ أَقْتَرِفَ عَلَى نَفْسِي سُوءًا أَوْ أَجُرَّهُ إِلَى مُسْلِمٍ", reference: "رواه الترمذي"},
+                {id: 8, text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي الدُّنْيَا وَالْآخِرَةِ، اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي دِينِي وَدُنْيَايَ وَأَهْلِي وَمَالِي", reference: "رواه أبو داود"},
+                {id: 9, text: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْكَسَلِ، وَالْهَرَمِ، وَالْمَأْثَمِ، وَالْمَغْرَمِ، وَمِنْ فِتْنَةِ الْقَبْرِ، وَعَذَابِ الْقَبْرِ، وَمِنْ فِتْنَةِ النَّارِ وَعَذَابِ النَّارِ، وَمِنْ شَرِّ فِتْنَةِ الْغِنَى، وَأَعُوذُ بِكَ مِنْ فِتْنَةِ الْفَقْرِ، وَأَعُوذُ بِكَ مِنْ فِتْنَةِ الْمَسِيحِ الدَّجَّالِ", reference: "رواه البخاري"},
+                {id: 10, text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ خَيْرَ هَذِهِ اللَّيْلَةِ: فَتْحَهَا، وَنَصْرَهَا، وَنُورَهَا، وَبَرَكَتَهَا، وَهُدَاهَا، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا فِيهَا وَشَرِّ مَا بَعْدَهَا", reference: "رواه أبو داود"},
+                {id: 11, text: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ زَوَالِ نِعْمَتِكَ، وَتَحَوُّلِ عَافِيَتِكَ، وَفُجَاءَةِ نِقْمَتِكَ، وَجَمِيعِ سَخَطِكَ", reference: "رواه مسلم"},
+                {id: 12, text: "اللَّهُمَّ بِكَ أَمْسَيْنَا، وَبِكَ أَصْبَحْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ النُّشُورُ", reference: "رواه الترمذي"},
+                {id: 13, text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ عَدَدَ خَلْقِهِ، وَرِضَا نَفْسِهِ، وَزِنَةَ عَرْشِهِ، وَمِدَادَ كَلِمَاتِهِ", reference: "رواه مسلم"},
+                {id: 14, text: "أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ", reference: "رواه مسلم"},
+                {id: 15, text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْجَنَّةَ وَأَعُوذُ بِكَ مِنَ النَّارِ", reference: "رواه أبو داود"},
+                {id: 16, text: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ، وَالْعَجْزِ وَالْكَسَلِ، وَالْجُبْنِ وَالْبُخْلِ، وَضَلَعِ الدَّيْنِ، وَغَلَبَةِ الرِّجَالِ", reference: "رواه البخاري"},
+                {id: 17, text: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْبَرَصِ، وَالْجُنُونِ، وَالْجُذَامِ، وَمِنْ سَيِّئِ الْأَسْقَامِ", reference: "رواه أبو داود"},
+                {id: 18, text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ فِعْلَ الْخَيْرَاتِ، وَتَرْكَ الْمُنْكَرَاتِ، وَحُبَّ الْمَسَاكِينِ، وَأَنْ تَغْفِرَ لِي وَتَرْحَمَنِي", reference: "رواه الترمذي"},
+                {id: 19, text: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ عِلْمٍ لَا يَنْفَعُ، وَمِنْ قَلْبٍ لَا يَخْشَعُ، وَمِنْ نَفْسٍ لَا تَشْبَعُ، وَمِنْ دَعْوَةٍ لَا يُسْتَجَابُ لَهَا", reference: "رواه مسلم"},
+                {id: 20, text: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْكُفْرِ وَالْفَقْرِ، وَمِنْ عَذَابِ الْقَبْرِ، لَا إِلَهَ إِلَّا أَنْتَ", reference: "رواه أبو داود"},
+                {id: 21, text: "سُبْحَانَ اللَّهِ، وَالْحَمْدُ لِلَّهِ، وَلَا إِلَهَ إِلَّا اللَّهُ، وَاللَّهُ أَكْبَرُ", reference: "رواه الترمذي"},
+                {id: 22, text: "اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ", reference: "رواه البخاري ومسلم"}
+            ],
+            sleep: [
+                {id: 1, text: "بِاسْمِكَ رَبِّي وَضَعْتُ جَنْبِي، وَبِكَ أَرْفَعُهُ، إِنْ أَمْسَكْتَ نَفْسِي فَارْحَمْهَا، وَإِنْ أَرْسَلْتَهَا فَاحْفَظْهَا بِمَا تَحْفَظُ بِهِ عِبَادَكَ الصَّالِحِينَ", reference: "رواه البخاري"},
+                {id: 2, text: "اللَّهُمَّ قِنِي عَذَابَكَ يَوْمَ تَبْعَثُ عِبَادَكَ", reference: "رواه الترمذي"},
+                {id: 3, text: "اللَّهُمَّ أَسْلَمْتُ نَفْسِي إِلَيْكَ، وَوَجَّهْتُ وَجْهِي إِلَيْكَ، وَفَوَّضْتُ أَمْرِي إِلَيْكَ", reference: "رواه البخاري ومسلم"},
+                {id: 4, text: "آمَنْتُ بِرَسُولِكَ الَّذِي أَرْسَلْتَ، وَبِكِتَابِكَ الَّذِي أَنْزَلْتَ", reference: "رواه البخاري"},
+                {id: 5, text: "الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنَا وَسَقَانَا، وَكَفَانَا، وَآوَانَا، فَكَمْ مِمَّنْ لَا كَافِيَ لَهُ وَلَا مُؤْوِيَ", reference: "رواه مسلم"},
+                {id: 6, text: "اللَّهُمَّ خَلَقْتَ نَفْسِي وَأَنْتَ تَوَفَّاهَا، لَكَ مَمَاتُهَا وَمَحْيَاهَا، إِنْ أَحْيَيْتَهَا فَاحْفَظْهَا، وَإِنْ أَمَتَّهَا فَاغْفِرْ لَهَا، اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَافِيَةَ", reference: "رواه مسلم"},
+                {id: 7, text: "اللَّهُمَّ رَبَّ السَّمَاوَاتِ السَّبْعِ وَرَبَّ الْعَرْشِ الْعَظِيمِ، رَبَّنَا وَرَبَّ كُلِّ شَيْءٍ، فَالِقَ الْحَبِّ وَالنَّوَى، وَمُنْزِلَ التَّوْرَاةِ وَالْإِنْجِيلِ وَالْفُرْقَانِ، أَعُوذُ بِكَ مِنْ شَرِّ كُلِّ شَيْءٍ أَنْتَ آخِذٌ بِنَاصِيَتِهِ، اللَّهُمَّ أَنْتَ الْأَوَّلُ فَلَيْسَ قَبْلَكَ شَيْءٌ، وَأَنْتَ الْآخِرُ فَلَيْسَ بَعْدَكَ شَيْءٌ، وَأَنْتَ الظَّاهِرُ فَلَيْسَ فَوْقَكَ شَيْءٌ، وَأَنْتَ الْبَاطِنُ فَلَيْسَ دُونَكَ شَيْءٌ، اقْضِ عَنَّا الدَّيْنَ وَأَغْنِنَا مِنَ الْفَقْرِ", reference: "رواه مسلم"},
+                {id: 8, text: "اللَّهُمَّ إِنِّي أَعُوذُ بِوَجْهِكَ الْكَرِيمِ وَكَلِمَاتِكَ التَّامَّاتِ مِنْ شَرِّ مَا أَنْتَ آخِذٌ بِنَاصِيَتِهِ، اللَّهُمَّ أَنْتَ تَكْشِفُ الْمَغْرَمَ وَالْمَأْثَمَ، اللَّهُمَّ لَا يُهْزَمُ جُنْدُكَ، وَلَا يُخْلَفُ وَعْدُكَ، وَلَا يَنْفَعُ ذَا الْجَدِّ مِنْكَ الْجَدُّ، سُبْحَانَكَ وَبِحَمْدِكَ", reference: "رواه أبو داود"},
+                {id: 9, text: "اللَّهُمَّ إِنِّي أَعُوذُ بِرِضَاكَ مِنْ سَخَطِكَ، وَبِمُعَافَاتِكَ مِنْ عُقُوبَتِكَ، وَأَعُوذُ بِكَ مِنْكَ، لَا أُحْصِي ثَنَاءً عَلَيْكَ، أَنْتَ كَمَا أَثْنَيْتَ عَلَى نَفْسِكَ", reference: "رواه مسلم"},
+                {id: 10, text: "اللَّهُمَّ عَالِمَ الْغَيْبِ وَالشَّهَادَةِ فَاطِرَ السَّمَاوَاتِ وَالْأَرْضِ، رَبَّ كُلِّ شَيْءٍ وَمَلِيكَهُ، أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا أَنْتَ، أَعُوذُ بِكَ مِنْ شَرِّ نَفْسِي، وَمِنْ شَرِّ الشَّيْطَانِ وَشِرْكِهِ، وَأَنْ أَقْتَرِفَ عَلَى نَفْسِي سُوءًا أَوْ أَجُرَّهُ إِلَى مُسْلِمٍ", reference: "رواه الترمذي"},
+                {id: 11, text: "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ: قُلْ هُوَ اللَّهُ أَحَدٌ، اللَّهُ الصَّمَدُ، لَمْ يَلِدْ وَلَمْ يُولَدْ، وَلَمْ يَكُنْ لَهُ كُفُوًا أَحَدٌ", reference: "القرآن الكريم - سورة الإخلاص"},
+                {id: 12, text: "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ: قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ، مِنْ شَرِّ مَا خَلَقَ، وَمِنْ شَرِّ غَاسِقٍ إِذَا وَقَبَ، وَمِنْ شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ، وَمِنْ شَرِّ حَاسِدٍ إِذَا حَسَدَ", reference: "القرآن الكريم - سورة الفلق"},
+                {id: 13, text: "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ: قُلْ أَعُوذُ بِرَبِّ النَّاسِ، مَلِكِ النَّاسِ، إِلَهِ النَّاسِ، مِنْ شَرِّ الْوَسْوَاسِ الْخَنَّاسِ، الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ، مِنَ الْجِنَّةِ وَالنَّاسِ", reference: "القرآن الكريم - سورة الناس"},
+                {id: 14, text: "آمَنَ الرَّسُولُ بِمَا أُنْزِلَ إِلَيْهِ مِنْ رَبِّهِ وَالْمُؤْمِنُونَ كُلٌّ آمَنَ بِاللَّهِ وَمَلَائِكَتِهِ وَكُتُبِهِ وَرُسُلِهِ لَا نُفَرِّقُ بَيْنَ أَحَدٍ مِنْ رُسُلِهِ وَقَالُوا سَمِعْنَا وَأَطَعْنَا غُفْرَانَكَ رَبَّنَا وَإِلَيْكَ الْمَصِيرُ", reference: "القرآن الكريم - سورة البقرة"},
+                {id: 15, text: "اللَّهُمَّ إِنَّكَ خَلَقْتَ نَفْسِي وَأَنْتَ تَوَفَّاهَا، لَكَ مَمَاتُهَا وَمَحْيَاهَا، إِنْ أَحْيَيْتَهَا فَاحْفَظْهَا، وَإِنْ أَمَتَّهَا فَاغْفِرْ لَهَا، اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَافِيَةَ", reference: "رواه مسلم"},
+                {id: 16, text: "سُبْحَانَ اللَّهِ، وَالْحَمْدُ لِلَّهِ، وَلَا إِلَهَ إِلَّا اللَّهُ، وَاللَّهُ أَكْبَرُ", reference: "رواه الترمذي"},
+                {id: 17, text: "اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ", reference: "رواه البخاري ومسلم"},
+                {id: 18, text: "أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ الَّذِي لَا إِلَهَ إِلَّا هُوَ الْحَيَّ الْقَيُّومَ وَأَتُوبُ إِلَيْهِ", reference: "رواه الترمذي"},
+                {id: 19, text: "اللَّهُمَّ رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ", reference: "القرآن الكريم - سورة البقرة"},
+                {id: 20, text: "الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ", reference: "رواه البخاري"},
+                {id: 21, text: "اللَّهُمَّ بِاسْمِكَ أَمُوتُ وَأَحْيَا", reference: "رواه البخاري"},
+                {id: 22, text: "اللَّهُمَّ قَنِّعْنِي بِمَا رَزَقْتَنِي، وَبَارِكْ لِي فِيهِ، وَاخْلُفْ عَلَى كُلِّ غَائِبَةٍ لِي بِخَيْرٍ", reference: "رواه الحاكم"}
+            ],
+            wakeup: [
+                {id: 1, text: "الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا، وَإِلَيْهِ النُّشُورُ", reference: "رواه البخاري"},
+                {id: 2, text: "لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ", reference: "رواه البخاري"},
+                {id: 3, text: "سُبْحَانَ اللَّهِ وَالْحَمْدُ لِلَّهِ، وَلَا إِلَهَ إِلَّا اللَّهُ، وَاللَّهُ أَكْبَرُ", reference: "رواه الترمذي"},
+                {id: 4, text: "اللَّهُمَّ لَكَ الْحَمْدُ أَنْتَ قَيَّمُ السَّمَوَاتِ وَالْأَرْضِ وَمَنْ فِيهِنَّ", reference: "رواه مسلم"},
+                {id: 5, text: "اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ النُّشُورُ", reference: "رواه الترمذي"},
+                {id: 6, text: "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ", reference: "رواه مسلم"},
+                {id: 7, text: "اللَّهُمَّ إِنِّي أَصْبَحْتُ أُشْهِدُكَ، وَأُشْهِدُ حَمَلَةَ عَرْشِكَ، وَمَلَائِكَتَكَ، وَجَمِيعَ خَلْقِكَ، أَنَّكَ أَنْتَ اللَّهُ لَا إِلَهَ إِلَّا أَنْتَ وَحْدَكَ لَا شَرِيكَ لَكَ، وَأَنَّ مُحَمَّدًا عَبْدُكَ وَرَسُولُكَ", reference: "رواه أبو داود"},
+                {id: 8, text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ عَدَدَ خَلْقِهِ، وَرِضَا نَفْسِهِ، وَزِنَةَ عَرْشِهِ، وَمِدَادَ كَلِمَاتِهِ", reference: "رواه مسلم"},
+                {id: 9, text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا، وَرِزْقًا طَيِّبًا، وَعَمَلًا مُتَقَبَّلًا", reference: "رواه ابن ماجه"},
+                {id: 10, text: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ، وَالْعَجْزِ وَالْكَسَلِ، وَالْبُخْلِ وَالْجُبْنِ، وَضَلَعِ الدَّيْنِ، وَغَلَبَةِ الرِّجَالِ", reference: "رواه البخاري"},
+                {id: 11, text: "حَسْبِيَ اللَّهُ لَا إِلَهَ إِلَّا هُوَ عَلَيْهِ تَوَكَّلْتُ وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ", reference: "القرآن الكريم - سورة التوبة"},
+                {id: 12, text: "رَضِيتُ بِاللَّهِ رَبًّا، وَبِالْإِسْلَامِ دِينًا، وَبِمُحَمَّدٍ نَبِيًّا", reference: "رواه أبو داود"},
+                {id: 13, text: "يَا حَيُّ يَا قَيُّومُ بِرَحْمَتِكَ أَسْتَغِيثُ، أَصْلِحْ لِي شَأْنِي كُلَّهُ، وَلَا تَكِلْنِي إِلَى نَفْسِي طَرْفَةَ عَيْنٍ", reference: "رواه الحاكم"},
+                {id: 14, text: "أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ", reference: "رواه مسلم"},
+                {id: 15, text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْجَنَّةَ وَأَعُوذُ بِكَ مِنَ النَّارِ", reference: "رواه أبو داود"},
+                {id: 16, text: "اللَّهُمَّ أَنْتَ السَّلَامُ وَمِنْكَ السَّلَامُ، تَبَارَكْتَ يَا ذَا الْجَلَالِ وَالْإِكْرَامِ", reference: "رواه مسلم"},
+                {id: 17, text: "لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ", reference: "رواه الترمذي"},
+                {id: 18, text: "اللَّهُمَّ مَا أَصْبَحَ بِي مِنْ نِعْمَةٍ أَوْ بِأَحَدٍ مِنْ خَلْقِكَ فَمِنْكَ وَحْدَكَ لَا شَرِيكَ لَكَ، فَلَكَ الْحَمْدُ وَلَكَ الشُّكْرُ", reference: "رواه أبو داود"},
+                {id: 19, text: "اللَّهُمَّ عَافِنِي فِي بَدَنِي، اللَّهُمَّ عَافِنِي فِي سَمْعِي، اللَّهُمَّ عَافِنِي فِي بَصَرِي، لَا إِلَهَ إِلَّا أَنْتَ", reference: "رواه أبو داود"},
+                {id: 20, text: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْكُفْرِ وَالْفَقْرِ، وَأَعُوذُ بِكَ مِنْ عَذَابِ الْقَبْرِ، لَا إِلَهَ إِلَّا أَنْتَ", reference: "رواه أبو داود"},
+                {id: 21, text: "سُبْحَانَ اللَّهِ، وَالْحَمْدُ لِلَّهِ، وَلَا إِلَهَ إِلَّا اللَّهُ، وَاللَّهُ أَكْبَرُ", reference: "رواه الترمذي"},
+                {id: 22, text: "اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ", reference: "رواه البخاري ومسلم"}
+            ],
+            prayer: [
+                {id: 1, text: "سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ، وَتَبَارَكَ اسْمُكَ، وَتَعَالَى جَدُّكَ، وَلَا إِلَهَ غَيْرُكَ", reference: "رواه الترمذي"},
+                {id: 2, text: "أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ", reference: "القرآن الكريم"},
+                {id: 3, text: "رَبِّ اغْفِرْ لِي، وَارْحَمْنِي، وَاهْدِنِي، وَارْزُقْنِي", reference: "رواه الترمذي"},
+                {id: 4, text: "سُبْحَانَ رَبِّيَ الْعَظِيمِ", reference: "القرآن الكريم"},
+                {id: 5, text: "سَمِعَ اللَّهُ لِمَنْ حَمِدَهُ، رَبَّنَا وَلَكَ الْحَمْدُ", reference: "رواه البخاري"},
+                {id: 6, text: "رَبَّنَا لَكَ الْحَمْدُ مِلْءَ السَّمَاوَاتِ وَمِلْءَ الْأَرْضِ، وَمِلْءَ مَا شِئْتَ مِنْ شَيْءٍ بَعْدُ", reference: "رواه مسلم"},
+                {id: 7, text: "اللَّهُمَّ رَبَّنَا لَكَ الْحَمْدُ مِلْءَ السَّمَاوَاتِ وَمِلْءَ الْأَرْضِ، وَمِلْءَ مَا شِئْتَ مِنْ شَيْءٍ بَعْدُ، أَهْلَ الثَّنَاءِ وَالْمَجْدِ، أَحَقُّ مَا قَالَ الْعَبْدُ، وَكُلُّنَا لَكَ عَبْدٌ، اللَّهُمَّ لَا مَانِعَ لِمَا أَعْطَيْتَ، وَلَا مُعْطِيَ لِمَا مَنَعْتَ، وَلَا يَنْفَعُ ذَا الْجَدِّ مِنْكَ الْجَدُّ", reference: "رواه مسلم"},
+                {id: 8, text: "رَبِّ اغْفِرْ لِي وَارْحَمْنِي وَاجْبُرْنِي وَارْفَعْنِي وَارْزُقْنِي وَاهْدِنِي وَعَافِنِي", reference: "رواه أبو داود"},
+                {id: 9, text: "سُبْحَانَ رَبِّيَ الْأَعْلَى", reference: "القرآن الكريم"},
+                {id: 10, text: "سُبْحَانَ اللَّهِ وَالْحَمْدُ لِلَّهِ وَلَا إِلَهَ إِلَّا اللَّهُ وَاللَّهُ أَكْبَرُ", reference: "رواه النسائي"},
+                {id: 11, text: "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ، كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ، اللَّهُمَّ بَارِكْ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ، كَمَا بَارَكْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ", reference: "رواه البخاري"},
+                {id: 12, text: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ عَذَابِ الْقَبْرِ، وَمِنْ عَذَابِ جَهَنَّمَ، وَمِنْ فِتْنَةِ الْمَحْيَا وَالْمَمَاتِ، وَمِنْ شَرِّ فِتْنَةِ الْمَسِيحِ الدَّجَّالِ", reference: "رواه مسلم"},
+                {id: 13, text: "اللَّهُمَّ إِنِّي ظَلَمْتُ نَفْسِي ظُلْمًا كَثِيرًا، وَلَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ، فَاغْفِرْ لِي مَغْفِرَةً مِنْ عِنْدِكَ، وَارْحَمْنِي، إِنَّكَ أَنْتَ الْغَفُورُ الرَّحِيمُ", reference: "رواه البخاري"},
+                {id: 14, text: "سُبْحَانَ اللَّهِ، وَالْحَمْدُ لِلَّهِ، وَلَا إِلَهَ إِلَّا اللَّهُ، وَاللَّهُ أَكْبَرُ، وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ الْعَلِيِّ الْعَظِيمِ", reference: "رواه النسائي"},
+                {id: 15, text: "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ", reference: "القرآن الكريم - سورة البقرة"},
+                {id: 16, text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْجَنَّةَ وَأَعُوذُ بِكَ مِنَ النَّارِ", reference: "رواه أبو داود"},
+                {id: 17, text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ، سُبْحَانَ اللَّهِ الْعَظِيمِ", reference: "رواه البخاري ومسلم"},
+                {id: 18, text: "لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ", reference: "رواه الترمذي"},
+                {id: 19, text: "اللَّهُمَّ لَا مَانِعَ لِمَا أَعْطَيْتَ، وَلَا مُعْطِيَ لِمَا مَنَعْتَ، وَلَا يَنْفَعُ ذَا الْجَدِّ مِنْكَ الْجَدُّ", reference: "رواه البخاري"},
+                {id: 20, text: "سُبْحَانَ اللَّهِ، وَالْحَمْدُ لِلَّهِ، وَلَا إِلَهَ إِلَّا اللَّهُ، وَاللَّهُ أَكْبَرُ", reference: "رواه الترمذي"},
+                {id: 21, text: "أَسْتَغْفِرُ اللَّهَ الَّذِي لَا إِلَهَ إِلَّا هُوَ الْحَيَّ الْقَيُّومَ وَأَتُوبُ إِلَيْهِ", reference: "رواه الترمذي"},
+                {id: 22, text: "اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ", reference: "رواه البخاري ومسلم"}
+            ],
+            home: [
+                {id: 1, text: "بِسْمِ اللَّهِ تَوَكَّلْتُ عَلَى اللَّهِ، وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ", reference: "رواه أبو داود"},
+                {id: 2, text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ خَيْرَ هَذِهِ الْقَرْيَةِ، وَخَيْرَ أَهْلِهَا، وَأَعُوذُ بِكَ مِنْ شَرِّهَا، وَشَرِّ أَهْلِهَا", reference: "رواه النسائي"},
+                {id: 3, text: "أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ", reference: "رواه مسلم"},
+                {id: 4, text: "بِسْمِ اللَّهِ وَلَجْنَا، وَبِسْمِ اللَّهِ خَرَجْنَا، وَعَلَى رَبِّنَا تَوَكَّلْنَا", reference: "رواه أبو داود"},
+                {id: 5, text: "الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنَا وَسَقَانَا، وَجَعَلَنَا مُسْلِمِينَ", reference: "رواه الترمذي"},
+                {id: 6, text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ رَحْمَةً مِنْ عِنْدِكَ تَهْدِي بِهَا قَلْبِي، وَتَجْمَعُ بِهَا أَمْرِي، وَتَلُمُّ بِهَا شَعَثِي، وَتُصْلِحُ بِهَا غَائِبِي، وَتَرْفَعُ بِهَا شَاهِدِي، وَتُزَكِّي بِهَا عَمَلِي، وَتُبَصِّرُنِي بِهَا فِي دِينِي، وَتُعَافِنِي فِي بَدَنِي، وَتَسْتُرُنِي فِي عَوْرَتِي، وَتَحْفَظُنِي فِي غَيْبَتِي", reference: "رواه الطبراني"},
+                {id: 7, text: "بِسْمِ اللَّهِ، تَوَكَّلْتُ عَلَى اللَّهِ، لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ", reference: "رواه أبو داود"},
+                {id: 8, text: "اللَّهُمَّ اجْعَلْ فِي بَيْتِي نُورًا، وَفِي قَلْبِي نُورًا، وَفِي سَمْعِي نُورًا، وَفِي بَصَرِي نُورًا، وَمِنْ فَوْقِي نُورًا، وَمِنْ تَحْتِي نُورًا، وَعَنْ يَمِينِي نُورًا، وَعَنْ شِمَالِي نُورًا، وَمِنْ بَيْنِ يَدَيَّ نُورًا، وَمِنْ خَلْفِي نُورًا، وَاجْعَلْ لِي نُورًا", reference: "رواه البخاري"},
+                {id: 9, text: "اللَّهُمَّ بَارِكْ لِي فِي أَهْلِي وَمَالِي، اللَّهُمَّ ارْزُقْنِي حُبَّكَ وَحُبَّ مَنْ يُحِبُّكَ، وَحُبَّ عَمَلٍ يُقَرِّبُنِي إِلَى حُبِّكَ", reference: "رواه الترمذي"},
+                {id: 10, text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ فِعْلَ الْخَيْرَاتِ، وَتَرْكَ الْمُنْكَرَاتِ، وَحُبَّ الْمَسَاكِينِ، وَأَنْ تَغْفِرَ لِي وَتَرْحَمَنِي", reference: "رواه الترمذي"},
+                {id: 11, text: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ جَارِ السُّوءِ فِي دَارِ الْمُقَامِ، فَإِنَّ جَارَ الْبَادِيَةِ يَتَحَوَّلُ", reference: "رواه ابن حبان"},
+                {id: 12, text: "سُبْحَانَ اللَّهِ، وَالْحَمْدُ لِلَّهِ، وَلَا إِلَهَ إِلَّا اللَّهُ، وَاللَّهُ أَكْبَرُ", reference: "رواه الترمذي"},
+                {id: 13, text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ حُبَّكَ، وَحُبَّ مَنْ يُحِبُّكَ، وَالْعَمَلَ الَّذِي يُبَلِّغُنِي حُبَّكَ", reference: "رواه الترمذي"},
+                {id: 14, text: "اللَّهُمَّ أَصْلِحْ لِي دِينِي الَّذِي هُوَ عِصْمَةُ أَمْرِي، وَأَصْلِحْ لِي دُنْيَايَ الَّتِي فِيهَا مَعَاشِي، وَأَصْلِحْ لِي آخِرَتِي الَّتِي فِيهَا مَعَادِي، وَاجْعَلِ الْحَيَاةَ زِيَادَةً لِي فِي كُلِّ خَيْرٍ، وَالْمَوْتَ رَاحَةً لِي مِنْ كُلِّ شَرٍّ", reference: "رواه مسلم"},
+                {id: 15, text: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ مَا عَمِلْتُ، وَمِنْ شَرِّ مَا لَمْ أَعْمَلْ", reference: "رواه مسلم"},
+                {id: 16, text: "رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ وَاجْعَلْنَا لِلْمُتَّقِينَ إِمَامًا", reference: "القرآن الكريم - سورة الفرقان"},
+                {id: 17, text: "اللَّهُمَّ اغْفِرْ لِي، وَارْحَمْنِي، وَاهْدِنِي، وَعَافِنِي، وَارْزُقْنِي", reference: "رواه مسلم"},
+                {id: 18, text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ، سُبْحَانَ اللَّهِ الْعَظِيمِ", reference: "رواه البخاري ومسلم"},
+                {id: 19, text: "لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ", reference: "رواه الترمذي"},
+                {id: 20, text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَافِيَةَ فِي الدُّنْيَا وَالْآخِرَةِ، اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي دِينِي وَدُنْيَايَ وَأَهْلِي وَمَالِي", reference: "رواه أبو داود"},
+                {id: 21, text: "أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ الَّذِي لَا إِلَهَ إِلَّا هُوَ الْحَيَّ الْقَيُّومَ وَأَتُوبُ إِلَيْهِ", reference: "رواه الترمذي"},
+                {id: 22, text: "اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ", reference: "رواه البخاري ومسلم"}
+            ],
+            food: [
+                {id: 1, text: "بِسْمِ اللَّهِ", reference: "رواه الترمذي"},
+                {id: 2, text: "اللَّهُمَّ بَارِكْ لَنَا فِيهِ، وَأَطْعِمْنَا خَيْرًا مِنْهُ", reference: "رواه الترمذي"},
+                {id: 3, text: "الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنِي هَذَا، وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلَا قُوَّةٍ", reference: "رواه أبو داود"},
+                {id: 4, text: "الْحَمْدُ لِلَّهِ حَمْدًا كَثِيرًا طَيِّبًا مُبَارَكًا فِيهِ، غَيْرَ مَكْفِيٍّ وَلَا مُوَدَّعٍ وَلَا مُسْتَغْنًى عَنْهُ رَبَّنَا", reference: "رواه البخاري"},
+                {id: 5, text: "مَنْ أَكَلَ طَعَامًا فَقَالَ: الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنِي هَذَا وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلَا قُوَّةٍ؛ غُفِرَ لَهُ مَا تَقَدَّمَ مِنْ ذَنْبِهِ", reference: "رواه الترمذي"},
+                {id: 6, text: "بِسْمِ اللَّهِ فِي أَوَّلِهِ وَآخِرِهِ", reference: "رواه أبو داود"},
+                {id: 7, text: "اللَّهُمَّ بَارِكْ لَنَا فِيمَا رَزَقْتَنَا، وَقِنَا عَذَابَ النَّارِ", reference: "رواه ابن السني"},
+                {id: 8, text: "الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنَا وَسَقَانَا، وَجَعَلَنَا مُسْلِمِينَ", reference: "رواه الترمذي"},
+                {id: 9, text: "سُبْحَانَ اللَّهِ، وَالْحَمْدُ لِلَّهِ، وَلَا إِلَهَ إِلَّا اللَّهُ، وَاللَّهُ أَكْبَرُ", reference: "رواه الترمذي"},
+                {id: 10, text: "اللَّهُمَّ إِنَّا نَسْأَلُكَ مِنْ خَيْرِ مَا سَأَلَكَ مِنْهُ نَبِيُّكَ مُحَمَّدٌ، وَنَعُوذُ بِكَ مِنْ شَرِّ مَا اسْتَعَاذَكَ مِنْهُ نَبِيُّكَ مُحَمَّدٌ", reference: "رواه الترمذي"},
+                {id: 11, text: "اللَّهُمَّ بَارِكْ لَنَا فِيهِ وَزِدْنَا مِنْهُ", reference: "رواه البخاري"},
+                {id: 12, text: "الْحَمْدُ لِلَّهِ الَّذِي هَدَانَا لِهَذَا، وَمَا كُنَّا لِنَهْتَدِيَ لَوْلَا أَنْ هَدَانَا اللَّهُ", reference: "القرآن الكريم - سورة الأعراف"},
+                {id: 13, text: "اللَّهُمَّ أَطْعِمْ مَنْ أَطْعَمَنِي، وَاسْقِ مَنْ سَقَانِي", reference: "رواه مسلم"},
+                {id: 14, text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ، سُبْحَانَ اللَّهِ الْعَظِيمِ", reference: "رواه البخاري ومسلم"},
+                {id: 15, text: "لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ", reference: "رواه الترمذي"},
+                {id: 16, text: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْبُخْلِ، وَأَعُوذُ بِكَ مِنَ الْجُبْنِ، وَأَعُوذُ بِكَ مِنْ أَنْ أُرَدَّ إِلَى أَرْذَلِ الْعُمُرِ، وَأَعُوذُ بِكَ مِنْ فِتْنَةِ الدُّنْيَا، وَعَذَابِ الْقَبْرِ", reference: "رواه البخاري"},
+                {id: 17, text: "رَبَّنَا تَقَبَّلْ مِنَّا إِنَّكَ أَنْتَ السَّمِيعُ الْعَلِيمُ", reference: "القرآن الكريم - سورة البقرة"},
+                {id: 18, text: "أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ الَّذِي لَا إِلَهَ إِلَّا هُوَ الْحَيَّ الْقَيُّومَ وَأَتُوبُ إِلَيْهِ", reference: "رواه الترمذي"},
+                {id: 19, text: "اللَّهُمَّ أَصْلِحْ لِي دِينِي الَّذِي هُوَ عِصْمَةُ أَمْرِي، وَأَصْلِحْ لِي دُنْيَايَ الَّتِي فِيهَا مَعَاشِي، وَأَصْلِحْ لِي آخِرَتِي الَّتِي فِيهَا مَعَادِي، وَاجْعَلِ الْحَيَاةَ زِيَادَةً لِي فِي كُلِّ خَيْرٍ، وَالْمَوْتَ رَاحَةً لِي مِنْ كُلِّ شَرٍّ", reference: "رواه مسلم"},
+                {id: 20, text: "الْحَمْدُ لِلَّهِ الَّذِي بِنِعْمَتِهِ تَتِمُّ الصَّالِحَاتُ", reference: "رواه الحاكم"},
+                {id: 21, text: "سُبْحَانَ اللَّهِ، وَالْحَمْدُ لِلَّهِ، وَلَا إِلَهَ إِلَّا اللَّهُ، وَاللَّهُ أَكْبَرُ", reference: "رواه الترمذي"},
+                {id: 22, text: "اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ", reference: "رواه البخاري ومسلم"}
+            ]
         };
 
         // ====== DOM Elements ======
@@ -222,22 +2206,85 @@
 
         // ====== Functions ======
         function renderAdhkar(category) {
-            // ... (نفس وظيفة عرض الأذكار) ...
+            adhkarContainer.innerHTML = '';
+            const adhkarList = adhkarData[category] || [];
+            
+            adhkarList.forEach((adhkar, index) => {
+                const dhikrCard = document.createElement('div');
+                dhikrCard.className = 'dhikr-card';
+                dhikrCard.innerHTML = `
+                    <div class="dhikr-counter">${index + 1}</div>
+                    <div class="dhikr-text">${adhkar.text}</div>
+                    <div class="dhikr-reference">${adhkar.reference}</div>
+                    <div class="dhikr-actions">
+                        <button class="action-btn save-btn">
+                            <i class="fas fa-heart"></i> حفظ
+                        </button>
+                        <button class="action-btn share-btn">
+                            <i class="fas fa-share-alt"></i> مشاركة
+                        </button>
+                        <button class="action-btn listen-btn">
+                            <i class="fas fa-volume-up"></i> استماع
+                        </button>
+                    </div>
+                `;
+                adhkarContainer.appendChild(dhikrCard);
+            });
+            
+            // Add event listeners to new buttons
+            document.querySelectorAll('.share-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    shareModal.style.display = 'flex';
+                });
+            });
+            
+            document.querySelectorAll('.listen-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    playAdhan();
+                });
+            });
         }
 
         function updatePrayerTimes(city) {
-            // ... (نفس وظيفة تحديث أوقات الصلاة) ...
+            const times = prayerTimes[city] || prayerTimes.amman;
+            document.getElementById('fajr').textContent = times.fajr;
+            document.getElementById('sunrise').textContent = times.sunrise;
+            document.getElementById('dhuhr').textContent = times.dhuhr;
+            document.getElementById('asr').textContent = times.asr;
+            document.getElementById('maghrib').textContent = times.maghrib;
+            document.getElementById('isha').textContent = times.isha;
         }
 
         function showSection(sectionId) {
-            // ... (نفس وظيفة عرض الأقسام) ...
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            document.getElementById(sectionId).classList.add('active');
+            
+            document.querySelector(`.nav-link[data-section="${sectionId}"]`).classList.add('active');
+            
+            // Initialize section content
+            if (sectionId === 'adhkar-section') {
+                renderAdhkar(currentCategory);
+            } else if (sectionId === 'prayer-section') {
+                updatePrayerTimes(citySelect.value);
+            } else if (sectionId === 'user-section') {
+                loadUsers();
+            }
+            
+            window.scrollTo(0, 0);
         }
 
         function playAdhan() {
             adhanAudio.play();
         }
 
-        // ====== Firebase Functions - تم التعديل ======
+        // ====== Firebase Functions ======
         function registerUser(email, password, name) {
             auth.createUserWithEmailAndPassword(email, password)
                 .then((userCredential) => {
@@ -252,39 +2299,15 @@
                         document.getElementById('register-name').value = '';
                         document.getElementById('register-email').value = '';
                         document.getElementById('register-password').value = '';
-                        
-                        // تحديث واجهة المستخدم بعد التسجيل
-                        document.getElementById('auth-buttons').style.display = 'none';
-                        document.getElementById('user-profile').style.display = 'flex';
-                        document.getElementById('username').textContent = name;
-                        document.getElementById('user-avatar').textContent = name.charAt(0);
                     })
                     .catch((error) => {
                         console.error("Error adding user: ", error);
-                        
-                        // رسائل خطأ عربية
-                        if (error.code === 'auth/email-already-in-use') {
-                            alert('هذا البريد الإلكتروني مستخدم مسبقاً');
-                        } else if (error.code === 'auth/weak-password') {
-                            alert('كلمة المرور ضعيفة، يجب أن تكون 6 أحرف على الأقل');
-                        } else {
-                            alert("حدث خطأ أثناء تسجيل المستخدم");
-                        }
+                        alert("حدث خطأ أثناء تسجيل المستخدم");
                     });
                 })
                 .catch((error) => {
                     console.error("Error creating user: ", error);
-                    
-                    // رسائل خطأ عربية
-                    if (error.code === 'auth/email-already-in-use') {
-                        alert('هذا البريد الإلكتروني مستخدم مسبقاً');
-                    } else if (error.code === 'auth/invalid-email') {
-                        alert('البريد الإلكتروني غير صالح');
-                    } else if (error.code === 'auth/weak-password') {
-                        alert('كلمة المرور ضعيفة، يجب أن تكون 6 أحرف على الأقل');
-                    } else {
-                        alert("حدث خطأ أثناء إنشاء الحساب");
-                    }
+                    alert("حدث خطأ أثناء إنشاء الحساب");
                 });
         }
 
@@ -296,8 +2319,6 @@
                         .then((doc) => {
                             if (doc.exists) {
                                 const userData = doc.data();
-                                
-                                // تحديث واجهة المستخدم
                                 document.getElementById('auth-buttons').style.display = 'none';
                                 document.getElementById('user-profile').style.display = 'flex';
                                 document.getElementById('username').textContent = userData.name;
@@ -313,22 +2334,11 @@
                         })
                         .catch((error) => {
                             console.error("Error getting user data: ", error);
-                            alert("حدث خطأ أثناء جلب بيانات المستخدم");
                         });
                 })
                 .catch((error) => {
                     console.error("Error signing in: ", error);
-                    
-                    // رسائل خطأ عربية
-                    if (error.code === 'auth/user-not-found') {
-                        alert('المستخدم غير موجود');
-                    } else if (error.code === 'auth/wrong-password') {
-                        alert('كلمة المرور غير صحيحة');
-                    } else if (error.code === 'auth/invalid-email') {
-                        alert('البريد الإلكتروني غير صالح');
-                    } else {
-                        alert("البريد الإلكتروني أو كلمة المرور غير صحيحة");
-                    }
+                    alert("البريد الإلكتروني أو كلمة المرور غير صحيحة");
                 });
         }
 
@@ -349,7 +2359,6 @@
                 })
                 .catch((error) => {
                     console.error("Error loading users: ", error);
-                    alert("حدث خطأ أثناء تحميل المستخدمين");
                 });
         }
 
@@ -361,7 +2370,6 @@
                 alert('تم تسجيل الخروج بنجاح');
             }).catch((error) => {
                 console.error("Error signing out: ", error);
-                alert("حدث خطأ أثناء تسجيل الخروج");
             });
         }
 

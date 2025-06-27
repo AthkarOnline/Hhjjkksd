@@ -2108,11 +2108,6 @@
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Audio for Dhikr -->
-    <audio id="dhikr-audio" preload="auto">
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
-    </audio>
-
     <script>
         // ====== Firebase Configuration (v10) ======
         const firebaseConfig = {
@@ -2210,7 +2205,6 @@
         const navLinks = document.querySelectorAll('.nav-link');
         const notificationBtn = document.getElementById('notification-btn');
         const adhanAudio = document.getElementById('adhan-audio');
-        const dhikrAudio = document.getElementById('dhikr-audio');
         const compassNeedle = document.getElementById('compass-needle');
         const qiblaAngle = document.getElementById('qibla-angle');
         const shareModal = document.getElementById('share-modal');
@@ -2254,7 +2248,7 @@
             
             document.querySelectorAll('.listen-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
-                    playDhikrAudio();
+                    playAdhan();
                 });
             });
         }
@@ -2330,10 +2324,6 @@
 
         function playAdhan() {
             adhanAudio.play();
-        }
-
-        function playDhikrAudio() {
-            dhikrAudio.play();
         }
 
         // ====== Firebase Functions ======
